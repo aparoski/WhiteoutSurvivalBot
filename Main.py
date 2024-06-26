@@ -13,17 +13,29 @@
 #check screen for images
 
 
-import win32gui
+import win32gui as w
 
-def callback(hwnd, extra):
-    rect = win32gui.GetWindowRect(hwnd)
-    x = rect[0]
-    y = rect[0]
-    w = rect[0] - x
-    h = rect[0] - y
-    print("Window %s:" % win32gui.GetWindowText(hwnd))
-    print("\tLocation: (%d, %d)" % (x, y))
-    print("\t    Size: (%d, %d)" % (w, h))
+import time
 
-def main():
-    win32gui.EnumWindows(callback, None)
+import psutil
+
+import pyautogui as p
+
+time.sleep(5)
+
+Blue_stacks = w.GetActiveWindow()
+
+w.GetWindowText(Blue_stacks)
+
+#print(w.GetWindowRect(Blue_stacks))
+
+def enumHandler(hwnd, lParam):
+    print(hwnd, w.GetWindowText(hwnd))
+
+    
+
+# print(Blue_stacks)
+
+# print(str(w.GetWindowText(w.GetForegroundWindow())))
+
+# print("test")
