@@ -1,32 +1,11 @@
-
-
-#on startup
-#find game screen
-#load images
-
-
-#Continuous
-
-#master scheduler
-
-
-
-
 import win32gui as w
-
-import time
-
-import psutil
-
 import pyautogui as p
-
-import os 
-os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
-
+import time
+from fractions import Fraction
 import relative_locations as rl
+"""A temporary file that will be used to gather position information
+for the different icons of the app"""
 
-#take screen shot image of game screen
-#check screen for images
 
 def Window_lw(x1, y1, x2, y2):
     """finds the length and width of a rectangular
@@ -37,30 +16,28 @@ def Window_lw(x1, y1, x2, y2):
     w = x2 - x1
 
     return(w, l)
-#collect all Blue stack app windows 
+
 def enumHandler(hwnd, list):
     if "BlueStacks App Player 1" in w.GetWindowText(hwnd):
 
-        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "second")
+        
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
     elif "BlueStacks App Player 3" in w.GetWindowText(hwnd):
 
-        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "third")
+        
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 2])
     elif "BlueStacks App Player 4" in w.GetWindowText(hwnd):
 
-        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "fourth")
+        
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 3])
     elif "BlueStacks App Player" in w.GetWindowText(hwnd):
 
-        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "main")
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 0])
 
 window_list = []
+
 w.EnumWindows(enumHandler, window_list)
 
-
-#work within each Blue stack window 
 for i in window_list:
     print(i[2])
     print()
@@ -73,10 +50,18 @@ x1, y1, x2, y2 = window_list[0][1]
 
 W, L = Window_lw(x1, y1, x2, y2)
 
-p.moveTo(x1, y1)
+time.sleep(2)
+
+pos_x, pos_y = p.position()
+
+x_distance = pos_x - x1
+y_distance = pos_y - y1
+
+rel_x = x_distance / W
+rel_y = y_distance / L
+
+print(rel_x, rel_y)
 
 
-#note, to take screenshot the window must be in the foreground
-first_shot = p.screenshot(region=[x1, y1, W, L])
-
-first_shot.save(r"Screenshots/test.png")
+p.moveTo(x1 + W*rl.PetPerk_Elk_x,  
+         y1 + L*rl.PetPerk_Elk_y)
