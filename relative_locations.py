@@ -1,5 +1,8 @@
 """This file serves as a repository of the positions of icons within
-the bluestacks app, relative to the Width and length of the app window"""
+the bluestacks app, relative to the Width and length of the app window
+single x and y coordinates relate to the center of an icon
+double x and y coordinates refer to the top left and bottom right
+corners of a rectangle of the screen, respectively"""
 
 #Static Locations
 
@@ -18,8 +21,8 @@ WorldMap_Beast_Attack_y = 0.5069444444444444
 
 
 #Menu UI Map Swap
-Main_Menu_Map_Swap_x = 0.8552631578947368
-Main_Menu_Map_Swap_y = 0.9455930359085963
+Main_Menu_Map_Swap_x = 0.843065693430657
+Main_Menu_Map_Swap_y = 0.9483122362869199
 
 #Menu UI Universal Back out
 Universal_Menu_Backout_x = 0.05451127819548872
@@ -35,6 +38,12 @@ March_Squad_1_y = 0.12003968253968254
 #Lighthouse UI
 Lighthouse_BeastHunt_View_x = 0.49140893470790376
 Lighthouse_BeastHunt_View_y = 0.7341269841269841
+
+Lighthouse_Stamina_x1 = 0.7062043795620438
+Lighthouse_Stamina_y1 = 0.04746835443037975
+
+Lighthouse_Stamina_x2 = 0.9197080291970803
+Lighthouse_Stamina_y2 = 0.07805907172995781
 
 
 #Pet Perk UI 

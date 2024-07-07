@@ -1,10 +1,6 @@
 import win32gui as w
-import pyautogui as p
-import time
-from fractions import Fraction
-import relative_locations as rl
-"""A temporary file that will be used to gather position information
-for the different icons of the app"""
+
+
 
 
 def Window_lw(x1, y1, x2, y2):
@@ -20,24 +16,26 @@ def Window_lw(x1, y1, x2, y2):
 def enumHandler(hwnd, list):
     if "BlueStacks App Player 1" in w.GetWindowText(hwnd):
 
-        
+        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "second")
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
     elif "BlueStacks App Player 3" in w.GetWindowText(hwnd):
 
-        
+        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "third")
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 2])
     elif "BlueStacks App Player 4" in w.GetWindowText(hwnd):
 
-        
+        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "fourth")
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 3])
     elif "BlueStacks App Player" in w.GetWindowText(hwnd):
 
+        print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "main")
         list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 0])
 
 window_list = []
-
 w.EnumWindows(enumHandler, window_list)
 
+
+#work within each Blue stack window / setup for testing right now
 for i in window_list:
     print(i[2])
     print()
@@ -50,18 +48,4 @@ x1, y1, x2, y2 = window_list[0][1]
 
 W, L = Window_lw(x1, y1, x2, y2)
 
-time.sleep(2)
-
-pos_x, pos_y = p.position()
-
-x_distance = pos_x - x1
-y_distance = pos_y - y1
-
-rel_x = x_distance / W
-rel_y = y_distance / L
-
-print(rel_x, rel_y)
-
-
-p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x,  
-         y1 + L*rl.Main_Menu_Map_Swap_y)
+p.moveTo(x1, y1)
