@@ -35,6 +35,12 @@ March_Deploy_y = 0.9454365079365079
 March_Squad_1_x = 0.08247422680412371
 March_Squad_1_y = 0.12003968253968254
 
+March_time_x1 = 0.6222627737226277
+March_time_y1 = 0.8871308016877637
+
+March_time_x2 = 0.7974452554744526
+March_time_y2 = 0.9092827004219409
+
 #Lighthouse UI
 Lighthouse_BeastHunt_View_x = 0.49140893470790376
 Lighthouse_BeastHunt_View_y = 0.7341269841269841

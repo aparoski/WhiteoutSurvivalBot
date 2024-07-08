@@ -17,3 +17,10 @@ print(RootieTootie.rectangle)
 
 print(RootieTootie.W_L)
 
+time.sleep(5)
+
+RootieTootie.Open_Lighthouse()
+
+time.sleep(5)
+
+RootieTootie.Lighthouse_Operation()

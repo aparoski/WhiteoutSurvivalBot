@@ -39,15 +39,12 @@ def text_reader_PIL(path, grey):
 
     return(text)
 
-def text_reader_cv2(path, arg):
-    """Use this function to read march times.
-    note to future me: read more about image processing
-    with cv2"""
-
-    img = cv2.imread(path)
-
+def text_reader_cv2(path, arg, img_option = 1):
+    if img_option == 1:
+        img = cv2.imread(path)
+    
     if arg == 1:
-        """"""
+        """march times"""
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 

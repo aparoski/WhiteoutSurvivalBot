@@ -7,6 +7,7 @@ import os
 os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 
 import relative_locations as rl
+import Reader
 
 def check_location(x1, y1, W, L):
     """checks the UI to determine whether the game is in the world map,
@@ -36,6 +37,27 @@ def check_location(x1, y1, W, L):
     if i >= 10:
         return("Neither")
 
+#March_UI
+def Preset_March_Sender(x1, y1, W, L, Preset):
+    if Preset == 1:
+        p.moveTo(x1 + W*rl.March_Squad_1_x,
+                 y1 + L*rl.March_Squad_1_y)
+        p.click()
+        time.sleep(0.5)
+        p.moveTo(x1 + W*rl.March_Deploy_x,
+                 y1 + W*rl.March_Deploy_y)
+        
+        p.screenshot("Screenshots\\March_time_temp.JPG", 
+                     region = (x1 + W * rl.March_time_x1,
+                               y1 + L * rl.March_time_y1,
+                               x1 + W * rl.March_time_x1,
+                               y1 + W * rl.March_time_y1))
+        
+        my_march_time = Reader.text_reader_cv2("Screenshots\\March_time_temp.JPG", 1)
+
+        my_march_time_seconds = Reader.time_reader(my_march_time)
+
+        return(my_march_time_seconds)
 
 
 
@@ -70,10 +92,34 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
 
     p.click()
 
+def lighthouse_icon_typer(x1, y1, W, L, path):
+    def light_house_beast_attack():
+        p.moveTo(x1 + W * rl.Lighthouse_BeastHunt_View_x,
+                 y1 + L * rl.Lighthouse_BeastHunt_View_y)
+        p.click()
+        #give time for app to transition to the worldmap
+        time.sleep(2)
+        p.moveTo(x1 + W*rl.WorldMap_Beast_Attack_x,
+                 y1 + L*rl.WorldMap_Beast_Attack_y)
+        p.click()
+        time.sleep(0.5)
+
+        
+
+    if "paw" in path: 
+        light_house_beast_attack()
+    elif "skull" in path:
+        light_house_beast_attack()
+    elif "swords" in path:
+        return(2)
+    elif "tent" in path:
+        return(3)
+    elif "Fire_Beast" in path:
+        light_house_beast_attack()
+
 def light_house_icon_Navigator(x1, y1, W, L):
-    """Return the coordinates of a lighthouse icon
-    must be within the lighthosue interface to work
-    properly"""
+    """Naviagte entire lighthouse operation. 
+    Return time required for operation if relevant"""
 
     lighthouse_image_directory = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse"
     lighthouse_images = [lighthouse_image_directory + "\\" + i for i in os.listdir(lighthouse_image_directory)]
@@ -90,10 +136,27 @@ def light_house_icon_Navigator(x1, y1, W, L):
             pass
     if img == None:
         return(-100)
-    
+        #introduce an exit function here
     else:
+        p.moveTo(img)
+        time.sleep(0.5)
+        p.click()
+        time.sleep(0.5)
 
-        return(img)
+        #assumption here is that the last lighthouse variable passed in the for loop
+        #is the one associated with the image that was found
+        lighthouse_icon_typer(x1, y1, W, L, lighthouse)
+
+        #assumption here is that the 1st preset is optimized
+        #for beast marches
+        #add catches for if this march has already been sent out
+        march_time = Preset_March_Sender(x1, y1, W, L, 1)
+
+        return(march_time)
+
+
+
+
 
     
     
