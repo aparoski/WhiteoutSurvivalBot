@@ -1,21 +1,5 @@
-
-
-#on startup
-#find game screen
-#load images
-
-
-#Continuous
-
-#master scheduler
-
-import win32gui as w
-
-import time
-
-import psutil
-
 import pyautogui as p
+import time
 
 p.useImageNotFoundException()
 
@@ -24,7 +8,7 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 
 import relative_locations as rl
 
-def check_location():
+def check_location(x1, y1, W, L):
     """checks the UI to determine whether the game is in the world map,
     the City map, or neither.
     there has to be a better way than try/except..."""
@@ -53,16 +37,12 @@ def check_location():
         return("Neither")
 
 
-check_lighthouse = 0
 
-lighthouse_image_directory = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse"
-#note - abspath connects using the current working directory so it may not get the correct path everytime
-lighthouse_images = [lighthouse_image_directory + "\\" + i for i in os.listdir(lighthouse_image_directory)]
 
-#Lighthouse 
-    #check if we are in the world map
-if check_lighthouse == 1:
-    Where_am_I = check_location()
+#Lighthouse functions
+def Lighthouse_confirm_and_Open(x1, y1, W, L):
+
+    Where_am_I = check_location(x1, y1, W, L)
     if Where_am_I == "City":
         p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
@@ -75,7 +55,7 @@ if check_lighthouse == 1:
                     y1 + L*rl.Universal_Menu_Backout_y)
             p.click()
             time.sleep(1)
-            where_am_I = check_location()
+            where_am_I = check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
@@ -84,15 +64,19 @@ if check_lighthouse == 1:
         #now that we are in world map navigate to the lighthouse menu
     p.moveTo(x1 + W*rl.WorldMap_Lighthouse_x, 
             y1 + L*rl.WorldMap_Lighthouse_y)
+    
+    #may need to adjust sleep time as time to load worldmap can vary
+    time.sleep(2)
 
     p.click()
 
-    time.sleep(0.5)
-
-def light_house_icon_finder(x1, y1, W, L):
+def light_house_icon_Navigator(x1, y1, W, L):
     """Return the coordinates of a lighthouse icon
     must be within the lighthosue interface to work
     properly"""
+
+    lighthouse_image_directory = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse"
+    lighthouse_images = [lighthouse_image_directory + "\\" + i for i in os.listdir(lighthouse_image_directory)]
 
     img = None
     for i, lighthouse in enumerate(lighthouse_images):

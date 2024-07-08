@@ -1,8 +1,19 @@
 import pandas as pd
 import numpy as np
+import time
 
+
+import Window_Finder
 import Reader
 import Image_Rec
 
+#temp for testing
+import pyautogui as p
 
-#lighthouse 
+#Initialize Blue Stacks Windows. 
+RootieTootie = Window_Finder.BlueStack_Window(0)
+
+print(RootieTootie.rectangle)
+
+print(RootieTootie.W_L)
+
