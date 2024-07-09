@@ -17,10 +17,15 @@ print(RootieTootie.rectangle)
 
 print(RootieTootie.W_L)
 
-RootieTootie.Open_Lighthouse()
+march_time = None
+error_int = 0
+while march_time != -100 and error_int < 5:
+    error_int += 1
+    RootieTootie.Open_Lighthouse()
+    march_time = RootieTootie.Lighthouse_Operation()
 
-march_time = RootieTootie.Lighthouse_Operation()
+    if march_time >= 0:
+        
+        print(str(march_time) + " seconds until march returns to city")
 
-print(str(march_time * 2) + " seconds until march returns to city")
-
-#time.sleep(march_time * 2)
+        time.sleep(march_time - 4)

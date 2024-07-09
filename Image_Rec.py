@@ -43,7 +43,7 @@ def check_victory(x1, y1, W, L):
     while True and i <= 20:
         i += 1
         try:
-            victory = p.locateOnScreen(r"images/images_Events/misc.JPG",
+            victory = p.locateOnScreen(r"images/images_Events/misc/Victory_Screen.JPG",
                                     region = (x1, y1, W, L),
                                     confidence= 0.7)
             break
@@ -106,6 +106,8 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
         p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
         p.click()
+
+        time.sleep(2)
     elif Where_am_I == "Neither":
         error_int = 0
         while Where_am_I == "Neither" and error_int <= 10:
@@ -119,14 +121,13 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
             p.click()
+            time.sleep(2)
 
         #now that we are in world map navigate to the lighthouse menu
     p.moveTo(x1 + W*rl.WorldMap_Lighthouse_x, 
             y1 + L*rl.WorldMap_Lighthouse_y)
     
     #may need to adjust sleep time as time to load worldmap can vary
-    time.sleep(2)
-
     p.click()
 
 def lighthouse_icon_typer(x1, y1, W, L, path):
@@ -148,10 +149,21 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
 
         time.sleep(2)
 
+        p.moveTo(x1 + W * rl.WorldMap_Sword_Battle_x,
+                 y1 + L * rl.WorldMap_Sword_Battle_y)
+        p.click()
+
+        print("Clicked world map battle")
+
         p.moveTo(x1 + W * rl.Sword_Fight_x,
                  y1 + L * rl.Sword_Fight_y)
+        p.click()
 
-        if check_victory() == 1:
+        time.sleep(2)
+
+        victory = check_victory(x1, y1, W, L)
+
+        if victory == 1:
 
             p.click()
 
@@ -163,6 +175,7 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
 
         p.moveTo(x1 + W * rl.WorldMap_Tent_x,
                  y1 + L * rl.WorldMap_Tent_y)
+        p.click()
   
     if "paw" in path: 
         light_house_beast_attack()
@@ -199,12 +212,12 @@ def light_house_icon_Navigator(x1, y1, W, L):
             pass
     if img == None:
         return(-100)
-        #introduce an exit function here
     else:
         p.moveTo(img)
         time.sleep(0.5)
         p.click()
         time.sleep(0.5)
+
 
         #assumption here is that the last lighthouse variable passed in the for loop
         #is the one associated with the image that was found
@@ -215,13 +228,30 @@ def light_house_icon_Navigator(x1, y1, W, L):
         #add catches for if this march has already been sent out
         if lighthouse_icon == 1:
             march_time = Preset_March_Sender(x1, y1, W, L, 1)
-
-
-            return(march_time)
         elif lighthouse_icon == 2:
-            pass
+            march_time = -1
         else:
-            pass
+            march_time = -1
+
+
+        #following section added at last minute because
+        #I forgot to also add code to go back to lighthouse
+        #and collect from the previous image position...
+        Lighthouse_confirm_and_Open(x1, y1, W, L)
+
+        time.sleep(march_time + 2)
+        p.moveTo(img)
+        p.click()
+
+        p.moveTo(x1 + W * rl.Universal_Menu_Backout_x,
+                 y1 + L * rl.Universal_Menu_Backout_y)
+        time.sleep(0.5)
+        p.click()
+        time.sleep(2)
+        p.click()
+        #-------------------------------------------
+
+        return(march_time)
 
 
 

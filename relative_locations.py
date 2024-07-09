@@ -50,7 +50,7 @@ Lighthouse_BeastHunt_View_x = 0.49140893470790376
 Lighthouse_BeastHunt_View_y = 0.7341269841269841
 
 Lighthouse_Sword_View_x = 0.48722627737226276
-Lighthouse_Sword_View_y = 0.740506329113924
+Lighthouse_Sword_View_y = 0.696039603960396
 
 Lighthouse_Tent_View_x = 0.48722627737226276
 Lighthouse_Tent_View_y = 0.7014767932489452

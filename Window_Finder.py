@@ -50,12 +50,14 @@ class BlueStack_Window:
 
         self.W_L = Window_lw(x1, y1, x2, y2)
 
+    #error when "bring me back to city" button overlaied on the lighthouse icon
     def Open_Lighthouse(self):
         Image_Rec.Lighthouse_confirm_and_Open(self.rectangle[0],
                                               self.rectangle[1],
                                               self.W_L[0],
                                               self.W_L[1])
-
+    
+    
     def Lighthouse_Operation(self):
 
         march_time = Image_Rec.light_house_icon_Navigator(self.rectangle[0],
