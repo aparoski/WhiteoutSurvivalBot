@@ -58,10 +58,12 @@ class BlueStack_Window:
 
     def Lighthouse_Operation(self):
 
-        x, y = Image_Rec.light_house_icon_Navigator(self.rectangle[0],
+        march_time = Image_Rec.light_house_icon_Navigator(self.rectangle[0],
                                                     self.rectangle[1],
                                                     self.W_L[0],
                                                     self.W_L[1])
+        return(march_time)
+        
 
 
 

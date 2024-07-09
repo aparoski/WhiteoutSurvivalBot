@@ -36,6 +36,26 @@ def check_location(x1, y1, W, L):
                 pass
     if i >= 10:
         return("Neither")
+    
+def check_victory(x1, y1, W, L):
+    i = 0
+    #20 seconds should be more than enough time for the battle to finish
+    while True and i <= 20:
+        i += 1
+        try:
+            victory = p.locateOnScreen(r"images/images_Events/misc.JPG",
+                                    region = (x1, y1, W, L),
+                                    confidence= 0.7)
+            break
+        except:
+            time.sleep(1)
+            pass
+
+    if i >= 20:
+        raise("Function to check Victory screen timed out")
+    else:
+        return(1)
+
 
 #March_UI
 def Preset_March_Sender(x1, y1, W, L, Preset):
@@ -47,15 +67,32 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
         p.moveTo(x1 + W*rl.March_Deploy_x,
                  y1 + W*rl.March_Deploy_y)
         
+        print()
+
+        #this stupid function will only take ints for its region
+        x1_temp = round(x1 + W * rl.March_time_x1)
+        y1_temp = round(y1 + L * rl.March_time_y1)
+        x2_temp = round(x1 + W * rl.March_time_x2)
+        y2_temp = round(y1 + L * rl.March_time_y2)
+        W_temp = x2_temp - x1_temp
+        L_temp = y2_temp - y1_temp
+
+        print(W_temp, L_temp)
+
         p.screenshot("Screenshots\\March_time_temp.JPG", 
-                     region = (x1 + W * rl.March_time_x1,
-                               y1 + L * rl.March_time_y1,
-                               x1 + W * rl.March_time_x1,
-                               y1 + W * rl.March_time_y1))
+                     region = (x1_temp, y1_temp,
+                               W_temp, L_temp))
         
         my_march_time = Reader.text_reader_cv2("Screenshots\\March_time_temp.JPG", 1)
 
         my_march_time_seconds = Reader.time_reader(my_march_time)
+
+        #finally select the march sender and return the march time
+
+        p.moveTo(x1 + W * rl.March_Deploy_x,
+                 y1 + L * rl.March_Deploy_y)
+        
+        p.click()
 
         return(my_march_time_seconds)
 
@@ -104,18 +141,44 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         p.click()
         time.sleep(0.5)
 
-        
+    def sword_battle():
+        p.moveTo(x1 + W * rl.Lighthouse_Sword_View_x,
+                 y1 + L * rl.Lighthouse_Sword_View_y)
+        p.click()
 
+        time.sleep(2)
+
+        p.moveTo(x1 + W * rl.Sword_Fight_x,
+                 y1 + L * rl.Sword_Fight_y)
+
+        if check_victory() == 1:
+
+            p.click()
+
+    def tent_journey():
+        p.moveTo(x1 + W * rl.Lighthouse_Tent_View_x,
+                 y1 + L * rl.Lighthouse_Tent_View_y)
+        p.click()
+        time.sleep(2)
+
+        p.moveTo(x1 + W * rl.WorldMap_Tent_x,
+                 y1 + L * rl.WorldMap_Tent_y)
+  
     if "paw" in path: 
         light_house_beast_attack()
+        return(1)
     elif "skull" in path:
         light_house_beast_attack()
+        return(1)
     elif "swords" in path:
+        sword_battle()
         return(2)
     elif "tent" in path:
+        tent_journey()
         return(3)
     elif "Fire_Beast" in path:
         light_house_beast_attack()
+        return(1)
 
 def light_house_icon_Navigator(x1, y1, W, L):
     """Naviagte entire lighthouse operation. 
@@ -145,14 +208,20 @@ def light_house_icon_Navigator(x1, y1, W, L):
 
         #assumption here is that the last lighthouse variable passed in the for loop
         #is the one associated with the image that was found
-        lighthouse_icon_typer(x1, y1, W, L, lighthouse)
+        lighthouse_icon = lighthouse_icon_typer(x1, y1, W, L, lighthouse)
 
         #assumption here is that the 1st preset is optimized
         #for beast marches
         #add catches for if this march has already been sent out
-        march_time = Preset_March_Sender(x1, y1, W, L, 1)
+        if lighthouse_icon == 1:
+            march_time = Preset_March_Sender(x1, y1, W, L, 1)
 
-        return(march_time)
+
+            return(march_time)
+        elif lighthouse_icon == 2:
+            pass
+        else:
+            pass
 
 
 

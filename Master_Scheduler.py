@@ -17,10 +17,10 @@ print(RootieTootie.rectangle)
 
 print(RootieTootie.W_L)
 
-time.sleep(5)
-
 RootieTootie.Open_Lighthouse()
 
-time.sleep(5)
+march_time = RootieTootie.Lighthouse_Operation()
 
-RootieTootie.Lighthouse_Operation()
+print(str(march_time * 2) + " seconds until march returns to city")
+
+#time.sleep(march_time * 2)

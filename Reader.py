@@ -102,6 +102,9 @@ def time_reader(text):
     """returns the timer in seconds
     times are presented with leading 00 at the hour mark
     days are marked with d, if there are any."""
+
+    print("Attempting to read {}". format(text))
+
     text_no_ascii = "".join([ele for ele in text if ele.isascii()])
 
     index_list = []

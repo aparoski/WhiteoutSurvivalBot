@@ -17,7 +17,11 @@ WorldMap_Pet_y = 0.7544731610337972
 WorldMap_Beast_Attack_x = 0.47594501718213056
 WorldMap_Beast_Attack_y = 0.5069444444444444
 
+WorldMap_Sword_Battle_x = 0.46897810218978103
+WorldMap_Sword_Battle_y = 0.5052742616033755
 
+WorldMap_Tent_x = 0.4854014598540146
+WorldMap_Tent_y = 0.5147679324894515
 
 
 #Menu UI Map Swap
@@ -38,12 +42,18 @@ March_Squad_1_y = 0.12003968253968254
 March_time_x1 = 0.6222627737226277
 March_time_y1 = 0.8871308016877637
 
-March_time_x2 = 0.7974452554744526
-March_time_y2 = 0.9092827004219409
+March_time_x2 = 0.791970802919708
+March_time_y2 = 0.9135021097046413
 
 #Lighthouse UI
 Lighthouse_BeastHunt_View_x = 0.49140893470790376
 Lighthouse_BeastHunt_View_y = 0.7341269841269841
+
+Lighthouse_Sword_View_x = 0.48722627737226276
+Lighthouse_Sword_View_y = 0.740506329113924
+
+Lighthouse_Tent_View_x = 0.48722627737226276
+Lighthouse_Tent_View_y = 0.7014767932489452
 
 Lighthouse_Stamina_x1 = 0.7062043795620438
 Lighthouse_Stamina_y1 = 0.04746835443037975
@@ -64,3 +74,8 @@ PetPerk_Elk_y = 0.373015873015873
 
 PetPerk_Tapir_x = 0.7560137457044673
 PetPerk_Tapir_y = 0.2718253968253968
+
+#Misc UI
+
+Sword_Fight_x = 0.6788321167883211
+Sword_Fight_y = 0.9388185654008439
