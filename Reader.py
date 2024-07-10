@@ -42,6 +42,11 @@ def text_reader_PIL(path, grey):
 def text_reader_cv2(path, arg, img_option = 1):
     if img_option == 1:
         img = cv2.imread(path)
+
+        img_h, img_w = img.shape[:2]
+
+        img = cv2.resize(img, (img_w * 10, img_h * 10),
+                                   interpolation= cv2.INTER_CUBIC)
     
     if arg == 1:
         """march times"""

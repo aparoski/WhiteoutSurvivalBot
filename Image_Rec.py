@@ -37,6 +37,30 @@ def check_location(x1, y1, W, L):
     if i >= 10:
         return("Neither")
     
+
+#generalizing the check image oepration
+#have it return object location center
+def check_image(x1, y1, W, L, path, itterator, 
+                confidence = 0.7, message = ""):
+    i = 0
+    while True and i <= itterator:
+        i += 1
+        try:
+            image_loc = p.locateCenterOnScreen(path,
+                                               region = (x1, y1, W, L),
+                                               confidence= confidence)
+            break
+        except:
+            print(message + "Check " + str)
+            time.sleep(1)
+            pass
+
+    if i >= itterator:
+        raise("Function to check " + message + " timed out")
+    else:
+        return(image_loc)
+    
+    
 def check_victory(x1, y1, W, L):
     i = 0
     #20 seconds should be more than enough time for the battle to finish
@@ -55,7 +79,6 @@ def check_victory(x1, y1, W, L):
         raise("Function to check Victory screen timed out")
     else:
         return(1)
-
 
 #March_UI
 def Preset_March_Sender(x1, y1, W, L, Preset):
@@ -143,8 +166,17 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         time.sleep(0.5)
 
     def sword_battle():
-        p.moveTo(x1 + W * rl.Lighthouse_Sword_View_x,
-                 y1 + L * rl.Lighthouse_Sword_View_y)
+
+        #bug #3 fix
+        # p.moveTo(x1 + W * rl.Lighthouse_Sword_View_x,
+        #          y1 + L * rl.Lighthouse_Sword_View_y)
+        # p.click()
+
+        #look for view button location
+        view_loc = check_image(x1, y1, W, L,
+                               "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\Main_UI\\View_Button.JPG",
+                               5, 0.7, "View Button")
+        p.moveTo(view_loc)
         p.click()
 
         time.sleep(2)
@@ -154,6 +186,8 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         p.click()
 
         print("Clicked world map battle")
+
+        time.sleep(1)
 
         p.moveTo(x1 + W * rl.Sword_Fight_x,
                  y1 + L * rl.Sword_Fight_y)
@@ -176,6 +210,29 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         p.moveTo(x1 + W * rl.WorldMap_Tent_x,
                  y1 + L * rl.WorldMap_Tent_y)
         p.click()
+
+        def check_for_tent():
+            i = 0
+            while True and i <= 20:
+                i += 1
+                try:
+                    p.locateOnScreen(r"images/images_worldmap/tent_journey.JPG",
+                                    region = (x1, y1, W, L),
+                                    confidence= 0.9)
+                    print("Tent icon succesfully located {} times".format(str(i)))
+                    time.sleep(0.5)
+                except:
+                    return(2)
+            if i >= 10:
+                raise("Function to check for Tent timed out")
+            else:
+                return(1)
+
+        #once check for tent finishes runnining, the next operation is to open
+        #lighthouse interface and select the checked tent icon    
+        check_for_tent()
+
+
   
     if "paw" in path: 
         light_house_beast_attack()
@@ -194,7 +251,7 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         return(1)
 
 def light_house_icon_Navigator(x1, y1, W, L):
-    """Naviagte entire lighthouse operation. 
+    """Navigate entire lighthouse operation. 
     Return time required for operation if relevant"""
 
     lighthouse_image_directory = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse"

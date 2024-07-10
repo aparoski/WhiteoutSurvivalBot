@@ -1,1 +1,13 @@
 1 unable to check victory screen when performing lighthouse sword operation
+after the window has been resized
+
+2 error when sending a march out when all march queues are occupied
+
+[solved] 3 from lighthouse UI the location of the view button moves based on the tier of sword battle selected
+
+4 when selecting the image_lighthouse icon the "reward center" button may be pressed
+
+5 reader.py failes to read march times of 00:00:38, 00:00:29
+[failed][fix attempt].1 slightly enlarge the screenshot to the right by .01 relative location points
+[failed][fix attempt].2 apply interpolation and improve resolution of image * 10
+[fix attempt].3 using interpolation from attempt 2 remove color channels other than blue

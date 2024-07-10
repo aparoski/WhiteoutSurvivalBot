@@ -18,8 +18,9 @@ print(RootieTootie.rectangle)
 print(RootieTootie.W_L)
 
 march_time = None
+#error int for testing
 error_int = 0
-while march_time != -100 and error_int < 5:
+while march_time != -100 and error_int < 7:
     error_int += 1
     RootieTootie.Open_Lighthouse()
     march_time = RootieTootie.Lighthouse_Operation()

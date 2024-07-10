@@ -2,3 +2,5 @@ venv/
 images/
 Screenshots/
 Tesseract/
+
+test.py
