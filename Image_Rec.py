@@ -79,6 +79,34 @@ def check_victory(x1, y1, W, L):
         raise("Function to check Victory screen timed out")
     else:
         return(1)
+    
+def swipe(x1, y1, W, L, dir = "up") -> None:
+    """direction refers to where the screen moves"""
+    p.moveTo(x1 + W * 0.5,
+                 y1 + L * 0.5)
+    p.mouseDown(button = "left")
+    if dir == "up":
+        #place cursor in center of screen and swipe up
+        p.moveTo(x1 + W * 0.5,
+                 y1 + L,
+                 duration = 0.2)
+    elif dir == "down":
+        p.moveTo(x1 + W * 0.5,
+                 y1,
+                 duration = 0.2)
+    elif dir == "right":
+        p.moveTo(x1,
+                 y1 + L * 0.5,
+                 duration = 0.2)
+    elif dir =="left":
+        p.moveTo(x1 + W,
+                 y1 + L * 0.5,
+                 duration = 0.2)
+    time.sleep(0.1)
+    p.mouseUp(button = "left")
+    
+#City Navigation --------------------------------------------------------
+
 
 #March_UI
 def Preset_March_Sender(x1, y1, W, L, Preset):
@@ -121,7 +149,7 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
 
 
 
-#Lighthouse functions
+#Lighthouse functions ---------------------------------------------------------------
 def Lighthouse_confirm_and_Open(x1, y1, W, L):
 
     Where_am_I = check_location(x1, y1, W, L)
@@ -145,6 +173,9 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
                 y1 + L*rl.Main_Menu_Map_Swap_y)
             p.click()
             time.sleep(2)
+        
+        if error_int >= 10:
+            raise("Error in exiting using universal backout")
 
         #now that we are in world map navigate to the lighthouse menu
     p.moveTo(x1 + W*rl.WorldMap_Lighthouse_x, 
@@ -154,10 +185,18 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
     p.click()
 
 def lighthouse_icon_typer(x1, y1, W, L, path):
-    def light_house_beast_attack():
-        p.moveTo(x1 + W * rl.Lighthouse_BeastHunt_View_x,
-                 y1 + L * rl.Lighthouse_BeastHunt_View_y)
+    
+    def view_locater(x1, y1, W, L) -> None:
+        view_loc = check_image(x1, y1, W, L,
+                               "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\Main_UI\\View_Button.JPG",
+                               5, 0.7, "View Button")
+        p.moveTo(view_loc)
         p.click()
+    
+    def light_house_beast_attack():
+        
+        view_locater(x1, y1, W, L)
+
         #give time for app to transition to the worldmap
         time.sleep(2)
         p.moveTo(x1 + W*rl.WorldMap_Beast_Attack_x,
@@ -167,17 +206,7 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
 
     def sword_battle():
 
-        #bug #3 fix
-        # p.moveTo(x1 + W * rl.Lighthouse_Sword_View_x,
-        #          y1 + L * rl.Lighthouse_Sword_View_y)
-        # p.click()
-
-        #look for view button location
-        view_loc = check_image(x1, y1, W, L,
-                               "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\Main_UI\\View_Button.JPG",
-                               5, 0.7, "View Button")
-        p.moveTo(view_loc)
-        p.click()
+        view_locater(x1, y1, W, L)
 
         time.sleep(2)
 
@@ -202,9 +231,9 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
             p.click()
 
     def tent_journey():
-        p.moveTo(x1 + W * rl.Lighthouse_Tent_View_x,
-                 y1 + L * rl.Lighthouse_Tent_View_y)
-        p.click()
+        
+        view_locater(x1, y1, W, L)
+
         time.sleep(2)
 
         p.moveTo(x1 + W * rl.WorldMap_Tent_x,
@@ -217,16 +246,14 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
                 i += 1
                 try:
                     p.locateOnScreen(r"images/images_worldmap/tent_journey.JPG",
-                                    region = (x1, y1, W, L),
-                                    confidence= 0.9)
+                                    region = (x1, y1, W/0.5, L),
+                                    confidence= 0.7)
                     print("Tent icon succesfully located {} times".format(str(i)))
                     time.sleep(0.5)
                 except:
                     return(2)
-            if i >= 10:
+            if i >= 20:
                 raise("Function to check for Tent timed out")
-            else:
-                return(1)
 
         #once check for tent finishes runnining, the next operation is to open
         #lighthouse interface and select the checked tent icon    
@@ -309,9 +336,14 @@ def light_house_icon_Navigator(x1, y1, W, L):
         #-------------------------------------------
 
         return(march_time)
+#Lighthouse functions ---------------------------------------------------------------
+
+#Pet Functions-------------------------------------------------------------------
 
 
 
+if __name__ == '__main__':
+    pass
 
 
     

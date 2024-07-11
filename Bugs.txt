@@ -6,8 +6,13 @@ after the window has been resized
 [solved] 3 from lighthouse UI the location of the view button moves based on the tier of sword battle selected
 
 4 when selecting the image_lighthouse icon the "reward center" button may be pressed
+[fix attempt].1 divide the width of the search area by 2 so that the reward center icon is not in it. 
 
 5 reader.py failes to read march times of 00:00:38, 00:00:29
 [failed][fix attempt].1 slightly enlarge the screenshot to the right by .01 relative location points
 [failed][fix attempt].2 apply interpolation and improve resolution of image * 10
-[fix attempt].3 using interpolation from attempt 2 remove color channels other than blue
+[failed][fix attempt].3 using interpolation from attempt 2 remove color channels other than blue
+[Solved][fix attempt].4 use the PIL and tesseract based reader function as a stopgap if the cv2 based function
+returns ""
+	solution for time 00:00:29 works. More testing for other times needed. 
+	solution failed for march time of 00:00:14

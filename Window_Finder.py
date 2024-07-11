@@ -51,7 +51,7 @@ class BlueStack_Window:
         self.W_L = Window_lw(x1, y1, x2, y2)
 
     #error when "bring me back to city" button overlaied on the lighthouse icon
-    def Open_Lighthouse(self):
+    def Open_Lighthouse(self) -> None:
         Image_Rec.Lighthouse_confirm_and_Open(self.rectangle[0],
                                               self.rectangle[1],
                                               self.W_L[0],
@@ -67,7 +67,29 @@ class BlueStack_Window:
         return(march_time)
         
 
+    def swipe(self, dir = "up"):
+        
+        Image_Rec.swipe(self.rectangle[0],
+                        self.rectangle[1],
+                        self.W_L[0],
+                        self.W_L[1],
+                        dir)
 
+if __name__ == '__main__':
+    
+    test = BlueStack_Window(order=0)
+    for _ in range(15):
+        test.swipe("up")
+
+    for _ in range(5):
+        test.swipe("down")
+
+    for _ in range(7):
+        test.swipe("left")
+
+    
+
+    
 
 
 

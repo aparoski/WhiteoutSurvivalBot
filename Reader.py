@@ -82,6 +82,11 @@ def text_reader_cv2(path, arg, img_option = 1):
 
             my_text = my_text + text
 
+        if my_text == "":
+
+            my_text = text_reader_PIL(path, True)
+
+
     elif arg == 2:
         """lighthouse stamina cans"""
         img_h, img_w = img.shape[:2]
@@ -151,3 +156,12 @@ def time_reader(text):
                          + int(m) * time_dict["m"] + int(s))
         
     return(final_seconds)
+
+if __name__ == '__main__':
+    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\Screenshots\March_time_temp.JPG"
+
+    cv = text_reader_cv2(path, 1)
+
+    pil = text_reader_PIL(path, True)
+
+    print(cv)
