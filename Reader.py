@@ -158,10 +158,12 @@ def time_reader(text):
     return(final_seconds)
 
 if __name__ == '__main__':
-    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\Screenshots\March_time_temp.JPG"
+    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\Screenshots\Online Rewards_temp.JPG"
 
     cv = text_reader_cv2(path, 1)
 
-    pil = text_reader_PIL(path, True)
+    pil = text_reader_PIL(path, False)
 
     print(cv)
+    print("---")
+    print(pil)

@@ -16,3 +16,5 @@ after the window has been resized
 returns ""
 	solution for time 00:00:29 works. More testing for other times needed. 
 	solution failed for march time of 00:00:14
+
+6 Image_Rec function Swipe failes when the exploration collect button falls on the center of the screen

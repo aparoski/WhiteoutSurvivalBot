@@ -1,6 +1,8 @@
 import win32gui as w
 
-import Image_Rec 
+#testing
+import Image_Rec
+import relative_locations as rel
 
 
 class BlueStack_Window:
@@ -86,6 +88,13 @@ if __name__ == '__main__':
 
     for _ in range(7):
         test.swipe("left")
+
+    wait_time = Image_Rec.Online_Reward_Grabber(test.rectangle[0],
+                                                test.rectangle[1],
+                                                test.W_L[0],
+                                                test.W_L[1])
+    
+    print(str(wait_time))
 
     
 

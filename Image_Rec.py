@@ -9,6 +9,28 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 import relative_locations as rl
 import Reader
 
+def screenshotter(x1, y1, W, L,
+                  locx1,
+                  locy1,
+                  locx2,
+                  locy2,
+                  save_name) -> None:
+    """Takes screenshot and saves named item to screenshot
+    directory"""
+    
+    x1_temp = round(x1 + W * locx1)
+    y1_temp = round(y1 + L * locy1)
+    x2_temp = round(x1 + W * locx2)
+    y2_temp = round(y1 + L * locy2)
+    W_temp = x2_temp - x1_temp
+    L_temp = y2_temp - y1_temp
+
+    print(W_temp, L_temp)
+
+    p.screenshot("Screenshots\\" + save_name + "_temp.JPG", 
+                region = (x1_temp, y1_temp,
+                        W_temp, L_temp))
+
 def check_location(x1, y1, W, L):
     """checks the UI to determine whether the game is in the world map,
     the City map, or neither.
@@ -82,6 +104,8 @@ def check_victory(x1, y1, W, L):
     
 def swipe(x1, y1, W, L, dir = "up") -> None:
     """direction refers to where the screen moves"""
+    duration = 0.2
+
     p.moveTo(x1 + W * 0.5,
                  y1 + L * 0.5)
     p.mouseDown(button = "left")
@@ -89,24 +113,49 @@ def swipe(x1, y1, W, L, dir = "up") -> None:
         #place cursor in center of screen and swipe up
         p.moveTo(x1 + W * 0.5,
                  y1 + L,
-                 duration = 0.2)
+                 duration = duration)
     elif dir == "down":
         p.moveTo(x1 + W * 0.5,
                  y1,
-                 duration = 0.2)
+                 duration = duration)
     elif dir == "right":
         p.moveTo(x1,
                  y1 + L * 0.5,
-                 duration = 0.2)
+                 duration = duration)
     elif dir =="left":
         p.moveTo(x1 + W,
                  y1 + L * 0.5,
-                 duration = 0.2)
+                 duration = duration)
     time.sleep(0.1)
     p.mouseUp(button = "left")
     
 #City Navigation --------------------------------------------------------
+def Online_Reward_Grabber(x1, y1, W, L):
+    online_reward_icon = check_image(x1, y1, W, L, 
+                                     r"images/images_City/Online_Reward_Icon.JPG",
+                                     10, 0.7, "Online Rewards")
+    
+    p.moveTo(online_reward_icon)
+    p.click()
+    time.sleep(0.5)
+    p.click()
+    time.sleep(1)
 
+    screenshot_name = "Online Rewards"
+
+    screenshotter(x1, y1, W, L,
+                  rl.Online_Rewards_xy1[0],
+                  rl.Online_Rewards_xy1[1],
+                  rl.Online_Rewards_xy2[0],
+                  rl.Online_Rewards_xy2[1],
+                  screenshot_name)
+    #I may regret not adding absolute directories here...
+    #screw it
+    screenshot_path = "Screenshots\\" + screenshot_name + "_temp.JPG"
+
+    wait_time = Reader.text_reader_cv2(screenshot_path, 1)
+
+    return(wait_time)
 
 #March_UI
 def Preset_March_Sender(x1, y1, W, L, Preset):
@@ -241,13 +290,14 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         p.click()
 
         def check_for_tent():
+            time.sleep(1)
             i = 0
             while True and i <= 20:
                 i += 1
                 try:
                     p.locateOnScreen(r"images/images_worldmap/tent_journey.JPG",
                                     region = (x1, y1, W/0.5, L),
-                                    confidence= 0.7)
+                                    confidence= 0.5)
                     print("Tent icon succesfully located {} times".format(str(i)))
                     time.sleep(0.5)
                 except:
