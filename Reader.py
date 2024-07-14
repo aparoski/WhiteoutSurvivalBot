@@ -76,9 +76,8 @@ def text_reader_cv2(path, arg, img_option = 1):
 
             cropped = im2[y:y + h, x:x + w]
 
-            text = ptess.image_to_string(cropped)
-
-            print(text)
+            text = ptess.image_to_string(cropped, lang='eng',
+                                         config= '--psm 6 -c tessedit_char_whitelist=0123456789:')
 
             my_text = my_text + text
 
@@ -130,6 +129,10 @@ def time_reader(text):
 
     trimmed_text = text_no_ascii[text_start:]
 
+    trimmed_text_split = trimmed_text.split("\n")
+
+    trimmed_text = trimmed_text_split[0]
+
     #seconds in each time frame
 
     time_dict = {'d' : 86400, 'h' : 3600, 'm' : 60}
@@ -164,6 +167,6 @@ if __name__ == '__main__':
 
     pil = text_reader_PIL(path, False)
 
-    print(cv)
+    print(cv.split("\n")[0])
     print("---")
     print(pil)

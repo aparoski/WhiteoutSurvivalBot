@@ -18,3 +18,5 @@ returns ""
 	solution failed for march time of 00:00:14
 
 6 Image_Rec function Swipe failes when the exploration collect button falls on the center of the screen
+
+note - maybe make windows same size as test window: WL (550, 951) so icons are the same size for image rec

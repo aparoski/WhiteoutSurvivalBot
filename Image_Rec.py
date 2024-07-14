@@ -9,6 +9,17 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 import relative_locations as rl
 import Reader
 
+def relativexy (x1, y1, W, L, position):
+    pos_x, pos_y = position
+
+    x_distance = pos_x - x1
+    y_distance = pos_y - y1
+
+    rel_x = x_distance / W
+    rel_y = y_distance / L
+
+    return(rel_x, rel_y)
+
 def screenshotter(x1, y1, W, L,
                   locx1,
                   locy1,
@@ -141,7 +152,7 @@ def Online_Reward_Grabber(x1, y1, W, L):
     p.click()
     time.sleep(1)
 
-    screenshot_name = "Online Rewards"
+    screenshot_name = "Online_Rewards"
 
     screenshotter(x1, y1, W, L,
                   rl.Online_Rewards_xy1[0],
@@ -153,7 +164,9 @@ def Online_Reward_Grabber(x1, y1, W, L):
     #screw it
     screenshot_path = "Screenshots\\" + screenshot_name + "_temp.JPG"
 
-    wait_time = Reader.text_reader_cv2(screenshot_path, 1)
+    wait_time_text = Reader.text_reader_cv2(screenshot_path, 1)
+
+    wait_time = Reader.time_reader(wait_time_text)
 
     return(wait_time)
 
