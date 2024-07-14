@@ -4,6 +4,7 @@ import win32gui as w
 import Image_Rec
 import relative_locations as rel
 import time
+import pyautogui as p
 
 
 class BlueStack_Window:
@@ -92,7 +93,7 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order=0)
+    test = BlueStack_Window(order=1)
 
     x1, y1, x2, y2 = test.rectangle
 
@@ -109,26 +110,30 @@ if __name__ == '__main__':
     screenshot_name = "testing Online Rewards"
 
     def temp_point_grabies(coord, distance, W, L):
-        new_coord = coord + distance
+        new_coord = (coord[0] + distance, coord[1] + distance)
+
+        print(new_coord)
 
         rel_coord = Image_Rec.relativexy(x1, y1, W, L, new_coord)
 
         return(rel_coord)
     
-    dist = 1
+    dist = 100
 
-    x3 = temp_point_grabies(online_reward_icon, dist, W, L)
-    y3 = temp_point_grabies(online_reward_icon, dist, W, L)
+    x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
+    y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
 
-    x4 = temp_point_grabies(online_reward_icon, -1 *dist, W, L)
-    y4 = temp_point_grabies(online_reward_icon, -1 *dist , W, L)
+    x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
+    y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
 
-    Image_Rec.screenshotter(x1, y1, W, L,
-                            x3,
-                            y3,
-                            x4,
-                            y4,
-                            screenshot_name)
+    print(x3, y3, x4, y4)
+
+    p.click(online_reward_icon)
+    time.sleep(1)
+    p.click()
+    time.sleep(1)
+
+    
 
 
     # while error_int < 3:

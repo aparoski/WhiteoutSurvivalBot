@@ -4,6 +4,7 @@ import pytesseract as ptess
 import cv2
 import PIL
 import datetime
+import re
 
 #import os
 
@@ -114,24 +115,29 @@ def time_reader(text):
 
     print("Attempting to read {}". format(text))
 
-    text_no_ascii = "".join([ele for ele in text if ele.isascii()])
+    #removing old code made obsolete by import of re library...
 
-    index_list = []
+    # text_no_ascii = "".join([ele for ele in text if ele.isascii()])
 
-    #find first appearance of a numeric character. 
-    #either catches the day or hour mark
-    for num in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-        index_list.append(text_no_ascii.find(num))
+    # index_list = []
 
-    index_list = [i for i in index_list if i != -1]
+    # #find first appearance of a numeric character. 
+    # #either catches the day or hour mark
+    # for num in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+    #     index_list.append(text_no_ascii.find(num))
 
-    text_start = min(index_list)
+    # index_list = [i for i in index_list if i != -1]
 
-    trimmed_text = text_no_ascii[text_start:]
+    # text_start = min(index_list)
 
-    trimmed_text_split = trimmed_text.split("\n")
+    # trimmed_text = text_no_ascii[text_start:]
 
-    trimmed_text = trimmed_text_split[0]
+    time_search = re.search(r'\d{2}\:\d{2}\:\d{2}', text)
+
+    if time_search:
+        trimmed_text = time_search.group(0)
+    else:
+        raise("Time Reader unable to parse 00:00:00 format from given text")
 
     #seconds in each time frame
 
@@ -161,12 +167,12 @@ def time_reader(text):
     return(final_seconds)
 
 if __name__ == '__main__':
-    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\Screenshots\Online Rewards_temp.JPG"
+    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\Screenshots\testing Online Rewards_temp.JPG"
 
     cv = text_reader_cv2(path, 1)
 
     pil = text_reader_PIL(path, False)
 
-    print(cv.split("\n")[0])
+    print(time_reader(cv))
     print("---")
     print(pil)

@@ -71,7 +71,7 @@ def check_location(x1, y1, W, L):
         return("Neither")
     
 
-#generalizing the check image oepration
+#generalizing the check image operation
 #have it return object location center
 def check_image(x1, y1, W, L, path, itterator, 
                 confidence = 0.7, message = ""):
@@ -141,24 +141,50 @@ def swipe(x1, y1, W, L, dir = "up") -> None:
     p.mouseUp(button = "left")
     
 #City Navigation --------------------------------------------------------
-def Online_Reward_Grabber(x1, y1, W, L):
+def City_Swiper_PRS()
+    """Naviates the screen to the portion of the city that contains
+    the storehouse, petcage and research building"""
+
+    for _ in range(15):
+        swipe("up")
+
+    for _ in range(5):
+        test.swipe("down")
+
+    for _ in range(7):
+        test.swipe("left")
+
+def Online_Reward_Finder(x1, y1, W, L):
     online_reward_icon = check_image(x1, y1, W, L, 
                                      r"images/images_City/Online_Reward_Icon.JPG",
                                      10, 0.7, "Online Rewards")
     
-    p.moveTo(online_reward_icon)
-    p.click()
-    time.sleep(0.5)
-    p.click()
-    time.sleep(1)
+    def temp_point_grabies(coord, distance, W, L):
+        new_coord = (coord[0] + distance, coord[1] + distance)
+
+        print(new_coord)
+
+        rel_coord = relativexy(x1, y1, W, L, new_coord)
+
+        return(rel_coord)
+    
+    dist = 100
+
+    x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
+    y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
+
+    x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
+    y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
 
     screenshot_name = "Online_Rewards"
 
+    p.click(online_reward_icon)
+    time.sleep(1)
+    p.click()
+    time.sleep(1)
+
     screenshotter(x1, y1, W, L,
-                  rl.Online_Rewards_xy1[0],
-                  rl.Online_Rewards_xy1[1],
-                  rl.Online_Rewards_xy2[0],
-                  rl.Online_Rewards_xy2[1],
+                  x3, y3, x4, y4,
                   screenshot_name)
     #I may regret not adding absolute directories here...
     #screw it
@@ -169,6 +195,7 @@ def Online_Reward_Grabber(x1, y1, W, L):
     wait_time = Reader.time_reader(wait_time_text)
 
     return(wait_time)
+#City Navigation --------------------------------------------------------
 
 #March_UI
 def Preset_March_Sender(x1, y1, W, L, Preset):

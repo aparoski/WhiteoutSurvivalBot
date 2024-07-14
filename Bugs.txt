@@ -1,4 +1,4 @@
-1 unable to check victory screen when performing lighthouse sword operation
+[solved] 1 unable to check victory screen when performing lighthouse sword operation
 after the window has been resized
 
 2 error when sending a march out when all march queues are occupied
@@ -18,5 +18,3 @@ returns ""
 	solution failed for march time of 00:00:14
 
 6 Image_Rec function Swipe failes when the exploration collect button falls on the center of the screen
-
-note - maybe make windows same size as test window: WL (550, 951) so icons are the same size for image rec
