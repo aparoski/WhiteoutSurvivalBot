@@ -103,20 +103,21 @@ if __name__ == '__main__':
     W = x2 - x1
     L = y2 - y1
 
-    error_int = 0
-    while error_int <= 10:
-        error_int += 1
+    # error_int = 0
+    # while error_int <= 10:
+    #     error_int += 1
 
-        wait_time = Image_Rec.Online_Reward_Finder(x1, y1, W, L)
+    #     wait_time = Image_Rec.Online_Reward_Finder(x1, y1, W, L)
 
-        print("Waiting for {} seconds".format(wait_time))
+    #     print("Waiting for {} seconds".format(wait_time))
 
-        time.sleep(wait_time)
+    #     time.sleep(wait_time)
 
-
-    
 
     
+
+    test.swipe("topright")
+   
 
 
     # while error_int < 3:

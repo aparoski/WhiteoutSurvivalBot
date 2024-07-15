@@ -87,14 +87,22 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1) -> None:
         p.moveTo(x1 + W,
                  y1 + L * distance,
                  duration = duration)
-    elif dir == "topright":
-        pass
-    elif dir == "topleft":
-        pass
-    elif dir == "bottomright":
-        pass
     elif dir == "bottomleft":
-        pass
+        p.moveTo(x1 + W * (distance + distance),
+                 y1,
+                 duration = duration + duration * 2)
+    elif dir == "bottomright":
+        p.moveTo(x1,
+                 y1,
+                 duration = duration + duration * 2)
+    elif dir == "topleft":
+        p.moveTo(x1 + W * (distance + distance),
+                 y1 + L * (distance + distance),
+                 duration = duration + duration * 2)
+    elif dir == "topright":
+        p.moveTo(x1,
+                 y1 + L * (distance + distance),
+                 duration = duration + duration * 2)
     time.sleep(0.1)
     p.mouseUp(button = "left")
 
