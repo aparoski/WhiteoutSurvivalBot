@@ -1,4 +1,5 @@
 import win32gui as w
+import Helper_Funcs as HF
 
 #testing
 import Image_Rec
@@ -84,14 +85,14 @@ class BlueStack_Window:
                                                     self.W_L[1])
         return(march_time)
         
-
+    #temp set up for testing
     def swipe(self, dir = "up"):
         
-        Image_Rec.swipe(self.rectangle[0],
-                        self.rectangle[1],
-                        self.W_L[0],
-                        self.W_L[1],
-                        dir)
+        HF.swipe(self.rectangle[0],
+                 self.rectangle[1],
+                 self.W_L[0],
+                 self.W_L[1],
+                 dir)
 
 if __name__ == '__main__':
 

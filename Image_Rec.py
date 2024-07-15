@@ -8,137 +8,7 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 
 import relative_locations as rl
 import Reader
-
-def relativexy (x1, y1, W, L, position):
-    pos_x, pos_y = position
-
-    x_distance = pos_x - x1
-    y_distance = pos_y - y1
-
-    rel_x = x_distance / W
-    rel_y = y_distance / L
-
-    return(rel_x, rel_y)
-
-def screenshotter(x1, y1, W, L,
-                  locx1,
-                  locy1,
-                  locx2,
-                  locy2,
-                  save_name) -> None:
-    """Takes screenshot and saves named item to screenshot
-    directory"""
-    
-    x1_temp = round(x1 + W * locx1)
-    y1_temp = round(y1 + L * locy1)
-    x2_temp = round(x1 + W * locx2)
-    y2_temp = round(y1 + L * locy2)
-    W_temp = x2_temp - x1_temp
-    L_temp = y2_temp - y1_temp
-
-    print(W_temp, L_temp)
-
-    p.screenshot("Screenshots\\" + save_name + "_temp.JPG", 
-                region = (x1_temp, y1_temp,
-                        W_temp, L_temp))
-
-def check_location(x1, y1, W, L):
-    """checks the UI to determine whether the game is in the world map,
-    the City map, or neither.
-    there has to be a better way than try/except..."""
-
-    i = 0
-    while True and i <= 10:
-        i += 1
-        if i % 2 == 0:
-
-            try:
-                img = p.locateOnScreen(r"images/Main_UI/City_door.JPG",
-                                       region = (x1, y1, W, L),
-                                       confidence= 0.7)
-                return("World Map")
-            except:
-                pass
-        else:
-            try:
-                img = p.locateOnScreen(r"images/Main_UI/world_map.JPG",
-                                       region = (x1, y1, W, L),
-                                       confidence= 0.7)
-                return("City")
-            except:
-                pass
-    if i >= 10:
-        return("Neither")
-    
-
-#generalizing the check image operation
-#have it return object location center
-def check_image(x1, y1, W, L, path, itterator, 
-                confidence = 0.7, message = ""):
-    i = 0
-    while True and i <= itterator:
-        i += 1
-        try:
-            image_loc = p.locateCenterOnScreen(path,
-                                               region = (x1, y1, W, L),
-                                               confidence= confidence)
-            break
-        except:
-            print(message + "Check " + str)
-            time.sleep(1)
-            pass
-
-    if i >= itterator:
-        raise("Function to check " + message + " timed out")
-    else:
-        return(image_loc)
-    
-    
-def check_victory(x1, y1, W, L):
-    i = 0
-    #20 seconds should be more than enough time for the battle to finish
-    while True and i <= 20:
-        i += 1
-        try:
-            victory = p.locateOnScreen(r"images/images_Events/misc/Victory_Screen.JPG",
-                                    region = (x1, y1, W, L),
-                                    confidence= 0.7)
-            break
-        except:
-            time.sleep(1)
-            pass
-
-    if i >= 20:
-        raise("Function to check Victory screen timed out")
-    else:
-        return(1)
-    
-def swipe(x1, y1, W, L, dir = "up") -> None:
-    """direction refers to where the screen moves"""
-    duration = 0.2
-
-    p.moveTo(x1 + W * 0.5,
-                 y1 + L * 0.5)
-    p.mouseDown(button = "left")
-    if dir == "up":
-        #place cursor in center of screen and swipe up
-        p.moveTo(x1 + W * 0.5,
-                 y1 + L,
-                 duration = duration)
-    elif dir == "down":
-        p.moveTo(x1 + W * 0.5,
-                 y1,
-                 duration = duration)
-    elif dir == "right":
-        p.moveTo(x1,
-                 y1 + L * 0.5,
-                 duration = duration)
-    elif dir =="left":
-        p.moveTo(x1 + W,
-                 y1 + L * 0.5,
-                 duration = duration)
-    time.sleep(0.1)
-    p.mouseUp(button = "left")
+import Helper_Funcs as HF
     
 #City Navigation --------------------------------------------------------
 def City_Swiper_PRS():
@@ -156,7 +26,7 @@ def City_Swiper_PRS():
     #     test.swipe("left")
 
 def Online_Reward_Finder(x1, y1, W, L):
-    online_reward_icon = check_image(x1, y1, W, L, 
+    online_reward_icon = HF.check_image(x1, y1, W, L, 
                                      r"images/images_City/Online_Reward_Icon.JPG",
                                      10, 0.7, "Online Rewards")
     
@@ -165,7 +35,7 @@ def Online_Reward_Finder(x1, y1, W, L):
 
         print(new_coord)
 
-        rel_coord = relativexy(x1, y1, W, L, new_coord)
+        rel_coord = HF.relativexy(x1, y1, W, L, new_coord)
 
         return(rel_coord)
     
@@ -184,7 +54,7 @@ def Online_Reward_Finder(x1, y1, W, L):
     p.click()
     time.sleep(1)
 
-    screenshotter(x1, y1, W, L,
+    HF.screenshotter(x1, y1, W, L,
                   x3, y3, x4, y4,
                   screenshot_name)
     #I may regret not adding absolute directories here...
@@ -242,7 +112,7 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
 #Lighthouse functions ---------------------------------------------------------------
 def Lighthouse_confirm_and_Open(x1, y1, W, L):
 
-    Where_am_I = check_location(x1, y1, W, L)
+    Where_am_I = HF.check_location(x1, y1, W, L)
     if Where_am_I == "City":
         p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
@@ -257,7 +127,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
                     y1 + L*rl.Universal_Menu_Backout_y)
             p.click()
             time.sleep(1)
-            where_am_I = check_location(x1, y1, W, L)
+            where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
@@ -277,7 +147,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
 def lighthouse_icon_typer(x1, y1, W, L, path):
     
     def view_locater(x1, y1, W, L) -> None:
-        view_loc = check_image(x1, y1, W, L,
+        view_loc = HF.check_image(x1, y1, W, L,
                                "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\Main_UI\\View_Button.JPG",
                                5, 0.7, "View Button")
         p.moveTo(view_loc)
@@ -314,7 +184,7 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
 
         time.sleep(2)
 
-        victory = check_victory(x1, y1, W, L)
+        victory = HF.check_victory(x1, y1, W, L)
 
         if victory == 1:
 
