@@ -141,18 +141,19 @@ def swipe(x1, y1, W, L, dir = "up") -> None:
     p.mouseUp(button = "left")
     
 #City Navigation --------------------------------------------------------
-def City_Swiper_PRS()
+def City_Swiper_PRS():
     """Naviates the screen to the portion of the city that contains
     the storehouse, petcage and research building"""
 
-    for _ in range(15):
-        swipe("up")
+    pass
+    # for _ in range(15):
+    #     swipe("up")
 
-    for _ in range(5):
-        test.swipe("down")
+    # for _ in range(5):
+    #     test.swipe("down")
 
-    for _ in range(7):
-        test.swipe("left")
+    # for _ in range(7):
+    #     test.swipe("left")
 
 def Online_Reward_Finder(x1, y1, W, L):
     online_reward_icon = check_image(x1, y1, W, L, 

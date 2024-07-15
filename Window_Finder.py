@@ -5,6 +5,8 @@ import Image_Rec
 import relative_locations as rel
 import time
 import pyautogui as p
+import pandas as pd
+from datetime import datetime as dt
 
 
 class BlueStack_Window:
@@ -93,7 +95,7 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order=1)
+    test = BlueStack_Window(order=0)
 
     x1, y1, x2, y2 = test.rectangle
 
@@ -101,37 +103,17 @@ if __name__ == '__main__':
     L = y2 - y1
 
     error_int = 0
+    while error_int <= 10:
+        error_int += 1
 
-    online_reward_icon = Image_Rec.check_image(x1, y1, W, L,
-                                               r"images/images_City/Online_Reward_Icon.JPG",
-                                               10, 0.7, "Online Rewards")
+        wait_time = Image_Rec.Online_Reward_Finder(x1, y1, W, L)
+
+        print("Waiting for {} seconds".format(wait_time))
+
+        time.sleep(wait_time)
 
 
-    screenshot_name = "testing Online Rewards"
-
-    def temp_point_grabies(coord, distance, W, L):
-        new_coord = (coord[0] + distance, coord[1] + distance)
-
-        print(new_coord)
-
-        rel_coord = Image_Rec.relativexy(x1, y1, W, L, new_coord)
-
-        return(rel_coord)
     
-    dist = 100
-
-    x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
-    y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
-
-    x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
-    y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
-
-    print(x3, y3, x4, y4)
-
-    p.click(online_reward_icon)
-    time.sleep(1)
-    p.click()
-    time.sleep(1)
 
     
 
