@@ -1,4 +1,5 @@
 import pyautogui as p
+p.useImageNotFoundException()
 import time
 
 
@@ -39,21 +40,23 @@ def screenshotter(x1, y1, W, L,
     
 def check_image(x1, y1, W, L, path, itterator, 
                 confidence = 0.7, message = ""):
+    print("checking image")
     i = 0
     while True and i <= itterator:
         i += 1
+        print(i)
         try:
             image_loc = p.locateCenterOnScreen(path,
                                                region = (x1, y1, W, L),
                                                confidence= confidence)
             break
         except:
-            print(message + "Check " + str)
+            print(message + "Check " + str(i))
             time.sleep(1)
             pass
 
     if i >= itterator:
-        raise("Function to check " + message + " timed out")
+        raise("Function to check " + str(message) + " timed out")
     else:
         return(image_loc)
 
@@ -137,6 +140,7 @@ def check_location(x1, y1, W, L):
         return("Neither")
     
 def check_victory(x1, y1, W, L):
+    print("checking for victory text")
     check_victory = check_image(x1, y1, W, L, r"images/images_Events/misc/Victory_Screen.JPG",
                                  20, confidence = 0.7, 
                                  message = "Victory_Screen")

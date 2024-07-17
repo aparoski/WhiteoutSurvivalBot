@@ -19,19 +19,23 @@ class BlueStack_Window:
         def single_window_return(order):
 
             def enumHandler(hwnd, list):
-                if "BlueStacks App Player 1" in w.GetWindowText(hwnd):
+                if ("BlueStacks App Player 1" in w.GetWindowText(hwnd) and
+                order == "BlueStacks App Player 1"):
 
                     print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "second")
-                    list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
-                elif "BlueStacks App Player 3" in w.GetWindowText(hwnd):
+                    list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
+                elif ("BlueStacks App Player 3" in w.GetWindowText(hwnd)and
+                      order == "BlueStacks App Player 3"):
 
                     print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "third")
-                    list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 2])
-                elif "BlueStacks App Player 4" in w.GetWindowText(hwnd):
+                    list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 2])
+                elif ("BlueStacks App Player 4" in w.GetWindowText(hwnd)and
+                      order == "BlueStacks App Player 4"):
 
                     print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "fourth")
-                    list.append([w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 3])
-                elif "BlueStacks App Player" in w.GetWindowText(hwnd):
+                    list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 3])
+                elif ("BlueStacks App Player" in w.GetWindowText(hwnd)and
+                      order == "BlueStacks App Player"):
 
                     print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "main")
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 0])
@@ -39,7 +43,10 @@ class BlueStack_Window:
             window_list = []
             w.EnumWindows(enumHandler, window_list)
 
-            return(window_list[order][0])
+            for i in window_list:
+                print(i[1])
+
+            return(window_list[0][0])
         
         window_hwnd = single_window_return(order)
         
@@ -96,13 +103,12 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order=0)
+    test = BlueStack_Window(order="BlueStacks App Player 1")
 
-    x1, y1, x2, y2 = test.rectangle
-
-    W = x2 - x1
-    L = y2 - y1
-
+    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse\tent_gold.JPG"
+    
+    
+    
     # error_int = 0
     # while error_int <= 10:
     #     error_int += 1

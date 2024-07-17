@@ -11,7 +11,12 @@ import Image_Rec
 import pyautogui as p
 
 #Initialize Blue Stacks Windows. 
-RootieTootie = Window_Finder.BlueStack_Window(0)
+Tootie = "BlueStacks App Player"
+Tootin = "BlueStacks App Player 1"
+Tootily = "BlueStacks App Player 3"
+Leg = "BlueStacks App Player 4"
+
+RootieTootie = Window_Finder.BlueStack_Window(1)
 
 print(RootieTootie.rectangle)
 
