@@ -102,6 +102,8 @@ def text_reader_cv2(path, arg, img_option = 1):
 
         my_text = my_text[rem_index:].strip()
 
+    print(my_text + " parsed")
+
     return(my_text)
 
 

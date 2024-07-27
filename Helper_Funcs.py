@@ -60,7 +60,8 @@ def check_image(x1, y1, W, L, path, itterator,
     else:
         return(image_loc)
 
-def swipe(x1, y1, W, L, dir = "up", magnitude = 1) -> None:
+def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
+          starter_x = 0.5, starter_y = 0.5) -> None:
     """direction refers to where the screen moves"""
 
     if magnitude > 1:
@@ -70,8 +71,9 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1) -> None:
 
     distance = magnitude * 0.5
 
-    p.moveTo(x1 + W * distance,
-                 y1 + L * distance)
+    #place mouse in screen center or adjust based on user input
+    p.moveTo(x1 + W * starter_x,
+                 y1 + L * starter_y)
     p.mouseDown(button = "left")
     if dir == "up":
         #place cursor in center of screen and swipe up

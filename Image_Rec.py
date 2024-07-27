@@ -9,6 +9,40 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 import relative_locations as rl
 import Reader
 import Helper_Funcs as HF
+
+#UI Navigation -----------------------------------------------------------
+def Universal_Backout(x1, y1, W, L) -> None:
+    p.moveTo(x1 + W*rl.Universal_Menu_Backout_x,
+             y1 + L*rl.Universal_Menu_Backout_y)
+    p.click()
+    time.sleep(1)
+
+#Events----------------------------------------------------------------
+def go_to_events(x1, y1, W, L) -> None:
+    event_icon = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Events\main_event_menu.JPG"
+
+    where_am_I = HF.check_location(x1, y1, W, L)
+
+    if where_am_I == "Neither":
+        error_int = 0
+        while where_am_I == "Neither" and error_int < 5:
+            error_int += 1
+            Universal_Backout()
+            where_am_I = HF.check_location(x1, y1, W, L)
+    
+    event_loc = HF.check_image(event_icon, x1, y1, W, L,
+                               10)
+    
+    p.moveTo(event_loc)
+    p.click()
+
+def event_swipe(x1, y1, W, L, dir) -> None:
+    HF.swipe(x1, y1, W, L, dir, starter_y = rl.Event_Slider[1])
+            
+
+
+#UI Navigation -----------------------------------------------------------
+
     
 #City Navigation --------------------------------------------------------
 def City_Swiper_PRS():
@@ -123,10 +157,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
         error_int = 0
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1
-            p.moveTo(x1 + W*rl.Universal_Menu_Backout_x, 
-                    y1 + L*rl.Universal_Menu_Backout_y)
-            p.click()
-            time.sleep(1)
+            Universal_Backout()
             where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
