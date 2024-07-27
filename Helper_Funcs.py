@@ -60,18 +60,21 @@ def check_image(x1, y1, W, L, path, itterator,
     else:
         return(image_loc)
 
-def swipe(x1, y1, W, L, dir = "up", magnitude = 1) -> None:
-    """direction refers to where the screen moves"""
+def swipe(x1, y1, W, L, dir = "up", magnitude = 1, 
+          starting_x = 0.5, starting_y = 0.5) -> None:
+    """direction refers to where the screen moves
+    starting distance is the location at which the first pressdown
+    of the mouse takes place. default is in the center of the screen"""
 
     if magnitude > 1:
         raise("Cannot select magnitude over 1")
 
-    duration = magnitude * 0.2
+    duration = magnitude * 0.3
 
-    distance = magnitude * 0.5
+    distance = magnitude 
 
-    p.moveTo(x1 + W * distance,
-                 y1 + L * distance)
+    p.moveTo(x1 + W * starting_x,
+                 y1 + L * starting_y)
     p.mouseDown(button = "left")
     if dir == "up":
         #place cursor in center of screen and swipe up
@@ -91,7 +94,7 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1) -> None:
                  y1 + L * distance,
                  duration = duration)
     elif dir == "bottomleft":
-        p.moveTo(x1 + W * (distance + distance),
+        p.moveTo(x1 + W * distance,
                  y1,
                  duration = duration + duration * 2)
     elif dir == "bottomright":
@@ -99,12 +102,12 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1) -> None:
                  y1,
                  duration = duration + duration * 2)
     elif dir == "topleft":
-        p.moveTo(x1 + W * (distance + distance),
-                 y1 + L * (distance + distance),
+        p.moveTo(x1 + W * distance,
+                 y1 + L * distance,
                  duration = duration + duration * 2)
     elif dir == "topright":
         p.moveTo(x1,
-                 y1 + L * (distance + distance),
+                 y1 + L * distance,
                  duration = duration + duration * 2)
     time.sleep(0.1)
     p.mouseUp(button = "left")

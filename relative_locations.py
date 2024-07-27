@@ -6,6 +6,10 @@ corners of a rectangle of the screen, respectively"""
 
 #Static Locations
 
+#UI Icons
+
+Events = 0.8690909090909091, 0.14931650893796003
+
 
 #World Map
 WorldMap_Lighthouse_x = 0.8623063683304647

@@ -103,7 +103,7 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order="BlueStacks App Player 1")
+    test = BlueStack_Window(order="BlueStacks App Player")
 
     path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse\tent_gold.JPG"
     
