@@ -66,49 +66,49 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
     starting distance is the location at which the first pressdown
     of the mouse takes place. default is in the center of the screen"""
 
-    if magnitude > 1:
-        raise("Cannot select magnitude over 1")
+    if (starting_y + starting_y * magnitude > 1 or
+        starting_x + starting_x * magnitude > 1 or
+        starting_x > 1 or starting_y > 1 or magnitude > 1):
+        raise("starting value or magnitude inapprorpiate")
 
-    duration = magnitude * 0.3
-
-    distance = magnitude 
+    duration = magnitude * 0.4 
 
     p.moveTo(x1 + W * starting_x,
-                 y1 + L * starting_y)
+             y1 + L * starting_y)
     p.mouseDown(button = "left")
     if dir == "up":
         #place cursor in center of screen and swipe up
-        p.moveTo(x1 + W * distance,
-                 y1 + L,
+        p.moveTo(x1 + W * starting_x,
+                 y1 + L * (starting_y + starting_y * magnitude),
                  duration = duration)
     elif dir == "down":
-        p.moveTo(x1 + W * distance,
-                 y1,
+        p.moveTo(x1 + W * starting_x,
+                 y1 + L * (starting_y - starting_y * magnitude),
                  duration = duration)
     elif dir == "right":
-        p.moveTo(x1,
-                 y1 + L * distance,
+        p.moveTo(x1 + W * (starting_x - starting_x * magnitude),
+                 y1 + L * starting_y,
                  duration = duration)
     elif dir =="left":
-        p.moveTo(x1 + W,
-                 y1 + L * distance,
+        p.moveTo(x1 + W * (starting_x + starting_x * magnitude),
+                 y1 + L * starting_y,
                  duration = duration)
     elif dir == "bottomleft":
-        p.moveTo(x1 + W * distance,
-                 y1,
-                 duration = duration + duration * 2)
+        p.moveTo(x1 + W * (starting_x + starting_x * magnitude),
+                 y1 + L * (starting_y - starting_y * magnitude),
+                 duration = duration * 2)
     elif dir == "bottomright":
-        p.moveTo(x1,
-                 y1,
-                 duration = duration + duration * 2)
+        p.moveTo(x1 + W * (starting_x - starting_x * magnitude),
+                 y1 + L * (starting_y - starting_y * magnitude),
+                 duration = duration * 2)
     elif dir == "topleft":
-        p.moveTo(x1 + W * distance,
-                 y1 + L * distance,
-                 duration = duration + duration * 2)
+        p.moveTo(x1 + W * (starting_x + starting_x * magnitude),
+                 y1 + L * (starting_y + starting_y * magnitude),
+                 duration = duration * 2)
     elif dir == "topright":
-        p.moveTo(x1,
-                 y1 + L * distance,
-                 duration = duration + duration * 2)
+        p.moveTo(x1 + W * (starting_x - starting_x * magnitude),
+                 y1 + L * (starting_y + starting_y * magnitude),
+                 duration = duration * 2)
     time.sleep(0.1)
     p.mouseUp(button = "left")
 

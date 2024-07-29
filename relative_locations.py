@@ -10,6 +10,11 @@ corners of a rectangle of the screen, respectively"""
 
 Events = 0.8690909090909091, 0.14931650893796003
 
+#Events UI
+
+Event_Scroller_TL = 0.03090909090909091, 0.10830704521556257
+Event_Scroller_BR = 0.24181818181818182, 0.1829652996845426
+
 
 #World Map
 WorldMap_Lighthouse_x = 0.8623063683304647

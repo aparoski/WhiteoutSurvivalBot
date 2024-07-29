@@ -93,13 +93,16 @@ class BlueStack_Window:
         return(march_time)
         
     #temp set up for testing
-    def swipe(self, dir = "up"):
+    def swipe(self, dir = "up", magnitude = 1, 
+              starting_x = 0.5, starting_y = 0.5):
         
         HF.swipe(self.rectangle[0],
                  self.rectangle[1],
                  self.W_L[0],
                  self.W_L[1],
-                 dir)
+                 dir,
+                 magnitude,
+                 starting_x, starting_y)
 
 if __name__ == '__main__':
 
@@ -122,7 +125,7 @@ if __name__ == '__main__':
 
     
 
-    test.swipe("topright")
+    test.swipe("topright", magnitude= 0.5)
    
 
 

@@ -66,6 +66,12 @@ def gotoevents(x1, y1, W, L):
     p.click()
     time.sleep(1)
 
+    #check if UI is in starting position: "Calendar" is visible
+    #and in top left
+
+
+
+    
     #swipe at the top
     HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
 
