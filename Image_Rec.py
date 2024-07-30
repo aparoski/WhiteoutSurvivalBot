@@ -50,7 +50,7 @@ def Navigate_to_cityormap(x1, y1, W, L, location = "City",
 
 
 #Events Navigation----------------------------------------------------
-def gotoevents(x1, y1, W, L):
+def gotoevents(x1, y1, W, L) -> None:
 
     """Opens the events UI then navigates over to the calendar as
     a starting position"""
@@ -69,12 +69,70 @@ def gotoevents(x1, y1, W, L):
     #check if UI is in starting position: "Calendar" is visible
     #and in top left
 
+    #swipe at the top
+    #making this function dumb. just swipes a bunch until the scroller
+    #is at the far left
+    for i in range(10):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
 
+def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
+    """A chip is collectable once after reset at 24:00 UTC"""
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Events\\"
+
+    chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
+
+    #check if lucky wheel is active
+    Wheel_path = dir + "Spin_Wheel.JPG"
+
+
+    for i in range(10):
+        Wheel = HF.check_image(x1, y1, W, L, Wheel_path, message = "Wheel",
+                            raise_error= False)
+        if Wheel:
+            break
+
+        else: 
+            HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
 
     
-    #swipe at the top
-    HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
+    if Wheel:
 
+        print("Wheel event found. Collecting Chip")
+
+        Chip_collect_img = HF.check_image(x1, y1, W, L, chip_collect,
+                                        message = "Chip collect")
+
+        p.moveTo(Chip_collect_img)
+        p.click()
+
+        Free_Button_path = dir + "Spin_Wheel_Free_Button.JPG"
+
+        Free_Button  = HF.check_image(x1, y1, W, L, Free_Button_path,
+                                      message = "Free Button")
+        
+        p.moveTo(Free_Button)
+        p.click()
+
+        time.sleep(1)
+
+        p.click()
+
+        p.moveTo(x1 + W*rl.Universal_Menu_Backout_x, 
+                    y1 + L*rl.Universal_Menu_Backout_y)
+        p.click()
+        
+        print("Chip successfully collected")
+    
+    else:
+        print("Wheel event not found. Ending function")
+
+    
+    #return events tab to starting position
+    for i in range(10):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+
+    
 
 
 #Events Navigation----------------------------------------------------    

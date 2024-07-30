@@ -38,8 +38,9 @@ def screenshotter(x1, y1, W, L,
                 region = (x1_temp, y1_temp,
                         W_temp, L_temp))
     
-def check_image(x1, y1, W, L, path, itterator, 
-                confidence = 0.7, message = ""):
+def check_image(x1, y1, W, L, path, itterator = 10, 
+                confidence = 0.7, message = "",
+                raise_error = True):
     print("checking image")
     i = 0
     while True and i <= itterator:
@@ -55,10 +56,18 @@ def check_image(x1, y1, W, L, path, itterator,
             time.sleep(1)
             pass
 
-    if i >= itterator:
-        raise("Function to check " + str(message) + " timed out")
+    if raise_error:
+
+        if i >= itterator:
+            raise("Function to check " + str(message) + " timed out")
+        else:
+            return(image_loc)
+        
     else:
-        return(image_loc)
+        if i >= itterator:
+            return(False)
+        else:
+            return(image_loc)
 
 def swipe(x1, y1, W, L, dir = "up", magnitude = 1, 
           starting_x = 0.5, starting_y = 0.5) -> None:

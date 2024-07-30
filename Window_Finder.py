@@ -122,10 +122,10 @@ if __name__ == '__main__':
 
     #     time.sleep(wait_time)
 
-
-    
-
-    test.swipe("topright", magnitude= 0.5)
+    Image_Rec.Lucky_Wheel_Chip_Grab(test.rectangle[0],
+                 test.rectangle[1],
+                 test.W_L[0],
+                 test.W_L[1])
    
 
 
