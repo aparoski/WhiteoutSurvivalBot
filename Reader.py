@@ -139,7 +139,9 @@ def time_reader(text):
     if time_search:
         trimmed_text = time_search.group(0)
     else:
-        raise("Time Reader unable to parse 00:00:00 format from given text")
+        return(60)
+
+        #raise("Time Reader unable to parse 00:00:00 format from given text")
 
     #seconds in each time frame
 
