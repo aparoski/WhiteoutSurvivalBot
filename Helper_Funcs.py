@@ -70,7 +70,7 @@ def check_image(x1, y1, W, L, path, itterator = 10,
             return(image_loc)
 
 def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
-          starter_x = 0.5, starter_y = 0.5) -> None:
+          starting_x = 0.5, starting_y = 0.5) -> None:
     """direction refers to where the screen moves"""
 
     if (starting_y + starting_y * magnitude > 1 or

@@ -17,28 +17,6 @@ def Universal_Backout(x1, y1, W, L) -> None:
              y1 + L*rl.Universal_Menu_Backout_y)
     p.click()
     time.sleep(1)
-
-#Events----------------------------------------------------------------
-def go_to_events(x1, y1, W, L) -> None:
-    event_icon = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Events\main_event_menu.JPG"
-
-    where_am_I = HF.check_location(x1, y1, W, L)
-
-    if where_am_I == "Neither":
-        error_int = 0
-        while where_am_I == "Neither" and error_int < 5:
-            error_int += 1
-            Universal_Backout(x1, y1, W, L)
-            where_am_I = HF.check_location(x1, y1, W, L)
-    
-    event_loc = HF.check_image(event_icon, x1, y1, W, L,
-                               10)
-    
-    p.moveTo(event_loc)
-    p.click()
-
-def event_swipe(x1, y1, W, L, dir) -> None:
-    HF.swipe(x1, y1, W, L, dir, starter_y = rl.Event_Slider[1])
             
 
 
@@ -116,17 +94,22 @@ def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
 
     #check if lucky wheel is active
-    Wheel_path = dir + "Spin_Wheel.JPG"
+    Wheel_path_1 = dir + "Spin_Wheel.JPG"
+    Wheel_path_2 = dir + "Spin_Wheel_blue_back.JPG"
 
 
     for i in range(10):
-        Wheel = HF.check_image(x1, y1, W, L, Wheel_path, message = "Wheel",
-                            raise_error= False)
+        Wheel = HF.check_image(x1, y1, W, L, Wheel_path_1, message = "Wheel_1 ",
+                            raise_error= False, itterator = 4)
         if Wheel:
             break
 
-        else: 
-            HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
+        wheel = HF.check_image(x1, y1, W, L, Wheel_path_2, message = "Wheel_2 ",
+                            raise_error= False, itterator = 4)
+        if wheel:
+            break
+            
+        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
 
     
     if Wheel:
