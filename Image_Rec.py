@@ -10,8 +10,7 @@ import relative_locations as rl
 import Reader
 import Helper_Funcs as HF
 
-def Navigate_to_cityormap(x1, y1, W, L, location = "City",
-                         iterator = 10) -> None:
+
 #UI Navigation -----------------------------------------------------------
 def Universal_Backout(x1, y1, W, L) -> None:
     p.moveTo(x1 + W*rl.Universal_Menu_Backout_x,
@@ -44,7 +43,8 @@ def event_swipe(x1, y1, W, L, dir) -> None:
 
 
 #UI Navigation -----------------------------------------------------------
-
+def Navigate_to_cityormap(x1, y1, W, L, location = "City",
+                         iterator = 10) -> None:
     
     """function navigates through the UI to the selected location:
     either the city or map views"""
