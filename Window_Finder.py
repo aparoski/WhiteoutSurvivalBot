@@ -91,6 +91,9 @@ class BlueStack_Window:
                                                     self.W_L[0],
                                                     self.W_L[1])
         return(march_time)
+    
+    def window_to_foreground(self):
+        w.SetForegroundWindow(self.hwnd)
         
     #temp set up for testing
     def swipe(self, dir = "up"):
@@ -122,7 +125,7 @@ if __name__ == '__main__':
 
     
 
-    test.swipe("topright")
+    test.window_to_foreground()
    
 
 

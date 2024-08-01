@@ -27,7 +27,7 @@ def go_to_events(x1, y1, W, L) -> None:
         error_int = 0
         while where_am_I == "Neither" and error_int < 5:
             error_int += 1
-            Universal_Backout()
+            Universal_Backout(x1, y1, W, L)
             where_am_I = HF.check_location(x1, y1, W, L)
     
     event_loc = HF.check_image(event_icon, x1, y1, W, L,
@@ -157,7 +157,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
         error_int = 0
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1
-            Universal_Backout()
+            Universal_Backout(x1, y1, W, L)
             where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
