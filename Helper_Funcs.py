@@ -69,11 +69,9 @@ def check_image(x1, y1, W, L, path, itterator = 10,
         else:
             return(image_loc)
 
-def swipe(x1, y1, W, L, dir = "up", magnitude = 1, 
-          starting_x = 0.5, starting_y = 0.5) -> None:
-    """direction refers to where the screen moves
-    starting distance is the location at which the first pressdown
-    of the mouse takes place. default is in the center of the screen"""
+def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
+          starter_x = 0.5, starter_y = 0.5) -> None:
+    """direction refers to where the screen moves"""
 
     if (starting_y + starting_y * magnitude > 1 or
         starting_x + starting_x * magnitude > 1 or

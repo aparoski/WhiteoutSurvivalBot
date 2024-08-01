@@ -16,7 +16,7 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
-RootieTootie = Window_Finder.BlueStack_Window(1)
+RootieTootie = Window_Finder.BlueStack_Window(Tootin)
 
 print(RootieTootie.rectangle)
 

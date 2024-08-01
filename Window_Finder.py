@@ -91,6 +91,9 @@ class BlueStack_Window:
                                                     self.W_L[0],
                                                     self.W_L[1])
         return(march_time)
+    
+    def window_to_foreground(self):
+        w.SetForegroundWindow(self.hwnd)
         
     #temp set up for testing
     def swipe(self, dir = "up", magnitude = 1, 
@@ -122,6 +125,10 @@ if __name__ == '__main__':
 
     #     time.sleep(wait_time)
 
+
+    
+
+    test.window_to_foreground()
     Image_Rec.Lucky_Wheel_Chip_Grab(test.rectangle[0],
                  test.rectangle[1],
                  test.W_L[0],
