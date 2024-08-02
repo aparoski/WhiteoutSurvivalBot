@@ -16,11 +16,11 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
-lighthouse = False
+lighthouse = True
 
 if lighthouse:
 
-    RootieTootie = Window_Finder.BlueStack_Window(Tootin)
+    RootieTootie = Window_Finder.BlueStack_Window(Tootie)
 
     print(RootieTootie.rectangle)
 

@@ -390,7 +390,7 @@ def light_house_icon_Navigator(x1, y1, W, L):
         try:
             img = p.locateCenterOnScreen(lighthouse,
                                             region = (x1, y1, W, L),
-                                            confidence= 0.7)
+                                            confidence= 0.8)
             break
         except:
             pass
