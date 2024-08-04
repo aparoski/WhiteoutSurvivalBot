@@ -16,22 +16,26 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
-RootieTootie = Window_Finder.BlueStack_Window(Tootin)
+for wind in [Tootie, Tootin, Tootily, Leg]:
 
-print(RootieTootie.rectangle)
+    RootieTootie = Window_Finder.BlueStack_Window(wind)
+    
+    RootieTootie.window_to_foreground()
 
-print(RootieTootie.W_L)
+    print(RootieTootie.rectangle)
 
-march_time = None
-#error int for testing
-error_int = 0
-while march_time != -100 and error_int < 15:
-    error_int += 1
-    RootieTootie.Open_Lighthouse()
-    march_time = RootieTootie.Lighthouse_Operation()
+    print(RootieTootie.W_L)
 
-    if march_time >= 0:
-        
-        print(str(march_time) + " seconds until march returns to city")
+    march_time = None
+    #error int for testing
+    error_int = 0
+    while march_time != -100 and error_int < 15:
+        error_int += 1
+        RootieTootie.Open_Lighthouse()
+        march_time = RootieTootie.Lighthouse_Operation()
 
-        time.sleep(march_time - 4)
+        if march_time >= 0:
+            
+            print(str(march_time) + " seconds until march returns to city")
+
+            time.sleep(march_time - 4)
