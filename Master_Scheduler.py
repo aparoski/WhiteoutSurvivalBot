@@ -18,6 +18,8 @@ Leg = "BlueStacks App Player 4"
 
 for wind in [Tootie, Tootin, Tootily, Leg]:
 
+    print("operating on " + wind)
+
     RootieTootie = Window_Finder.BlueStack_Window(wind)
     
     RootieTootie.window_to_foreground()
