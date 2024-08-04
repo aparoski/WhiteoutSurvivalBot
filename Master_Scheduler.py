@@ -20,7 +20,7 @@ lighthouse = True
 
 if lighthouse:
 
-    RootieTootie = Window_Finder.BlueStack_Window(Tootie)
+    RootieTootie = Window_Finder.BlueStack_Window(Tootily)
 
     print(RootieTootie.rectangle)
 
