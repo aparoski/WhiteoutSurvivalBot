@@ -159,7 +159,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
             error_int += 1
             Universal_Backout(x1, y1, W, L)
             time.sleep(1)
-            where_am_I = HF.check_location(x1, y1, W, L)
+            Where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)

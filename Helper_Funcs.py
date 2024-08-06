@@ -131,11 +131,13 @@ def start_video_recording(x1, y1, W, L):
 
 def stop_video_recording(x1, y1, W, L):
     p.moveTo(x1 + W * rl.video_record_step3[0],
-             y1 + L * rl.video_record_step3)
+             y1 + L * rl.video_record_step3[1])
     
     p.click()
 
     print("screen recording stopped")
+
+    time.sleep(2)
 
 #Error Management --------------------------------------------------
 #Helpful Whiteout Funcs----------------------------------------------

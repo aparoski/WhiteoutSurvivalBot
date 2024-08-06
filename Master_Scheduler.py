@@ -23,23 +23,25 @@ Leg = "BlueStacks App Player 4"
 
 for wind in [Tootie, Tootin, Tootily, Leg]:
 
+    
+
+    print("operating on " + wind)
+
+    RootieTootie = Window_Finder.BlueStack_Window(wind)
+    
+    RootieTootie.window_to_foreground()
+
+    print(RootieTootie.rectangle)
+
+    print(RootieTootie.W_L)
+
+    x1, y1, x2, y2 = RootieTootie.rectangle
+
+    W, L  = RootieTootie.W_L
+
+    # HF.start_video_recording(x1, y1, W, L)
+
     try:
-
-        print("operating on " + wind)
-
-        RootieTootie = Window_Finder.BlueStack_Window(wind)
-        
-        RootieTootie.window_to_foreground()
-
-        print(RootieTootie.rectangle)
-
-        print(RootieTootie.W_L)
-
-        x1, y1, x2, y2 = RootieTootie.rectangle
-
-        W, L  = RootieTootie.W_L
-
-        HF.start_video_recording(x1, y1, W, L)
 
         march_time = None
         #error int for testing
@@ -55,9 +57,9 @@ for wind in [Tootie, Tootin, Tootily, Leg]:
 
                 time.sleep(march_time - 4)
 
-        HF.stop_video_recording(x1, y1, W, L)
+        # HF.stop_video_recording(x1, y1, W, L)
 
     except:
-
-        HF.stop_video_recording()
+        pass
+        #HF.stop_video_recording(x1, y1, W, L)
         
