@@ -9,6 +9,7 @@ import Image_Rec
 
 #temp for testing
 import pyautogui as p
+import Helper_Funcs as HF
 
 #Initialize Blue Stacks Windows. 
 Tootie = "BlueStacks App Player"
@@ -16,28 +17,40 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
-for wind in [Tootie, Tootin, Tootily, Leg]:
 
-    print("operating on " + wind)
 
-    RootieTootie = Window_Finder.BlueStack_Window(wind)
-    
-    RootieTootie.window_to_foreground()
+try: 
 
-    print(RootieTootie.rectangle)
+    for wind in [Tootie, Tootin, Tootily, Leg]:
 
-    print(RootieTootie.W_L)
+        print("operating on " + wind)
 
-    march_time = None
-    #error int for testing
-    error_int = 0
-    while march_time != -100 and error_int < 15:
-        error_int += 1
-        RootieTootie.Open_Lighthouse()
-        march_time = RootieTootie.Lighthouse_Operation()
+        RootieTootie = Window_Finder.BlueStack_Window(wind)
+        
+        RootieTootie.window_to_foreground()
 
-        if march_time >= 0:
-            
-            print(str(march_time) + " seconds until march returns to city")
+        print(RootieTootie.rectangle)
 
-            time.sleep(march_time - 4)
+        print(RootieTootie.W_L)
+
+        HF.start_video_recording()
+
+        march_time = None
+        #error int for testing
+        error_int = 0
+        while march_time != -100 and error_int < 15:
+            error_int += 1
+            RootieTootie.Open_Lighthouse()
+            march_time = RootieTootie.Lighthouse_Operation()
+
+            if march_time >= 0:
+                
+                print(str(march_time) + " seconds until march returns to city")
+
+                time.sleep(march_time - 4)
+
+        HF.stop_video_recording()
+
+except:
+
+    HF.stop_video_recording()
