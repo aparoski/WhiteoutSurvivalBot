@@ -1,6 +1,7 @@
 import pyautogui as p
 p.useImageNotFoundException()
 import time
+import relative_locations as rl
 
 
 #General Funcs -------------------------------------------------------
@@ -112,6 +113,31 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
     p.mouseUp(button = "left")
 
 #General Funcs -------------------------------------------------------
+#Error Management ---------------------------------------------------
+
+def start_video_recording(x1, y1, W, L):
+    p.moveTo(x1 + W * rl.video_record_step1[0],
+             y1 + L * rl.video_record_step1[1])
+    p.click()
+
+    time.sleep(2)
+
+    p.moveTo(x1 + W * rl.video_record_step2[0],
+             y1 + L * rl.video_record_step2[1])
+    
+    p.click()
+
+    print("screen recording started")
+
+def stop_video_recording(x1, y1, W, L):
+    p.moveTo(x1 + W * rl.video_record_step3[0],
+             y1 + L * rl.video_record_step3)
+    
+    p.click()
+
+    print("screen recording stopped")
+
+#Error Management --------------------------------------------------
 #Helpful Whiteout Funcs----------------------------------------------
 def check_location(x1, y1, W, L):
     """checks the UI to determine whether the game is in the world map,
