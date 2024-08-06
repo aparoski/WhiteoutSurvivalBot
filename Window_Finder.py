@@ -121,6 +121,7 @@ if __name__ == '__main__':
             check = "lighthouse_event_completion.JPG"
             tent_checked = HF.check_image(x1, y1, W, L, dir + check,
                                         10, confidence = 0.9,
+                                        itterator= 20,
                                         message = "tent journey completion")
             
             Image_Rec.Universal_Backout(x1, y1, W, L)

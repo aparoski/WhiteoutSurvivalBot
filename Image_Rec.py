@@ -158,6 +158,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1
             Universal_Backout(x1, y1, W, L)
+            time.sleep(1)
             where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
@@ -237,10 +238,11 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
             
             Lighthouse_confirm_and_Open(x1, y1, W, L)
             
-            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc"
+            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
             check = "lighthouse_event_completion.JPG"
             tent_checked = HF.check_image(x1, y1, W, L, dir + check,
-                                          10, message = "tent journey completion")
+                                        20, confidence = 0.9,
+                                        message = "tent journey completion")
             
             Universal_Backout(x1, y1, W, L)
 
@@ -279,7 +281,7 @@ def light_house_icon_Navigator(x1, y1, W, L):
         try:
             img = p.locateCenterOnScreen(lighthouse,
                                             region = (x1, y1, W, L),
-                                            confidence= 0.7)
+                                            confidence= 0.8)
             break
         except:
             pass
