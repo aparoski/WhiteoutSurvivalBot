@@ -266,6 +266,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1
             Universal_Backout(x1, y1, W, L)
+            time.sleep(1)
             where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
@@ -340,20 +341,18 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
         p.click()
 
         def check_for_tent():
-            time.sleep(1)
-            i = 0
-            while True and i <= 20:
-                i += 1
-                try:
-                    p.locateOnScreen(r"images/images_worldmap/tent_journey.JPG",
-                                    region = (x1, y1, W/0.5, L),
-                                    confidence= 0.5)
-                    print("Tent icon succesfully located {} times".format(str(i)))
-                    time.sleep(0.5)
-                except:
-                    return(2)
-            if i >= 20:
-                raise("Function to check for Tent timed out")
+            """assumption here is that no other marches have completed
+            so there should only be one check on the screen at a time"""
+            
+            Lighthouse_confirm_and_Open(x1, y1, W, L)
+            
+            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
+            check = "lighthouse_event_completion.JPG"
+            tent_checked = HF.check_image(x1, y1, W, L, dir + check,
+                                        20, confidence = 0.9,
+                                        message = "tent journey completion")
+            
+            Universal_Backout(x1, y1, W, L)
 
         #once check for tent finishes runnining, the next operation is to open
         #lighthouse interface and select the checked tent icon    
