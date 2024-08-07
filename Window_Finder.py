@@ -52,19 +52,20 @@ class BlueStack_Window:
         
         temp_rect = w.GetWindowRect(window_hwnd)
 
-        def Window_lw(x1, y1, x2, y2):
-            """finds the length and width of a rectangular
-            box between two coordinates if the coordinates are
-            located at the top left and bottom right corners of the rectangle"""
+        #commented out for testing. remove after confirm
+        # def Window_lw(x1, y1, x2, y2):
+        #     """finds the length and width of a rectangular
+        #     box between two coordinates if the coordinates are
+        #     located at the top left and bottom right corners of the rectangle"""
 
-            l = y2 - y1
-            w = x2 - x1
+        #     l = y2 - y1
+        #     w = x2 - x1
 
-            return(w, l)
+        #     return(w, l)
         
         x1, y1, x2, y2 = temp_rect
 
-        temp_W_L = Window_lw(x1, y1, x2, y2)
+        temp_W_L = HF.Window_lw(x1, y1, x2, y2)
 
         w.MoveWindow(window_hwnd, x1, y1, 550, 951, True)
 
@@ -72,7 +73,7 @@ class BlueStack_Window:
 
         x1, y1, x2, y2 = self.rectangle
 
-        self.W_L = Window_lw(x1, y1, x2, y2)
+        self.W_L = HF.Window_lw(x1, y1, x2, y2)
 
         self.hwnd = window_hwnd
 
@@ -103,36 +104,45 @@ class BlueStack_Window:
                  self.W_L[0],
                  self.W_L[1],
                  dir)
+        
+    def vid(self):
+
+        HF.stop_video_recording(self.rectangle[0],
+                                self.rectangle[1],
+                                self.W_L[0],
+                                self.W_L[1])
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order="BlueStacks App Player 3")
+    test = BlueStack_Window(order="BlueStacks App Player")
 
     path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse\tent_gold.JPG"
     
     #testing
-    def check_for_tent(x1, y1, W, L):
-            """assumption here is that no other marches have completed
-            so there should only be one check on the screen at a time"""
+    # def check_for_tent(x1, y1, W, L):
+    #         """assumption here is that no other marches have completed
+    #         so there should only be one check on the screen at a time"""
             
-            Image_Rec.Lighthouse_confirm_and_Open(x1, y1, W, L)
+    #         Image_Rec.Lighthouse_confirm_and_Open(x1, y1, W, L)
             
-            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
-            check = "lighthouse_event_completion.JPG"
-            tent_checked = HF.check_image(x1, y1, W, L, dir + check,
-                                        10, confidence = 0.9,
-                                        itterator= 20,
-                                        message = "tent journey completion")
+    #         dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
+    #         check = "lighthouse_event_completion.JPG"
+    #         tent_checked = HF.check_image(x1, y1, W, L, dir + check,
+    #                                     10, confidence = 0.9,
+    #                                     itterator= 20,
+    #                                     message = "tent journey completion")
             
-            Image_Rec.Universal_Backout(x1, y1, W, L)
+    #         Image_Rec.Universal_Backout(x1, y1, W, L)
 
-    x1, y1, x2, y2 = test.rectangle
+    # x1, y1, x2, y2 = test.rectangle
     
-    W, L = test.W_L
+    # W, L = test.W_L
 
-    test.window_to_foreground()
+    # test.window_to_foreground()
 
-    check_for_tent(x1, y1, W, L)
+    # check_for_tent(x1, y1, W, L)
+
+    test.vid()
    
 
     
