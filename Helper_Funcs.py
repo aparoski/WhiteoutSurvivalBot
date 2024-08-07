@@ -5,6 +5,16 @@ import relative_locations as rl
 
 
 #General Funcs -------------------------------------------------------
+def Window_lw(x1, y1, x2, y2):
+            """finds the length and width of a rectangular
+            box between two coordinates if the coordinates are
+            located at the top left and bottom right corners of the rectangle"""
+
+            l = y2 - y1
+            w = x2 - x1
+
+            return(w, l)
+
 
 def relativexy (x1, y1, W, L, position):
     pos_x, pos_y = position
@@ -130,8 +140,34 @@ def start_video_recording(x1, y1, W, L):
     print("screen recording started")
 
 def stop_video_recording(x1, y1, W, L):
-    p.moveTo(x1 + W * rl.video_record_step3[0],
-             y1 + L * rl.video_record_step3[1])
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\"
+
+    stop_path = "images\\error_handling\\"
+
+    stop = "video_recording_stop.JPG"
+
+    path = dir + stop_path + stop
+
+    TL = [round(i) for i in 
+          [x1 + W * rl.video_record_step3_TL[0], y1 + L * rl.video_record_step3_TL[1]]]
+    
+    BR = [round(i) for i in 
+          [x1 + W * rl.video_record_step3_BR[0], y1 + L * rl.video_record_step3_BR[1]]]
+
+    BWL = Window_lw(TL[0], TL[1],
+                    BR[0], BR[1])
+    
+    p.screenshot(dir + stop_path + "tester.JPG",
+                             TL + [BWL[0]] + [BWL[1]])
+
+    video_stop = p.locateCenterOnScreen(path, confidence = 0.6, 
+                                        region = TL + 
+                                        [BWL[0]] + [BWL[1]])
+    
+    p.moveTo(video_stop)
+
+    time.sleep(1)
     
     p.click()
 
