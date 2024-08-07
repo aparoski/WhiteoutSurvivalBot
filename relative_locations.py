@@ -11,6 +11,9 @@ corners of a rectangle of the screen, respectively"""
 Events = 0.8690909090909091, 0.14931650893796003
 
 
+
+
+
 #World Map
 WorldMap_Lighthouse_x = 0.8623063683304647
 WorldMap_Lighthouse_y = 0.6878727634194831
@@ -92,3 +95,13 @@ Online_Rewards_xy2 = 0.44727272727272727, 0.4637223974763407
 #Event UI
 
 Event_Slider = 0.5054545454545455, 0.1398527865404837
+
+#bluestacks UI
+
+video_record_step1 =  0.9546279491833031, 0.3546694648478489
+
+video_record_step2 = 0.43920145190562615, 0.5424973767051416
+
+video_record_step3_TL = 0.41454545454545455, 0.004206098843322818
+
+video_record_step3_BR = 0.7872727272727272, 0.03259726603575184
