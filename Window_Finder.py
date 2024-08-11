@@ -8,6 +8,7 @@ import time
 import pyautogui as p
 import pandas as pd
 from datetime import datetime as dt
+import Map_Interact
 
 
 class BlueStack_Window:
@@ -141,43 +142,18 @@ if __name__ == '__main__':
 
     test = BlueStack_Window(order="BlueStacks App Player")
 
-    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse\tent_gold.JPG"
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_worldmap\\"
     
-    #testing
-    # def check_for_tent(x1, y1, W, L):
-    #         """assumption here is that no other marches have completed
-    #         so there should only be one check on the screen at a time"""
-            
-    #         Image_Rec.Lighthouse_confirm_and_Open(x1, y1, W, L)
-            
-    #         dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
-    #         check = "lighthouse_event_completion.JPG"
-    #         tent_checked = HF.check_image(x1, y1, W, L, dir + check,
-    #                                     10, confidence = 0.9,
-    #                                     itterator= 20,
-    #                                     message = "tent journey completion")
-            
-    #         Image_Rec.Universal_Backout(x1, y1, W, L)
+    file = "my_Rally.JPG"
 
-    # x1, y1, x2, y2 = test.rectangle
-    
-    # W, L = test.W_L
+    image = dir + file
+  
 
-    # test.window_to_foreground()
+    x1, y1, x2, y2 = test.rectangle
 
-    # check_for_tent(x1, y1, W, L)
+    W, L = test.W_L
 
-    #     time.sleep(wait_time)
-
-
-    
-
-    test.window_to_foreground()
-    Image_Rec.Lucky_Wheel_Chip_Grab(test.rectangle[0],
-                 test.rectangle[1],
-                 test.W_L[0],
-                 test.W_L[1])
-   
+    Map_Interact.map_search_level_selection(x1, y1, W, L, 10)
 
     
 
