@@ -154,6 +154,7 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
 
         time.sleep(2)
     elif Where_am_I == "Neither":
+        print("map or city icon not found using back navigation")
         error_int = 0
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1

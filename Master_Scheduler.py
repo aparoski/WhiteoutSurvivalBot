@@ -21,7 +21,7 @@ Leg = "BlueStacks App Player 4"
 
 
 
-for wind in [Tootie]:
+for wind in [Tootie, Tootin, Tootily, Leg]:
 
     
 
@@ -60,6 +60,6 @@ for wind in [Tootie]:
         HF.stop_video_recording(x1, y1, W, L)
 
     except:
-        pass
-        HF.stop_video_recording(x1, y1, W, L)
+        print("error has occured")
+        HF.stop_video_recording(x1, y1, W, L) 
         
