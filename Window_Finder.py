@@ -153,7 +153,10 @@ if __name__ == '__main__':
 
     W, L = test.W_L
 
-    Map_Interact.map_search_level_selection(x1, y1, W, L, 10)
+    print(HF.check_location(x1, y1, W, L))
+
+    # Map_Interact.polar_sender(x1, y1, W, L,
+    #                           6)
 
     
 

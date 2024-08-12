@@ -61,6 +61,20 @@ def polar_sender(x1, y1, L, W, level):
     HF.swipe(x1, y1, W, L, "left", 
              starting_y = rl.WorldMap_Search_Slider[1])
     
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+    
+    terror_file = "images_worldmap\\search_polar_terror.JPG"
+
+    teror_loc = HF.check_image(x1, y1, W, L, 
+                               dir + terror_file,
+                               message = " Polar Terror ")
+    
+    p.click(teror_loc)
+
+    map_search_level_selection(x1, y1, W, L, level)
+
+    
+    
     
 
 #rally functions----------------------------------------------

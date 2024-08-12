@@ -38,6 +38,7 @@ def Navigate_to_cityormap(x1, y1, W, L, location = "City",
     where_am_I = HF.check_location(x1, y1, W, L)
 
     if where_am_I == "Neither":
+        print("Neither map or city viewed. attempting to back out")
         error_int = 0
         while where_am_I == "Neither" and error_int <= iterator:
             error_int += 1
