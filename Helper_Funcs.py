@@ -84,7 +84,10 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
           starting_x = 0.5, starting_y = 0.5) -> None:
     """direction refers to where the screen moves"""
 
-    if (starting_y + starting_y * magnitude > 1 or
+    print(starting_x, starting_y, magnitude)
+
+    #function does not work properly for map below the 0.5 threshold.
+    if (#starting_y + starting_y * magnitude > 1 or
         starting_x + starting_x * magnitude > 1 or
         starting_x > 1 or starting_y > 1 or magnitude > 1):
         raise("starting value or magnitude inapprorpiate")

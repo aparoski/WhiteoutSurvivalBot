@@ -212,7 +212,7 @@ def Online_Reward_Finder(x1, y1, W, L):
 #City Navigation --------------------------------------------------------
 
 #March_UI
-def Preset_March_Sender(x1, y1, W, L, Preset):
+def Preset_March_Sender(x1, y1, W, L, Preset = 1):
     if Preset == 1:
         p.moveTo(x1 + W*rl.March_Squad_1_x,
                  y1 + L*rl.March_Squad_1_y)

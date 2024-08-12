@@ -11,7 +11,7 @@ import Reader
 import Helper_Funcs as HF
 import Image_Rec
 
-def map_search(x1, y1, L, W) -> None:
+def map_search(x1, y1, W, L) -> None:
     """pull up the search pane in the world map"""
     Image_Rec.Navigate_to_cityormap(x1, y1, W, L, "World Map")
 
@@ -54,16 +54,66 @@ def map_search_level_selection(x1, y1, W, L, level) -> None:
 
 #rally functions----------------------------------------------
 
-def polar_sender(x1, y1, L, W, level):
-    
-    map_search(x1, y1, L, W)
+def rally_button_findnpress(x1, y1, W, L) -> None:
 
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    rally_file = "images_worldmap\\Terror_Rally_Button.JPG"
+
+    hold_a_rally_file = "images_worldmap\\hold_a_Rally.JPG"
+
+    button_loc = HF.check_image(x1, y1, W, L,
+                                dir + rally_file,
+                                message = " rally button ")
+    
+    p.moveTo(button_loc)
+
+    p.click()
+
+    time.sleep(1)
+
+    hold_a_rally_button_loc = HF.check_image(x1, y1, W, L,
+                                             dir + hold_a_rally_file,
+                                             message = " hold a rally button ")
+
+    p.moveTo(hold_a_rally_button_loc)
+
+    p.click()
+
+def check_rally_arrival(x1, y1, W, L):
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    my_rally = "images_worldmap\\my_Rally.JPG"
+
+    try:
+
+        loc = HF.check_image(x1, y1, W, L, dir + my_rally, itterator = 2,
+                            message = " checking if rally Icon is present ")
+
+        return("False")
+
+    except:
+
+        return("True")
+    
+
+def polar_sender(x1, y1, W, L, level):
+    
+    map_search(x1, y1, W, L)
+
+    #swipe function uses 0.5 as base so it must be subtracted from any value
+    #that is above 0.5...yes its ugly I know
     HF.swipe(x1, y1, W, L, "left", 
              starting_y = rl.WorldMap_Search_Slider[1])
     
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
     
     terror_file = "images_worldmap\\search_polar_terror.JPG"
+
+    #delay is necessary before searching for image
+    #after swipe slider bounces moving the icon about
+    time.sleep(0.5)
 
     teror_loc = HF.check_image(x1, y1, W, L, 
                                dir + terror_file,
@@ -73,7 +123,35 @@ def polar_sender(x1, y1, L, W, level):
 
     map_search_level_selection(x1, y1, W, L, level)
 
-    
+    time.sleep(1)
+
+    rally_button_findnpress(x1, y1, W, L)
+
+    walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
+
+    time.sleep(60)
+
+    rally_ready = check_rally_arrival(x1, y1, W, L)
+
+    error_int = 0
+
+    while rally_ready == "False" and error_int < 2000:
+
+        if error_int % 10 == 0:
+            print("rally wait " + str(error_int))
+            time.sleep(5)
+
+        error_int += 1
+
+        rally_ready = check_rally_arrival(x1, y1, W, L)
+
+    print(rally_ready, walk_time)
+
+    return(walk_time)
+
+
+
+
     
     
 
