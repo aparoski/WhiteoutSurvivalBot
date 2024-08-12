@@ -177,6 +177,8 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
     #may need to adjust sleep time as time to load worldmap can vary
     p.click()
 
+    time.sleep(1)
+
 def lighthouse_icon_typer(x1, y1, W, L, path):
     
     def view_locater(x1, y1, W, L) -> None:
