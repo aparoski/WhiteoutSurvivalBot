@@ -17,6 +17,23 @@ def Bluestack_window_return():
 
     return(window_list)
 
-for i in Bluestack_window_return():
 
-    print(i[1])
+current_windows = Bluestack_window_return()
+
+
+#check to see if the dataframe exists. if not, create it and save. 
+
+if False:
+    pass
+else: 
+    col_len = np.arange(len(current_windows))
+
+    Window_Stats = pd.DataFrame({"Window_Name" : [i[1] for i in current_windows],
+                                 "window_hwnd" : [i[0] for i in current_windows],
+                                 "Activity" : col_len,
+                                 "completion_date" : col_len})
+
+    Window_Stats["completion_date"] = Window_Stats["completion_date"].astype('datetime64[ns]')
+    Window_Stats["Activity"] = Window_Stats["Activity"].astype('category')
+    
+print(Window_Stats)
