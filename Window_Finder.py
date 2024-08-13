@@ -10,6 +10,23 @@ import pandas as pd
 from datetime import datetime as dt
 import Map_Interact
 
+def Bluestack_window_return():
+
+    def enumHandler(hwnd, list):
+        if ("BlueStacks App Player" in w.GetWindowText(hwnd)):
+
+            print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd))
+            list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
+
+
+    window_list = []
+    w.EnumWindows(enumHandler, window_list)
+
+    return(window_list)
+
+
+current_windows = Bluestack_window_return()
+
 
 class BlueStack_Window:
 
