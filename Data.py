@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta, date
 
 #move this into Window_Finder when ready
-from Window_Finder import Bluestack_window_return
+#from Window_Finder import Bluestack_window_return
 import os
 
 

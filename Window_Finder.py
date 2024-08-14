@@ -9,23 +9,11 @@ import pyautogui as p
 import pandas as pd
 from datetime import datetime as dt
 import Map_Interact
-
-def Bluestack_window_return():
-
-    def enumHandler(hwnd, list):
-        if ("BlueStacks App Player" in w.GetWindowText(hwnd)):
-
-            print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd))
-            list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
+#import Data
 
 
-    window_list = []
-    w.EnumWindows(enumHandler, window_list)
 
-    return(window_list)
-
-
-current_windows = Bluestack_window_return()
+#current_windows = Data.Bluestack_window_return()
 
 
 class BlueStack_Window:
@@ -95,6 +83,8 @@ class BlueStack_Window:
 
         self.hwnd = window_hwnd
 
+        self.name =  w.GetWindowText(window_hwnd)
+
 
     def window_to_foreground(self):
         w.SetForegroundWindow(self.hwnd)
@@ -157,7 +147,7 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order="BlueStacks App Player 4")
+    App = BlueStack_Window(order="BlueStacks App Player")
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_worldmap\\"
     
@@ -165,22 +155,20 @@ if __name__ == '__main__':
 
     image = dir + file
   
-
-    x1, y1, x2, y2 = test.rectangle
-
-    W, L = test.W_L
-
-    print(HF.check_location(x1, y1, W, L))
-
     error_int = 0
 
+    x1, y1, x2, y2 = App.rectangle
+
+    W, L = App.W_L
+
     while error_int < 20:
-        
+
         error_int += 1
+        
 
-        march_time =  Map_Interact.polar_sender(x1, y1, W, L, 3)
+        march_time = Map_Interact.polar_sender(x1, y1, W, L, 5)
 
-        time.sleep(march_time * 2)
+        time.sleep(march_time * 2.5)
 
 
 
