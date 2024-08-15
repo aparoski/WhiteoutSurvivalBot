@@ -158,47 +158,23 @@ if __name__ == '__main__':
 
     test = BlueStack_Window(order="BlueStacks App Player")
 
-    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse\tent_gold.JPG"
-    
-    #testing
-    # def check_for_tent(x1, y1, W, L):
-    #         """assumption here is that no other marches have completed
-    #         so there should only be one check on the screen at a time"""
-            
-    #         Image_Rec.Lighthouse_confirm_and_Open(x1, y1, W, L)
-            
-    #         dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
-    #         check = "lighthouse_event_completion.JPG"
-    #         tent_checked = HF.check_image(x1, y1, W, L, dir + check,
-    #                                     10, confidence = 0.9,
-    #                                     itterator= 20,
-    #                                     message = "tent journey completion")
-            
-    #         Image_Rec.Universal_Backout(x1, y1, W, L)
-
-    # x1, y1, x2, y2 = test.rectangle
-    
-    # W, L = test.W_L
-
-    # test.window_to_foreground()
-
-    # check_for_tent(x1, y1, W, L)
-
-    #     time.sleep(wait_time)
-
-
-    
 
     test.window_to_foreground()
-    Image_Rec.Lucky_Wheel_Chip_Grab(test.rectangle[0],
-                 test.rectangle[1],
-                 test.W_L[0],
-                 test.W_L[1])
-   
 
-    
+    x1, y1, x2, y2 = test.rectangle
 
+    W, L, = test.W_L
+
+    error_int = 0
     
+    while error_int < 20:
+
+        error_int += 1
+
+        wait_time = Image_Rec.Online_Reward_Finder(x1, y1, W, L)
+        
+
+        time.sleep(wait_time)
 
 
 
