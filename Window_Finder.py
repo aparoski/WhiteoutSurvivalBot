@@ -147,7 +147,7 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    App = BlueStack_Window(order="BlueStacks App Player")
+    App = BlueStack_Window(order="BlueStacks App Player 3")
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_worldmap\\"
     
@@ -166,9 +166,9 @@ if __name__ == '__main__':
         error_int += 1
         
 
-        march_time = Map_Interact.polar_sender(x1, y1, W, L, 5)
+        march_time = Map_Interact.polar_sender(x1, y1, W, L, 3)
 
-        time.sleep(march_time * 2.5)
+        time.sleep(march_time * 2)
 
 
 
