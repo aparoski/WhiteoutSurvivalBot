@@ -21,7 +21,7 @@ lighthouse = True
 if lighthouse:
 
     RootieTootie = Window_Finder.BlueStack_Window(Tootie)
-for wind in [Tootie, Tootin, Tootily, Leg]:
+for wind in [Tootily, Tootin, Tootie, Leg]:
 
     print("operating on " + wind)
 
