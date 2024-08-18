@@ -39,7 +39,7 @@ for wind in [Tootie, Tootin, Tootily, Leg]:
 
     W, L  = RootieTootie.W_L
 
-    HF.start_video_recording(x1, y1, W, L)
+    #HF.start_video_recording(x1, y1, W, L)
 
     try:
 
@@ -57,9 +57,9 @@ for wind in [Tootie, Tootin, Tootily, Leg]:
 
                 time.sleep(march_time - 4)
 
-        HF.stop_video_recording(x1, y1, W, L)
+        #HF.stop_video_recording(x1, y1, W, L)
 
     except:
         print("error has occured")
-        HF.stop_video_recording(x1, y1, W, L) 
+        #HF.stop_video_recording(x1, y1, W, L) 
         
