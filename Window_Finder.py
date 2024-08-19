@@ -24,7 +24,7 @@ def Bluestack_window_return():
     return(window_list)
 
 
-current_windows = Bluestack_window_return()
+
 
 
 class BlueStack_Window:
@@ -130,6 +130,8 @@ class BlueStack_Window:
                                 self.W_L[1])
 
 if __name__ == '__main__':
+
+    current_windows = Bluestack_window_return()
 
     test = BlueStack_Window(order="BlueStacks App Player")
 
