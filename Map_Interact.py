@@ -99,6 +99,8 @@ def check_rally_arrival(x1, y1, W, L):
     
 
 def polar_sender(x1, y1, W, L, level):
+
+    """sends out march to a polar rally"""
     
     map_search(x1, y1, W, L)
 
@@ -129,11 +131,17 @@ def polar_sender(x1, y1, W, L, level):
 
     walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
 
+    return(walk_time)
+
+def Polar_Depature(x1, y1, W, L, windows):
+    
+    """determines when a polar rally has departed the city"""
+
     time.sleep(60)
 
-    rally_ready = check_rally_arrival(x1, y1, W, L)
-
     error_int = 0
+
+    rally_ready = check_rally_arrival(x1, y1, W, L)
 
     while rally_ready == "False" and error_int < 2000:
 
@@ -145,9 +153,7 @@ def polar_sender(x1, y1, W, L, level):
 
         rally_ready = check_rally_arrival(x1, y1, W, L)
 
-    print(rally_ready, walk_time)
-
-    return(walk_time)
+    
 
 
 
