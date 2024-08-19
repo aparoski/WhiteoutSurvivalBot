@@ -25,25 +25,25 @@ class BlueStack_Window:
         def single_window_return(order):
 
             def enumHandler(hwnd, list):
-                if ("BlueStacks App Player 1" in w.GetWindowText(hwnd) and
+                if ("BlueStacks App Player 1" == w.GetWindowText(hwnd) and
                 order == "BlueStacks App Player 1"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "second")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
-                elif ("BlueStacks App Player 3" in w.GetWindowText(hwnd)and
+                elif ("BlueStacks App Player 3" == w.GetWindowText(hwnd)and
                       order == "BlueStacks App Player 3"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "third")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 2])
-                elif ("BlueStacks App Player 4" in w.GetWindowText(hwnd)and
+                elif ("BlueStacks App Player 4" == w.GetWindowText(hwnd)and
                       order == "BlueStacks App Player 4"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "fourth")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 3])
-                elif ("BlueStacks App Player" in w.GetWindowText(hwnd)and
+                elif ("BlueStacks App Player" == w.GetWindowText(hwnd)and
                       order == "BlueStacks App Player"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "main")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 0])
 
             window_list = []
@@ -147,30 +147,38 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
+    current_windows = Bluestack_window_return()
+
     App = BlueStack_Window(order="BlueStacks App Player 3")
 
-    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_worldmap\\"
+    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse\tent_gold.JPG"
     
-    file = "my_Rally.JPG"
+    #testing
+    # def check_for_tent(x1, y1, W, L):
+    #         """assumption here is that no other marches have completed
+    #         so there should only be one check on the screen at a time"""
+            
+    #         Image_Rec.Lighthouse_confirm_and_Open(x1, y1, W, L)
+            
+    #         dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
+    #         check = "lighthouse_event_completion.JPG"
+    #         tent_checked = HF.check_image(x1, y1, W, L, dir + check,
+    #                                     10, confidence = 0.9,
+    #                                     itterator= 20,
+    #                                     message = "tent journey completion")
+            
+    #         Image_Rec.Universal_Backout(x1, y1, W, L)
 
-    image = dir + file
-  
-    error_int = 0
+    # x1, y1, x2, y2 = test.rectangle
+    
+    # W, L = test.W_L
 
-    x1, y1, x2, y2 = App.rectangle
+    # test.window_to_foreground()
 
-    W, L = App.W_L
+    # check_for_tent(x1, y1, W, L)
 
-    while error_int < 20:
-
-        error_int += 1
-        
-
-        march_time = Map_Interact.polar_sender(x1, y1, W, L, 3)
-
-        time.sleep(march_time * 2)
-
-
+    test.vid()
+   
 
     
 
