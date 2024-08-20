@@ -161,46 +161,75 @@ if __name__ == '__main__':
 
     first_march_times = []
 
-    #Send out the initial rallies
-    for app, level in zip(App_list, level_list):
-
-        x1, y1, x2, y2 = app.rectangle
-
-        W, L = app.W_L
-
-        march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
-
-        first_march_times.append([app.hwnd, march_time, False])
+    try:
 
 
-    latest_event = schedule.df.sort_values("completion_date", ascending = False).head(1)
+        #Send out the initial rallies
+        for app, level in zip(App_list, level_list):
 
-    if dt.utcnow >= dt.strptime(latest_event, )
-    
+            x1, y1, x2, y2 = app.rectangle
 
-    #monitor the three windows for a successfully sent rally
-    #then time and send new rally
-    for app, level, date in zip(App_list, level_list):
+            W, L = app.W_L
 
-        x1, y1, x2, y2 = app.rectangle
+            march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
 
-        W, L = app.W_L
+            first_march_times.append([app.hwnd, march_time, False])
+        
+        error_int = 0
 
-        rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
+        while error_int < 5000:
 
-        if rally_sent:
+            error_int += 1
+
+            if error_int % 100 == 0:
+                print("round" + error_int)
+
+            latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = False).head(1)
+
+            if latest_event.shape[0] == 1 and dt.utcnow >= dt.strptime(latest_event["completion_date"][0], "%Y-%m-%d %H:%M:%S"):
+
+                for app, level in zip(App_list, level_list):
+
+                    x1, y1, x2, y2 = app.rectangle
+
+                    W, L = app.W_L
+
+                    if latest_event["Window_Name"][0] == app.name:
+
+                        march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
+
+                    
+                        for ele in first_march_times:
+                            if app.hwnd == ele[0]:
+                                element_index = first_march_times.index(ele)
+
+                        first_march_times[element_index][1] = march_time
+                        first_march_times[element_index][2] = True
+                                    
             
-            if date[2]:
-            
-                schedule.add(app.name, app.hwnd, "Polar Rally", march_time)
+            #monitor the three windows for a successfully sent rally
+            #then time and send new rally
+            for app, level, date in zip(App_list, level_list, first_march_times):
 
-            else:
+                x1, y1, x2, y2 = app.rectangle
 
-                schedule.add(app.name, app.hwnd, "Polar Rally", date[1])
+                W, L = app.W_L
 
-                date[2] == True
+                rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
 
+                if rally_sent:
+                    
+                    if date[2] and date[0] == app.hwnd:
+                    
+                        schedule.add(app.name, app.hwnd, "Polar Rally", date[1])
 
+                        date[2] == False
+
+    except:
+
+        schedule.save()
+
+        print("error")
 
     
 
