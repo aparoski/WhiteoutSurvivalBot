@@ -147,7 +147,10 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    current_windows = Bluestack_window_return()
+    App = BlueStack_Window(order = "BlueStacks App Player")
+    App_1 = BlueStack_Window(order = "BlueStacks App Player 1")
+    App_3 = BlueStack_Window(order = "BlueStacks App Player 3")
+    App_4 = BlueStack_Window(order = "BlueStacks App Player 4")
    
 
     
