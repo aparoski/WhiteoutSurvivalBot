@@ -52,11 +52,9 @@ def screenshotter(x1, y1, W, L,
 def check_image(x1, y1, W, L, path, itterator = 10, 
                 confidence = 0.7, message = "",
                 raise_error = True):
-    print("checking image")
     i = 0
     while True and i <= itterator:
         i += 1
-        print(i)
         try:
             image_loc = p.locateCenterOnScreen(path,
                                                region = (x1, y1, W, L),

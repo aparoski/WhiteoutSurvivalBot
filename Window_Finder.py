@@ -182,7 +182,9 @@ if __name__ == '__main__':
             error_int += 1
 
             if error_int % 100 == 0:
-                print("round" + error_int)
+                print("round" + str(error_int))
+
+                time.sleep(10)
 
             latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = False).head(1)
 
@@ -215,21 +217,23 @@ if __name__ == '__main__':
 
                 W, L = app.W_L
 
-                rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
+                
 
-                if rally_sent:
-                    
-                    if date[2] and date[0] == app.hwnd:
+                if date[2] and date[0] == app.hwnd:
+
+                    rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
+
+                    if rally_sent:
                     
                         schedule.add(app.name, app.hwnd, "Polar Rally", date[1])
 
                         date[2] == False
 
-    except:
+    except Exception as e:
 
         schedule.save()
 
-        print("error")
+        print(e)
 
     
 
