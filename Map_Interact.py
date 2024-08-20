@@ -54,7 +54,7 @@ def map_search_level_selection(x1, y1, W, L, level) -> None:
 
 #rally functions----------------------------------------------
 
-def rally_button_findnpress(x1, y1, W, L) -> None:
+def rally_attack_button_findnpress(x1, y1, W, L, type = "Rally") -> None:
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
 
@@ -62,23 +62,38 @@ def rally_button_findnpress(x1, y1, W, L) -> None:
 
     hold_a_rally_file = "images_worldmap\\hold_a_Rally.JPG"
 
-    button_loc = HF.check_image(x1, y1, W, L,
-                                dir + rally_file,
-                                message = " rally button ")
-    
-    p.moveTo(button_loc)
+    attack_file = "images_worldmap\\Beast_Attack_Button.JPG"
 
-    p.click()
+    if type == "Rally":
 
-    time.sleep(1)
+        button_loc = HF.check_image(x1, y1, W, L,
+                                    dir + rally_file,
+                                    message = " rally button ")
+        
+        p.moveTo(button_loc)
 
-    hold_a_rally_button_loc = HF.check_image(x1, y1, W, L,
-                                             dir + hold_a_rally_file,
-                                             message = " hold a rally button ")
+        p.click()
 
-    p.moveTo(hold_a_rally_button_loc)
+        time.sleep(1)
 
-    p.click()
+        hold_a_rally_button_loc = HF.check_image(x1, y1, W, L,
+                                                dir + hold_a_rally_file,
+                                                message = " hold a rally button ")
+
+        p.moveTo(hold_a_rally_button_loc)
+
+        p.click()
+
+    else:
+        
+        button_loc = HF.check_image(x1, y1, W, L,
+                                    dir + attack_file,
+                                    message = " attack button ")
+        
+        p.moveTo(button_loc)
+
+        p.click()
+
 
 def check_rally_arrival(x1, y1, W, L):
 
@@ -127,7 +142,7 @@ def polar_sender(x1, y1, W, L, level):
 
     time.sleep(1)
 
-    rally_button_findnpress(x1, y1, W, L)
+    rally_attack_button_findnpress(x1, y1, W, L, "Rally")
 
     walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
 
@@ -162,3 +177,36 @@ def Polar_Depature_check(x1, y1, W, L, windows):
     
 
 #rally functions----------------------------------------------
+#Beast Functions ---------------------------------------------
+def Beast_Search(x1, y1, W, L, level):
+    map_search(x1, y1, W, L)
+
+    #swipe function uses 0.5 as base so it must be subtracted from any value
+    #that is above 0.5...yes its ugly I know
+    
+    HF.swipe(x1, y1, W, L, "left",starting_y = rl.WorldMap_Search_Slider[1])
+    
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+    
+    Beast_file = "images_worldmap\\search_beast.JPG"
+
+    #delay is necessary before searching for image
+    #after swipe slider bounces moving the icon about
+    time.sleep(0.5)
+
+    beast_loc = HF.check_image(x1, y1, W, L, 
+                               dir + Beast_file,
+                               message = " Beast ")
+    
+    p.click(beast_loc)
+
+    map_search_level_selection(x1, y1, W, L, level)
+
+    time.sleep(1)
+
+    rally_attack_button_findnpress(x1, y1, W, L, "Attack")
+
+    walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
+
+    return(walk_time)
+#Beast Functions ---------------------------------------------

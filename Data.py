@@ -82,14 +82,8 @@ if __name__ == '__main__':
 
     schedule = Window_Dataframe()
 
-    schedule.add("test", 1234, "apples", 123)
+    #schedule.add("test", 1234, "apples", 5)
 
     latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = False).head(1)
 
-    schedule.save()
-
-    print(schedule.df)
-
-    print()
-
-    print(latest_event["completion_date"][0])
+    print(latest_event.shape)
