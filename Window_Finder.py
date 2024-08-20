@@ -9,7 +9,7 @@ import pyautogui as p
 import pandas as pd
 from datetime import datetime as dt
 import Map_Interact
-#import Data
+import Data
 
 
 
@@ -151,9 +151,56 @@ if __name__ == '__main__':
     App_1 = BlueStack_Window(order = "BlueStacks App Player 1")
     App_3 = BlueStack_Window(order = "BlueStacks App Player 3")
     App_4 = BlueStack_Window(order = "BlueStacks App Player 4")
-   
 
+    schedule = Data.Window_Dataframe()
+
+
+    App_list = [App, App_1, App_3]
+
+    level_list = [6, 4, 3]
+
+    first_march_times = []
+
+    #Send out the initial rallies
+    for app, level in zip(App_list, level_list):
+
+        x1, y1, x2, y2 = app.rectangle
+
+        W, L = app.W_L
+
+        march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
+
+        first_march_times.append([app.hwnd, march_time, False])
+
+
+    latest_event = schedule.df.sort_values("completion_date", ascending = False).head(1)
+
+    if dt.utcnow >= dt.strptime(latest_event, )
     
+
+    #monitor the three windows for a successfully sent rally
+    #then time and send new rally
+    for app, level, date in zip(App_list, level_list):
+
+        x1, y1, x2, y2 = app.rectangle
+
+        W, L = app.W_L
+
+        rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
+
+        if rally_sent:
+            
+            if date[2]:
+            
+                schedule.add(app.name, app.hwnd, "Polar Rally", march_time)
+
+            else:
+
+                schedule.add(app.name, app.hwnd, "Polar Rally", date[1])
+
+                date[2] == True
+
+
 
     
 

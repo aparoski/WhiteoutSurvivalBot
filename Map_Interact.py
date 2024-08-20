@@ -133,7 +133,7 @@ def polar_sender(x1, y1, W, L, level):
 
     return(walk_time)
 
-def Polar_Depature(x1, y1, W, L, windows):
+def Polar_Depature_check(x1, y1, W, L, windows):
     
     """determines when a polar rally has departed the city"""
 
