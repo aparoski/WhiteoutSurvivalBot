@@ -157,11 +157,21 @@ if __name__ == '__main__':
     schedule = Data.Window_Dataframe()
 
 
-    App_list = [App, App_1, App_3]
-
-    level_list = [6, 4, 3]
+    #note check reader function for march times and change val accordingly
 
     polar = False
+
+    if polar:
+
+        App_list = [App, App_1, App_3]
+
+        level_list = [6, 4, 3]
+
+    else:
+
+        App_list = [App, App_3, App_4]
+
+        level_list = [27, 20, 20]
 
     try:
 
@@ -177,8 +187,9 @@ if __name__ == '__main__':
 
                 march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
                 app.march_time = march_time
-            else:
-                march_time = Map_Interact.Beast_Search(x1, y1, W, L, level)
+            else: 
+                app.window_to_foreground()
+                march_time = Map_Interact.Beast_Search(x1, y1, W, L, level) * 2
                 schedule.add(app.name, app.hwnd, "Beast Attack", march_time)
             
         
@@ -193,9 +204,14 @@ if __name__ == '__main__':
             if error_int % 100 == 0:
                 print("round" + str(error_int))
 
-            latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = False).head(1)
+                print(schedule.df)
 
-            if latest_event.shape[0] == 1 and dt.utcnow >= dt.strptime(latest_event["completion_date"][0], "%Y-%m-%d %H:%M:%S"):
+            latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = True).head(1)
+
+
+            if latest_event.shape[0] == 1 and dt.utcnow() >= latest_event["completion_date"].iloc[0]:
+                
+                print("checking on time " + str(latest_event["completion_date"].iloc[0]) + " at " + str(dt.utcnow()))
 
                 for app, level in zip(App_list, level_list):
 
@@ -203,14 +219,19 @@ if __name__ == '__main__':
 
                     W, L = app.W_L
 
-                    if latest_event["Window_Name"][0] == app.name:
+                    print(latest_event["Window_Name"].iloc[0], app.name)
+
+                    if latest_event["Window_Name"].iloc[0] == app.name:
 
                         if polar:
 
                             march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
                             app.march_time = march_time
                         else:
-                            march_time = Map_Interact.Beast_Search(x1, y1, W, L, level)
+                            app.window_to_foreground()
+                            march_time = Map_Interact.Beast_Search(x1, y1, W, L, level) * 2
+
+                            schedule.df = schedule.df.drop(latest_event.index, axis = 0)
 
                             schedule.add(app.name, app.hwnd, "Beast Attack", march_time)
 
