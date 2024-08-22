@@ -18,6 +18,45 @@ def Universal_Backout(x1, y1, W, L) -> None:
     p.click()
     time.sleep(1)
 
+def Navigate_to_cityormap(x1, y1, W, L, location = "City",
+                         iterator = 10) -> None:
+    
+    """function navigates through the UI to the selected location:
+    either the city or map views"""
+
+    print("Attempting to navigate to " + location)
+
+    def switch_view() -> None:
+        p.moveTo(x1 + W * rl.Main_Menu_Map_Swap_x,
+                 y1 + L * rl.Main_Menu_Map_Swap_y)
+        p.click()
+        time.sleep(2)
+
+    where_am_I = HF.check_location(x1, y1, W, L)
+
+    if where_am_I == "Neither":
+        print("Neither map or city viewed. attempting to back out")
+        error_int = 0
+        while where_am_I == "Neither" and error_int <= iterator:
+            error_int += 1
+            p.moveTo(x1 + W*rl.Universal_Menu_Backout_x, 
+                    y1 + L*rl.Universal_Menu_Backout_y)
+            p.click()
+            time.sleep(1)
+            print("Backout Navigation attempt number " + error_int)
+            where_am_I = HF.check_location(x1, y1, W, L)
+
+    else:
+
+        if where_am_I == "City" and location == "City":
+            pass
+        elif where_am_I == "World Map" and location == "City":
+            switch_view()
+        elif where_am_I == "city" and location == "World Map":
+            switch_view()
+        elif where_am_I == "World Map" and location == "City":
+            pass
+
 #Events----------------------------------------------------------------
 def go_to_events(x1, y1, W, L) -> None:
     event_icon = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Events\main_event_menu.JPG"
