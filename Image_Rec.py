@@ -86,6 +86,38 @@ def gotoevents(x1, y1, W, L) -> None:
     for i in range(10):
         HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
 
+def find_event(x1, y1, W, L, path, message):
+
+    for i in range(10):
+
+        icon = HF.check_image(x1, y1, W, L, path, message = message,
+                              raise_error= False, itterator= 4)
+        
+        if icon:
+            break
+
+        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
+
+    if icon:
+
+        print(message + " found.")
+
+        return(icon)
+    else:
+
+        print(message + " not found.")
+
+def Hero_Mission(x1, y1, W, L):
+    gotoevents(x1, y1, W, L)
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    Hero_Mission_icon = "images_Events\\Hero_Mission_Blue.JPG"
+
+    Hero_Mission_loc = find_event(x1, y1, W, L, dir + Hero_Mission_icon)
+
+    p.click(Hero_Mission_loc)
+
 def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     """A chip is collectable once after reset at 24:00 UTC"""
 
