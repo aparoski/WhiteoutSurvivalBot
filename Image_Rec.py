@@ -47,13 +47,23 @@ def Navigate_to_cityormap(x1, y1, W, L, location = "City",
             where_am_I = HF.check_location(x1, y1, W, L)
 
     else:
-
+        error_int = 0
         if where_am_I == "City" and location == "City":
             pass
         elif where_am_I == "World Map" and location == "City":
             switch_view()
+            move_check = HF.check_location(x1, y1, W, L)
+            while move_check != "City" and error_int < 10:
+                error_int += 1
+                move_check = HF.check_location(x1, y1, W, L)
+                time.sleep(0.5)
         elif where_am_I == "city" and location == "World Map":
             switch_view()
+            move_check = HF.check_location(x1, y1, W, L)
+            while move_check != "World Map" and error_int < 10:
+                error_int += 1
+                move_check = HF.check_location(x1, y1, W, L)
+                time.sleep(0.5)
         elif where_am_I == "World Map" and location == "City":
             pass
 
