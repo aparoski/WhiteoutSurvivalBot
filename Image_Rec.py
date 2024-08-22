@@ -96,12 +96,6 @@ def go_to_events(x1, y1, W, L) -> None:
     #check if UI is in starting position: "Calendar" is visible
     #and in top left
 
-    #swipe at the top
-    #making this function dumb. just swipes a bunch until the scroller
-    #is at the far left
-    for i in range(10):
-        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
-
 def event_return_to_start(x1, y1, W, L) -> None:
     for i in range(10):
         HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
