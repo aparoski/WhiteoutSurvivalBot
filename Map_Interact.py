@@ -151,7 +151,7 @@ def polar_sender(x1, y1, W, L, level):
 def Reaper_Sender(x1, y1, W, L):
     Image_Rec.Hero_Mission(x1, y1, W, L)
 
-    rally_attack_button_findnpress(x1, y1, W, L, " Reaper ")
+    rally_attack_button_findnpress(x1, y1, W, L, "Rally")
 
     walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
 
