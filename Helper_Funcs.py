@@ -80,7 +80,8 @@ def check_image(x1, y1, W, L, path, itterator = 10,
         else:
             return(image_loc)
 
-def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
+def swipe(x1, y1, W, L, dir = "up", magnitude = 1, release_delay = 0.1,
+          manual_duration = False, 
           starting_x = 0.5, starting_y = 0.5) -> None:
     """direction refers to where the screen moves"""
 
@@ -88,8 +89,10 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
         starting_x + starting_x * magnitude > 1 or
         starting_x > 1 or starting_y > 1 or magnitude > 1):
         raise("starting value or magnitude inapprorpiate")
-
-    duration = magnitude * 0.4 
+    if manual_duration:
+        duration = manual_duration
+    else:
+        duration = magnitude * 0.4 
 
     p.moveTo(x1 + W * starting_x,
              y1 + L * starting_y)
@@ -127,7 +130,7 @@ def swipe(x1, y1, W, L, dir = "up", magnitude = 1,
         p.moveTo(x1 + W * (starting_x - starting_x * magnitude),
                  y1 + L * (starting_y + starting_y * magnitude),
                  duration = duration * 2)
-    time.sleep(0.1)
+    time.sleep(release_delay)
     p.mouseUp(button = "left")
 
 #General Funcs -------------------------------------------------------
