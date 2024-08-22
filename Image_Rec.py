@@ -59,22 +59,29 @@ def Navigate_to_cityormap(x1, y1, W, L, location = "City",
 
 #Events----------------------------------------------------------------
 def go_to_events(x1, y1, W, L) -> None:
-    event_icon = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Events\main_event_menu.JPG"
-
-    where_am_I = HF.check_location(x1, y1, W, L)
-
-    if where_am_I == "Neither":
-        error_int = 0
-        while where_am_I == "Neither" and error_int < 5:
-            error_int += 1
-            Universal_Backout(x1, y1, W, L)
-            where_am_I = HF.check_location(x1, y1, W, L)
     
-    event_loc = HF.check_image(event_icon, x1, y1, W, L,
-                               10)
-    
-    p.moveTo(event_loc)
+    """Opens the events UI then navigates over to the calendar as
+    a starting position"""
+
+    #city or map both have the events icon, so we will use the
+    #default option here
+    Navigate_to_cityormap(x1, y1, W, L)
+
+    print("Opening Events UI")
+
+    p.moveTo(x1 + W * rl.Events[0],
+             y1 + L * rl.Events[1])
     p.click()
+    time.sleep(1)
+
+    #check if UI is in starting position: "Calendar" is visible
+    #and in top left
+
+    #swipe at the top
+    #making this function dumb. just swipes a bunch until the scroller
+    #is at the far left
+    for i in range(10):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
 
     #check if UI is in starting position: "Calendar" is visible
     #and in top left
