@@ -317,6 +317,9 @@ def light_house_icon_Navigator(x1, y1, W, L):
         #and collect from the previous image position...
         Lighthouse_confirm_and_Open(x1, y1, W, L)
 
+       #check if lighthouse was successfully open:
+        
+
         time.sleep(march_time + 2)
         p.moveTo(img)
         p.click()
