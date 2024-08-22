@@ -90,7 +90,7 @@ def go_to_events(x1, y1, W, L) -> None:
     #swipe at the top
     #making this function dumb. just swipes a bunch until the scroller
     #is at the far left
-    for i in range(10):
+    for i in range(5):
         HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
 
     #check if UI is in starting position: "Calendar" is visible
@@ -111,7 +111,7 @@ def find_event(x1, y1, W, L, path, message = "icon"):
     for i in range(10):
 
         icon = HF.check_image(x1, y1, W, L, path, message = message,
-                              raise_error= False, itterator= 4)
+                              raise_error= False, itterator= 2)
         
         if icon:
             break
