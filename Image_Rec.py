@@ -102,6 +102,8 @@ def find_event(x1, y1, W, L, path, message = "icon"):
 
         HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15, magnitude = 1,
                  manual_duration = 1)
+        
+        time.sleep(0.5)
 
     if icon:
 
@@ -124,7 +126,7 @@ def Hero_Mission(x1, y1, W, L) -> None:
 
     Hero_Mission_loc = find_event(x1, y1, W, L, dir + hero_mission_icon)
     #need to wait on slider to finish slipping...
-    time.sleep(0.5)
+    
 
     p.click(Hero_Mission_loc)
 
