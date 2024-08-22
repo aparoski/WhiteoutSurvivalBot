@@ -148,8 +148,14 @@ def polar_sender(x1, y1, W, L, level):
 
     return(walk_time)
 
-def Reaper_Sender():
-    pass
+def Reaper_Sender(x1, y1, W, L):
+    Image_Rec.Hero_Mission(x1, y1, W, L)
+
+    rally_attack_button_findnpress(x1, y1, W, L, " Reaper ")
+
+    walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
+
+    return(walk_time)
 
 # def Polar_Depature_check(x1, y1, W, L, windows):
     

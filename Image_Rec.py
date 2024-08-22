@@ -9,6 +9,7 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 import relative_locations as rl
 import Reader
 import Helper_Funcs as HF
+import Map_Interact
 
 #UI Navigation -----------------------------------------------------------
 def Universal_Backout(x1, y1, W, L) -> None:
@@ -74,7 +75,7 @@ def find_event(x1, y1, W, L, path, message = "icon"):
         return(False)  
 
 def Hero_Mission(x1, y1, W, L) -> None:
-    gotoevents(x1, y1, W, L)
+    go_to_events(x1, y1, W, L)
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
 

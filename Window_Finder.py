@@ -160,12 +160,29 @@ if __name__ == '__main__':
     #note check reader function for march times and change val accordingly
 
     polar = False
+    reaper = False
 
     if polar:
 
         App_list = [App, App_1, App_3]
 
         level_list = [6, 4, 3]
+
+    elif reaper:
+
+        App_list = [App, App_1, App_3]
+
+        for app in App_list:
+
+            x1, y1, x2, y2 = app.rectangle
+
+            W, L = app.W_L
+
+            march_time = Map_Interact.Reaper_Sender(x1, y1, W, L)
+
+            print(march_time)
+            
+
 
     else:
 
