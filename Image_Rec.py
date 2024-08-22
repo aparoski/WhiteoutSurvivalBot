@@ -10,149 +10,40 @@ import relative_locations as rl
 import Reader
 import Helper_Funcs as HF
 
-
 #UI Navigation -----------------------------------------------------------
 def Universal_Backout(x1, y1, W, L) -> None:
     p.moveTo(x1 + W*rl.Universal_Menu_Backout_x,
              y1 + L*rl.Universal_Menu_Backout_y)
     p.click()
     time.sleep(1)
-            
 
-
-#UI Navigation -----------------------------------------------------------
-def Navigate_to_cityormap(x1, y1, W, L, location = "City",
-                         iterator = 10) -> None:
-    
-    """function navigates through the UI to the selected location:
-    either the city or map views"""
-
-    print("Attempting to navigate to " + location)
-
-    def switch_view() -> None:
-        p.moveTo(x1 + W * rl.Main_Menu_Map_Swap_x,
-                 y1 + L * rl.Main_Menu_Map_Swap_y)
-        p.click()
-        time.sleep(2)
+#Events----------------------------------------------------------------
+def go_to_events(x1, y1, W, L) -> None:
+    event_icon = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Events\main_event_menu.JPG"
 
     where_am_I = HF.check_location(x1, y1, W, L)
 
     if where_am_I == "Neither":
-        print("Neither map or city viewed. attempting to back out")
         error_int = 0
-        while where_am_I == "Neither" and error_int <= iterator:
+        while where_am_I == "Neither" and error_int < 5:
             error_int += 1
-            p.moveTo(x1 + W*rl.Universal_Menu_Backout_x, 
-                    y1 + L*rl.Universal_Menu_Backout_y)
-            p.click()
-            time.sleep(1)
-            print("Backout Navigation attempt number " + error_int)
+            Universal_Backout(x1, y1, W, L)
             where_am_I = HF.check_location(x1, y1, W, L)
-
-    else:
-
-        if where_am_I == "City" and location == "City":
-            pass
-        elif where_am_I == "World Map" and location == "City":
-            switch_view()
-        elif where_am_I == "city" and location == "World Map":
-            switch_view()
-        elif where_am_I == "World Map" and location == "City":
-            pass
-
-
-#Events Navigation----------------------------------------------------
-def gotoevents(x1, y1, W, L) -> None:
-
-    """Opens the events UI then navigates over to the calendar as
-    a starting position"""
-
-    #city or map both have the events icon, so we will use the
-    #default option here
-    Navigate_to_cityormap(x1, y1, W, L)
-
-    print("Opening Events UI")
-
-    p.moveTo(x1 + W * rl.Events[0],
-             y1 + L * rl.Events[1])
+    
+    event_loc = HF.check_image(event_icon, x1, y1, W, L,
+                               10)
+    
+    p.moveTo(event_loc)
     p.click()
-    time.sleep(1)
 
-    #check if UI is in starting position: "Calendar" is visible
-    #and in top left
-
-    #swipe at the top
-    #making this function dumb. just swipes a bunch until the scroller
-    #is at the far left
-    for i in range(10):
-        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
-
-def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
-    """A chip is collectable once after reset at 24:00 UTC"""
-
-    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Events\\"
-
-    chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
-
-    #check if lucky wheel is active
-    Wheel_path_1 = dir + "Spin_Wheel.JPG"
-    Wheel_path_2 = dir + "Spin_Wheel_blue_back.JPG"
-
-
-    for i in range(10):
-        Wheel = HF.check_image(x1, y1, W, L, Wheel_path_1, message = "Wheel_1 ",
-                            raise_error= False, itterator = 4)
-        if Wheel:
-            break
-
-        wheel = HF.check_image(x1, y1, W, L, Wheel_path_2, message = "Wheel_2 ",
-                            raise_error= False, itterator = 4)
-        if wheel:
-            break
+def event_swipe(x1, y1, W, L, dir) -> None:
+    HF.swipe(x1, y1, W, L, dir, starter_y = rl.Event_Slider[1])
             
-        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
+
+
+#UI Navigation -----------------------------------------------------------
 
     
-    if Wheel:
-
-        print("Wheel event found. Collecting Chip")
-
-        Chip_collect_img = HF.check_image(x1, y1, W, L, chip_collect,
-                                        message = "Chip collect")
-
-        p.moveTo(Chip_collect_img)
-        p.click()
-
-        Free_Button_path = dir + "Spin_Wheel_Free_Button.JPG"
-
-        Free_Button  = HF.check_image(x1, y1, W, L, Free_Button_path,
-                                      message = "Free Button")
-        
-        p.moveTo(Free_Button)
-        p.click()
-
-        time.sleep(1)
-
-        p.click()
-
-        p.moveTo(x1 + W*rl.Universal_Menu_Backout_x, 
-                    y1 + L*rl.Universal_Menu_Backout_y)
-        p.click()
-        
-        print("Chip successfully collected")
-    
-    else:
-        print("Wheel event not found. Ending function")
-
-    
-    #return events tab to starting position
-    for i in range(10):
-        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
-
-    
-
-
-#Events Navigation----------------------------------------------------    
 #City Navigation --------------------------------------------------------
 def City_Swiper_PRS():
     """Naviates the screen to the portion of the city that contains
@@ -212,7 +103,7 @@ def Online_Reward_Finder(x1, y1, W, L):
 #City Navigation --------------------------------------------------------
 
 #March_UI
-def Preset_March_Sender(x1, y1, W, L, Preset = 1):
+def Preset_March_Sender(x1, y1, W, L, Preset):
     if Preset == 1:
         p.moveTo(x1 + W*rl.March_Squad_1_x,
                  y1 + L*rl.March_Squad_1_y)
@@ -263,12 +154,13 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
 
         time.sleep(2)
     elif Where_am_I == "Neither":
+        print("map or city icon not found using back navigation")
         error_int = 0
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1
             Universal_Backout(x1, y1, W, L)
             time.sleep(1)
-            where_am_I = HF.check_location(x1, y1, W, L)
+            Where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
@@ -284,6 +176,8 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
     
     #may need to adjust sleep time as time to load worldmap can vary
     p.click()
+
+    time.sleep(1)
 
 def lighthouse_icon_typer(x1, y1, W, L, path):
     
