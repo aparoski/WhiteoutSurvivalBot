@@ -258,6 +258,15 @@ if __name__ == '__main__':
         schedule.save()
 
         print(e)
+    
+    test = BlueStack_Window(order="BlueStacks App Player")
+
+    x1, y1, x2, y2 = test.rectangle
+
+    W, L = test.W_L
+
+    Image_Rec.Hero_Mission(x1, y1, W, L)
+    
 
     
 

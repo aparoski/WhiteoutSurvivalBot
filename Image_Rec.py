@@ -87,6 +87,52 @@ def gotoevents(x1, y1, W, L) -> None:
     for i in range(10):
         HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
 
+def event_return_to_start(x1, y1, W, L) -> None:
+    for i in range(10):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+
+def find_event(x1, y1, W, L, path, message = "icon"):
+
+    for i in range(10):
+
+        icon = HF.check_image(x1, y1, W, L, path, message = message,
+                              raise_error= False, itterator= 4)
+        
+        if icon:
+            break
+
+        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15, magnitude = 1,
+                 manual_duration = 1)
+
+    if icon:
+
+        print(message + " found.")
+
+        return(icon)
+    else:
+
+        print(message + " not found.")
+
+        return(False)  
+
+def Hero_Mission(x1, y1, W, L) -> None:
+    gotoevents(x1, y1, W, L)
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    hero_mission_icon = "images_Events\\Hero_Mission_Blue.JPG"
+    reaper_button_icon = "images_Events\\Hero_Mission_Button.JPG"
+
+    Hero_Mission_loc = find_event(x1, y1, W, L, dir + hero_mission_icon)
+    #need to wait on slider to finish slipping...
+    time.sleep(0.5)
+
+    p.click(Hero_Mission_loc)
+
+    reaper_button = HF.check_image(x1, y1, W, L, dir + reaper_button_icon)
+
+    p.click(reaper_button)
+
 def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     """A chip is collectable once after reset at 24:00 UTC"""
 
@@ -95,25 +141,15 @@ def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
 
     #check if lucky wheel is active
-    Wheel_path_1 = dir + "Spin_Wheel.JPG"
     Wheel_path_2 = dir + "Spin_Wheel_blue_back.JPG"
 
 
-    for i in range(10):
-        Wheel = HF.check_image(x1, y1, W, L, Wheel_path_1, message = "Wheel_1 ",
-                            raise_error= False, itterator = 4)
-        if Wheel:
-            break
-
-        wheel = HF.check_image(x1, y1, W, L, Wheel_path_2, message = "Wheel_2 ",
-                            raise_error= False, itterator = 4)
-        if wheel:
-            break
-            
-        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
+    Wheel = find_event(x1, y1, W, L, Wheel_path_2, "Wheel Icon")
 
     
     if Wheel:
+
+        p.click(Wheel)
 
         print("Wheel event found. Collecting Chip")
 
@@ -144,10 +180,10 @@ def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     else:
         print("Wheel event not found. Ending function")
 
+    event_return_to_start(x1, y1, W, L)
     
     #return events tab to starting position
-    for i in range(10):
-        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+    
 
     
 
