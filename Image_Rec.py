@@ -36,14 +36,117 @@ def go_to_events(x1, y1, W, L) -> None:
     p.moveTo(event_loc)
     p.click()
 
-def event_swipe(x1, y1, W, L, dir) -> None:
-    HF.swipe(x1, y1, W, L, dir, starter_y = rl.Event_Slider[1])
-            
+    #check if UI is in starting position: "Calendar" is visible
+    #and in top left
+
+    #swipe at the top
+    #making this function dumb. just swipes a bunch until the scroller
+    #is at the far left
+    for i in range(10):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+
+def event_return_to_start(x1, y1, W, L) -> None:
+    for i in range(10):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+
+def find_event(x1, y1, W, L, path, message = "icon"):
+
+    for i in range(10):
+
+        icon = HF.check_image(x1, y1, W, L, path, message = message,
+                              raise_error= False, itterator= 4)
+        
+        if icon:
+            break
+
+        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15, magnitude = 1,
+                 manual_duration = 1)
+
+    if icon:
+
+        print(message + " found.")
+
+        return(icon)
+    else:
+
+        print(message + " not found.")
+
+        return(False)  
+
+def Hero_Mission(x1, y1, W, L) -> None:
+    gotoevents(x1, y1, W, L)
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    hero_mission_icon = "images_Events\\Hero_Mission_Blue.JPG"
+    reaper_button_icon = "images_Events\\Hero_Mission_Button.JPG"
+
+    Hero_Mission_loc = find_event(x1, y1, W, L, dir + hero_mission_icon)
+    #need to wait on slider to finish slipping...
+    time.sleep(0.5)
+
+    p.click(Hero_Mission_loc)
+
+    reaper_button = HF.check_image(x1, y1, W, L, dir + reaper_button_icon)
+
+    p.click(reaper_button)
+
+def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
+    """A chip is collectable once after reset at 24:00 UTC"""
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Events\\"
+
+    chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
+
+    #check if lucky wheel is active
+    Wheel_path_2 = dir + "Spin_Wheel_blue_back.JPG"
 
 
-#UI Navigation -----------------------------------------------------------
+    Wheel = find_event(x1, y1, W, L, Wheel_path_2, "Wheel Icon")
 
     
+    if Wheel:
+
+        p.click(Wheel)
+
+        print("Wheel event found. Collecting Chip")
+
+        Chip_collect_img = HF.check_image(x1, y1, W, L, chip_collect,
+                                        message = "Chip collect")
+
+        p.moveTo(Chip_collect_img)
+        p.click()
+
+        Free_Button_path = dir + "Spin_Wheel_Free_Button.JPG"
+
+        Free_Button  = HF.check_image(x1, y1, W, L, Free_Button_path,
+                                      message = "Free Button")
+        
+        p.moveTo(Free_Button)
+        p.click()
+
+        time.sleep(1)
+
+        p.click()
+
+        p.moveTo(x1 + W*rl.Universal_Menu_Backout_x, 
+                    y1 + L*rl.Universal_Menu_Backout_y)
+        p.click()
+        
+        print("Chip successfully collected")
+    
+    else:
+        print("Wheel event not found. Ending function")
+
+    event_return_to_start(x1, y1, W, L)
+    
+    #return events tab to starting position
+    
+
+    
+
+
+#Events Navigation----------------------------------------------------    
 #City Navigation --------------------------------------------------------
 def City_Swiper_PRS():
     """Naviates the screen to the portion of the city that contains
