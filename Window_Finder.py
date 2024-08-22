@@ -170,7 +170,7 @@ if __name__ == '__main__':
 
     elif reaper:
 
-        App_list = [App, App_1, App_3]
+        App_list = [App, App_1, App_3, App_4]
 
         for app in App_list:
 
