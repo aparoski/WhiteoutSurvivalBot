@@ -9,7 +9,7 @@ os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 import relative_locations as rl
 import Reader
 import Helper_Funcs as HF
-
+import Map_Interact
 
 #UI Navigation -----------------------------------------------------------
 def Universal_Backout(x1, y1, W, L) -> None:
@@ -17,10 +17,7 @@ def Universal_Backout(x1, y1, W, L) -> None:
              y1 + L*rl.Universal_Menu_Backout_y)
     p.click()
     time.sleep(1)
-            
 
-
-#UI Navigation -----------------------------------------------------------
 def Navigate_to_cityormap(x1, y1, W, L, location = "City",
                          iterator = 10) -> None:
     
@@ -38,6 +35,7 @@ def Navigate_to_cityormap(x1, y1, W, L, location = "City",
     where_am_I = HF.check_location(x1, y1, W, L)
 
     if where_am_I == "Neither":
+        print("Neither map or city viewed. attempting to back out")
         error_int = 0
         while where_am_I == "Neither" and error_int <= iterator:
             error_int += 1
@@ -49,20 +47,29 @@ def Navigate_to_cityormap(x1, y1, W, L, location = "City",
             where_am_I = HF.check_location(x1, y1, W, L)
 
     else:
-
+        error_int = 0
         if where_am_I == "City" and location == "City":
             pass
         elif where_am_I == "World Map" and location == "City":
             switch_view()
+            move_check = HF.check_location(x1, y1, W, L)
+            while move_check != "City" and error_int < 10:
+                error_int += 1
+                move_check = HF.check_location(x1, y1, W, L)
+                time.sleep(0.5)
         elif where_am_I == "city" and location == "World Map":
             switch_view()
+            move_check = HF.check_location(x1, y1, W, L)
+            while move_check != "World Map" and error_int < 10:
+                error_int += 1
+                move_check = HF.check_location(x1, y1, W, L)
+                time.sleep(0.5)
         elif where_am_I == "World Map" and location == "City":
             pass
 
-
-#Events Navigation----------------------------------------------------
-def gotoevents(x1, y1, W, L) -> None:
-
+#Events----------------------------------------------------------------
+def go_to_events(x1, y1, W, L) -> None:
+    
     """Opens the events UI then navigates over to the calendar as
     a starting position"""
 
@@ -83,8 +90,59 @@ def gotoevents(x1, y1, W, L) -> None:
     #swipe at the top
     #making this function dumb. just swipes a bunch until the scroller
     #is at the far left
+    for i in range(5):
+        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+
+    #check if UI is in starting position: "Calendar" is visible
+    #and in top left
+
+def event_return_to_start(x1, y1, W, L) -> None:
     for i in range(10):
         HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+
+def find_event(x1, y1, W, L, path, message = "icon"):
+
+    for i in range(10):
+
+        icon = HF.check_image(x1, y1, W, L, path, message = message,
+                              raise_error= False, itterator= 2)
+        
+        if icon:
+            break
+
+        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15, magnitude = 1,
+                 manual_duration = 1)
+        
+        time.sleep(0.5)
+
+    if icon:
+
+        print(message + " found.")
+
+        return(icon)
+    else:
+
+        print(message + " not found.")
+
+        return(False)  
+
+def Hero_Mission(x1, y1, W, L) -> None:
+    go_to_events(x1, y1, W, L)
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    hero_mission_icon = "images_Events\\Hero_Mission_Blue.JPG"
+    reaper_button_icon = "images_Events\\Hero_Mission_Button.JPG"
+
+    Hero_Mission_loc = find_event(x1, y1, W, L, dir + hero_mission_icon)
+    #need to wait on slider to finish slipping...
+    
+
+    p.click(Hero_Mission_loc)
+
+    reaper_button = HF.check_image(x1, y1, W, L, dir + reaper_button_icon)
+
+    p.click(reaper_button)
 
 def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     """A chip is collectable once after reset at 24:00 UTC"""
@@ -94,25 +152,15 @@ def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
 
     #check if lucky wheel is active
-    Wheel_path_1 = dir + "Spin_Wheel.JPG"
     Wheel_path_2 = dir + "Spin_Wheel_blue_back.JPG"
 
 
-    for i in range(10):
-        Wheel = HF.check_image(x1, y1, W, L, Wheel_path_1, message = "Wheel_1 ",
-                            raise_error= False, itterator = 4)
-        if Wheel:
-            break
-
-        wheel = HF.check_image(x1, y1, W, L, Wheel_path_2, message = "Wheel_2 ",
-                            raise_error= False, itterator = 4)
-        if wheel:
-            break
-            
-        HF.swipe(x1, y1, W, L, dir = "right", starting_y = 0.15)
+    Wheel = find_event(x1, y1, W, L, Wheel_path_2, "Wheel Icon")
 
     
     if Wheel:
+
+        p.click(Wheel)
 
         print("Wheel event found. Collecting Chip")
 
@@ -143,10 +191,10 @@ def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     else:
         print("Wheel event not found. Ending function")
 
+    event_return_to_start(x1, y1, W, L)
     
     #return events tab to starting position
-    for i in range(10):
-        HF.swipe(x1, y1, W, L, dir = "left", starting_y = 0.15)
+    
 
     
 
@@ -274,12 +322,13 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
 
         time.sleep(2)
     elif Where_am_I == "Neither":
+        print("map or city icon not found using back navigation")
         error_int = 0
         while Where_am_I == "Neither" and error_int <= 10:
             error_int += 1
             Universal_Backout(x1, y1, W, L)
             time.sleep(1)
-            where_am_I = HF.check_location(x1, y1, W, L)
+            Where_am_I = HF.check_location(x1, y1, W, L)
         if Where_am_I == "City":
             p.moveTo(x1 + W*rl.Main_Menu_Map_Swap_x, 
                 y1 + L*rl.Main_Menu_Map_Swap_y)
@@ -295,6 +344,8 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
     
     #may need to adjust sleep time as time to load worldmap can vary
     p.click()
+
+    time.sleep(1)
 
 def lighthouse_icon_typer(x1, y1, W, L, path):
     

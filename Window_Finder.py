@@ -8,53 +8,44 @@ import time
 import pyautogui as p
 import pandas as pd
 from datetime import datetime as dt
-
-def Bluestack_window_return():
-
-    def enumHandler(hwnd, list):
-        if ("BlueStacks App Player" in w.GetWindowText(hwnd)):
-
-            print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd))
-            list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
+import Map_Interact
+import Data
 
 
-    window_list = []
-    w.EnumWindows(enumHandler, window_list)
 
-    return(window_list)
-
-
-current_windows = Bluestack_window_return()
+#current_windows = Data.Bluestack_window_return()
 
 
 class BlueStack_Window:
 
     def __init__(self, order):
 
+        self.march_time = None
+
         self.order = order
          
         def single_window_return(order):
 
             def enumHandler(hwnd, list):
-                if ("BlueStacks App Player 1" in w.GetWindowText(hwnd) and
+                if ("BlueStacks App Player 1" == w.GetWindowText(hwnd) and
                 order == "BlueStacks App Player 1"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "second")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 1])
-                elif ("BlueStacks App Player 3" in w.GetWindowText(hwnd)and
+                elif ("BlueStacks App Player 3" == w.GetWindowText(hwnd)and
                       order == "BlueStacks App Player 3"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "third")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 2])
-                elif ("BlueStacks App Player 4" in w.GetWindowText(hwnd)and
+                elif ("BlueStacks App Player 4" == w.GetWindowText(hwnd)and
                       order == "BlueStacks App Player 4"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "fourth")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 3])
-                elif ("BlueStacks App Player" in w.GetWindowText(hwnd)and
+                elif ("BlueStacks App Player" == w.GetWindowText(hwnd)and
                       order == "BlueStacks App Player"):
 
-                    print(hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), "main")
+                    
                     list.append([hwnd, w.GetWindowText(hwnd), w.GetWindowRect(hwnd), 0])
 
             window_list = []
@@ -93,6 +84,8 @@ class BlueStack_Window:
         self.W_L = HF.Window_lw(x1, y1, x2, y2)
 
         self.hwnd = window_hwnd
+
+        self.name =  w.GetWindowText(window_hwnd)
 
 
     def window_to_foreground(self):
