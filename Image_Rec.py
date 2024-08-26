@@ -208,6 +208,18 @@ def Online_Reward_Finder(x1, y1, W, L):
     wait_time = Reader.time_reader(wait_time_text)
 
     return(wait_time)
+
+def City_Nav_Bar(x1, y1, W, L, icon_path):
+    """look at the city navigation bar for the desired icon
+    then select it"""
+
+    #go to city
+
+    Navigate_to_cityormap(x1, y1, W, L, "City")
+
+    #open navbar and select city button
+
+    
 #City Navigation --------------------------------------------------------
 
 #March_UI
