@@ -156,25 +156,73 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
-    test = BlueStack_Window(order="BlueStacks App Player")
+    def temp_point_grabies(coord, distance, W, L):
+            new_coord = (coord[0] + distance, coord[1] + distance)
 
+            print(new_coord)
 
-    test.window_to_foreground()
+            rel_coord = HF.relativexy(x1, y1, W, L, new_coord)
 
-    x1, y1, x2, y2 = test.rectangle
-
-    W, L, = test.W_L
-
-    error_int = 0
+            return(rel_coord)
     
-    while error_int < 20:
+    Tootie = "BlueStacks App Player"
+    Tootin = "BlueStacks App Player 1"
+    Tootily = "BlueStacks App Player 3"
+    Leg = "BlueStacks App Player 4"
 
-        error_int += 1
+    App = BlueStack_Window(Tootie)
+    App_1 = BlueStack_Window(Tootin)
+    App_3 = BlueStack_Window(Tootily)
+    App_4 = BlueStack_Window(Leg)
 
-        wait_time = Image_Rec.Online_Reward_Finder(x1, y1, W, L)
+    App_list = [App_1, App_3, App_4]
+
+    
+
+    for i in range(1000): 
+
+        for app in App_list:
+
+
+            app.window_to_foreground()
+
+            x1, y1, x2, y2 = app.rectangle
+
+            W, L, = app.W_L
+
+            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+            pic = "images_City\\Online_Reward_Icon.JPG"
+
+            online_reward_icon = HF.check_image(x1, y1, W, L, dir + pic,
+                                            10, 0.7, " Online Rewards ")    
         
+            dist = 100
 
-        time.sleep(wait_time)
+            x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
+            y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
+
+            x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
+            y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
+
+            screenshot_name = "Online_Rewards_" + str(app.hwnd) + "_" + str(i)
+
+            p.click(online_reward_icon)
+            time.sleep(1)
+            p.click()
+            time.sleep(1)
+
+            HF.screenshotter(x1, y1, W, L,
+                            x3, y3, x4, y4,
+                            screenshot_name)
+            
+            time.sleep(1)
+            #I may regret not adding absolute directories here...
+        #screw i
+        time.sleep(60 * 5)
+        print("time is at " + str(i * 5) + " minutes")
+
+        
 
 
 
