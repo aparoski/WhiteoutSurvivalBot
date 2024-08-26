@@ -267,7 +267,30 @@ def City_Nav_Bar(x1, y1, W, L, icon_path):
 
     #open navbar and select city button
 
+    p.click(x1+ W * rl.City_Nav_Bar[0],
+            y1 + L * rl.City_Nav_Bar[1])
+    #wait to allow bar to open
+    time.sleep(1)
+
+    p.click(x1 + W * rl.City_Nav_Bar_Cityselect[0],
+            y1 + L * rl.City_Nav_Bar_Cityselect[1])
     
+    time.sleep(0.2)
+    
+    Icon_loc = HF.check_image(x1, y1, W, L, icon_path, raise_error = False)
+
+    if Icon_loc:
+        p.click(Icon_loc)
+    else:
+        error_int = 0
+        while not Icon_loc and error_int < 4:
+            #nav bar always starts at the top when opened
+            HF.swipe(x1, y1, W, L, "down", 0.3, 
+                     starting_x = rl.City_Nav_Bar_Middle,
+                     starting_y = rl.City_Nav_Bar_Middle)
+    
+    
+
 #City Navigation --------------------------------------------------------
 
 #March_UI
