@@ -175,7 +175,7 @@ if __name__ == '__main__':
     App_3 = BlueStack_Window(Tootily)
     App_4 = BlueStack_Window(Leg)
 
-    App_list = [App_1, App_3, App_4]
+    App_list = [App, App_3, App_4]
 
     
 
@@ -195,32 +195,34 @@ if __name__ == '__main__':
             pic = "images_City\\Online_Reward_Icon.JPG"
 
             online_reward_icon = HF.check_image(x1, y1, W, L, dir + pic,
-                                            10, 0.7, " Online Rewards ")    
+                                            2, 0.7, " Online Rewards ",
+                                            raise_error = False)   
+
+            if online_reward_icon: 
         
-            dist = 100
+                dist = 100
 
-            x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
-            y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
+                x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
+                y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
 
-            x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
-            y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
+                x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
+                y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
 
-            screenshot_name = "Online_Rewards_" + str(app.hwnd) + "_" + str(i)
+                screenshot_name = "Online_Rewards_" + str(app.hwnd) + "_" + str(i)
 
-            p.click(online_reward_icon)
-            time.sleep(1)
-            p.click()
-            time.sleep(1)
+                p.click(online_reward_icon)
+                time.sleep(1.5)
+                p.click()
+                time.sleep(1)
 
-            HF.screenshotter(x1, y1, W, L,
-                            x3, y3, x4, y4,
-                            screenshot_name)
-            
-            time.sleep(1)
+                HF.screenshotter(x1, y1, W, L,
+                                x3, y3, x4, y4,
+                                screenshot_name)
+                
             #I may regret not adding absolute directories here...
         #screw i
-        time.sleep(60 * 5)
-        print("time is at " + str(i * 5) + " minutes")
+        time.sleep(60)
+        print("time is at " + str(i) + " minutes")
 
         
 
