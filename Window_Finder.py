@@ -149,6 +149,10 @@ class BlueStack_Window:
 
 if __name__ == '__main__':
 
+    dir = "A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\\\images\\"
+
+    icon_path = "images_City\\Pet_Adventure.JPG"
+
     def temp_point_grabies(coord, distance, W, L):
             new_coord = (coord[0] + distance, coord[1] + distance)
 
@@ -168,56 +172,14 @@ if __name__ == '__main__':
     App_3 = BlueStack_Window(Tootily)
     App_4 = BlueStack_Window(Leg)
 
-    App_list = [App, App_3, App_4]
-
-    
-
-    for i in range(1000): 
-
-        for app in App_list:
+    App_list = [App, App_1, App_3, App_4]
 
 
-            app.window_to_foreground()
+    x1, y1, x2, y2 = App.rectangle
 
-            x1, y1, x2, y2 = app.rectangle
+    W, L = App.W_L
 
-            W, L, = app.W_L
-
-            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
-
-            pic = "images_City\\Online_Reward_Icon.JPG"
-
-            online_reward_icon = HF.check_image(x1, y1, W, L, dir + pic,
-                                            2, 0.7, " Online Rewards ",
-                                            raise_error = False)   
-
-            if online_reward_icon: 
-        
-                dist = 100
-
-                x3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[0]
-                y3 = temp_point_grabies(online_reward_icon, -1 *  dist, W, L)[1]
-
-                x4 = temp_point_grabies(online_reward_icon, dist, W, L)[0]
-                y4 = temp_point_grabies(online_reward_icon, dist , W, L)[1]
-
-                screenshot_name = "Online_Rewards_" + str(app.hwnd) + "_" + str(i)
-
-                p.click(online_reward_icon)
-                time.sleep(1.5)
-                p.click()
-                time.sleep(1)
-
-                HF.screenshotter(x1, y1, W, L,
-                                x3, y3, x4, y4,
-                                screenshot_name)
-                
-            #I may regret not adding absolute directories here...
-        #screw i
-        time.sleep(60)
-        print("time is at " + str(i) + " minutes")
-
-        
+    Image_Rec.City_Nav_Bar(x1, y1, W, L, dir + icon_path)
 
 
 

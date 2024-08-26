@@ -257,7 +257,7 @@ def Online_Reward_Finder(x1, y1, W, L):
 
     return(wait_time)
 
-def City_Nav_Bar(x1, y1, W, L, icon_path):
+def City_Nav_Bar(x1, y1, W, L, icon_path) -> None:
     """look at the city navigation bar for the desired icon
     then select it"""
 
@@ -277,17 +277,25 @@ def City_Nav_Bar(x1, y1, W, L, icon_path):
     
     time.sleep(0.2)
     
-    Icon_loc = HF.check_image(x1, y1, W, L, icon_path, raise_error = False)
+    Icon_loc = HF.check_image(x1, y1, W, L, icon_path, raise_error = False,
+                              itterator = 2)
 
     if Icon_loc:
         p.click(Icon_loc)
     else:
         error_int = 0
         while not Icon_loc and error_int < 4:
+            error_int += 1
             #nav bar always starts at the top when opened
-            HF.swipe(x1, y1, W, L, "down", 0.3, 
-                     starting_x = rl.City_Nav_Bar_Middle,
-                     starting_y = rl.City_Nav_Bar_Middle)
+            HF.swipe(x1, y1, W, L, "down", 0.7, 
+                     starting_x = rl.City_Nav_Bar_Middle[0],
+                     starting_y = rl.City_Nav_Bar_Middle[1], 
+                     release_delay = 0.5)
+            
+            Icon_loc = HF.check_image(x1, y1, W, L, icon_path, raise_error = False,
+                                      itterator = 2)
+
+        p.click(Icon_loc)
     
     
 
