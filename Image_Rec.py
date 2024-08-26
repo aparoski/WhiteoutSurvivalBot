@@ -297,7 +297,18 @@ def City_Nav_Bar(x1, y1, W, L, icon_path) -> None:
 
         p.click(Icon_loc)
     
+def Troop_Trainer(x1, y1, W, L, troop_tier):
+    #cant add XI troops yet as no Icon unlocked
+    tier_dict = {1 : "Train_I.JPG", 2 : "Train_II.JPG", 3 : "Train_III.JPG",
+                 4 : "Train_IV.JPG", 5 : "Train_V.JPG", 6 : "Train_VI.JPG",
+                 7 : "Train_VII.JPG", 8 : "Train_VIII.JPG", 9 : "Train_IX.JPG",
+                 10 : "Train_X.JPG"}
     
+    
+    
+    #after using navbar to pull up training camp, select train button
+    p.click(x1 + W * rl.City_Nav_Bar_To_Train[0],
+            y1 + L * rl.City_Nav_Bar_To_Train[1])
 
 #City Navigation --------------------------------------------------------
 
