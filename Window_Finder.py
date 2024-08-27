@@ -179,7 +179,11 @@ if __name__ == '__main__':
 
     W, L = App.W_L
 
-    Image_Rec.City_Nav_Bar(x1, y1, W, L, dir + icon_path)
+    tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 8, "I")
+
+    print(len(tests))
+
+    p.click(tests[9])
 
 
 

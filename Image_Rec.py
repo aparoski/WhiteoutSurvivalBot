@@ -297,18 +297,57 @@ def City_Nav_Bar(x1, y1, W, L, icon_path) -> None:
 
         p.click(Icon_loc)
     
-def Troop_Trainer(x1, y1, W, L, troop_tier):
+def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type):
+
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+
+    sub_dir = "images_City\\"
+
+    train_tier_dir = "Train_Tiers\\"
+
     #cant add XI troops yet as no Icon unlocked
     tier_dict = {1 : "Train_I.JPG", 2 : "Train_II.JPG", 3 : "Train_III.JPG",
                  4 : "Train_IV.JPG", 5 : "Train_V.JPG", 6 : "Train_VI.JPG",
                  7 : "Train_VII.JPG", 8 : "Train_VIII.JPG", 9 : "Train_IX.JPG",
                  10 : "Train_X.JPG"}
     
+    troop_dict = {"I" : "Infantry_Train.JPG", "L" : "Train_Lancer.JPG",
+                  "M" : "Train_Marksman.JPG"}
     
+    if troop_tier not in range(1, 10): 
+        raise("Troop tier outside of possbile range, select an integer between 1 and 10")
+
+    elif troop_type not in ["I", "L", "M"]:
+        raise("troop type selection incorrect. select I for Infantry, L for lancer, or M for Marksman.")
     
-    #after using navbar to pull up training camp, select train button
+    City_Nav_Bar(x1, y1, W, L, dir + sub_dir + troop_dict[troop_type])
+    
+    #click camp to clear out any trained troops before training
+    p.click(x1 + W * rl.City_Nav_Bar_to_Camp[0],
+            y1 + L * rl.City_Nav_Bar_to_Camp[1])
+    time.sleep(0.5)
+    p.click(x1 + W * rl.City_Nav_Bar_to_Camp[0],
+            y1 + L * rl.City_Nav_Bar_to_Camp[1])
+    time.sleep(0.5)
+
     p.click(x1 + W * rl.City_Nav_Bar_To_Train[0],
             y1 + L * rl.City_Nav_Bar_To_Train[1])
+    
+    p.moveTo(x1 + W * 0.5,
+           y1 + L * 0.5)
+    
+    #determine location by checking what train tiers show up on screen
+    tiers_locs = []
+    for Tier in range(1, 11):
+
+        mini_loc = HF.check_image(x1, y1, W, L,
+                                  dir + sub_dir + train_tier_dir + tier_dict[Tier], 
+                                  2, message = str(tier_dict[Tier]),
+                                  confidence = 0.9, 
+                                  raise_error = False)
+        tiers_locs.append(mini_loc)
+    
+    return(tiers_locs)
 
 #City Navigation --------------------------------------------------------
 
