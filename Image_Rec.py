@@ -240,6 +240,12 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
             so there should only be one check on the screen at a time"""
             
             Lighthouse_confirm_and_Open(x1, y1, W, L)
+
+            where_am_I = HF.check_location(x1, y1, W, L)
+    
+            if where_am_I == "World Map":
+                print("encountered error involving city return bubble in Tent_journey")
+                Lighthouse_confirm_and_Open(x1, y1, W, L)
             
             dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
             check = "lighthouse_event_completion.JPG"
@@ -318,6 +324,13 @@ def light_house_icon_Navigator(x1, y1, W, L):
         Lighthouse_confirm_and_Open(x1, y1, W, L)
 
        #check if lighthouse was successfully open:
+       #crude solution: if still on worldmap, open lighthouse again
+
+        where_am_I = HF.check_location(x1, y1, W, L)
+    
+        if where_am_I == "World Map":
+            print("encountered error involving city return bubble within Nav function")
+            Lighthouse_confirm_and_Open(x1, y1, W, L)
         
 
         time.sleep(march_time + 2)
