@@ -297,7 +297,7 @@ def City_Nav_Bar(x1, y1, W, L, icon_path) -> None:
 
         p.click(Icon_loc)
     
-def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type):
+def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
 

@@ -181,9 +181,9 @@ if __name__ == '__main__':
 
     tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 8, "I")
 
-    print(len(tests))
+    print(tests)
 
-    p.click(tests[9])
+    p.moveTo(tests[8])
 
 
 
