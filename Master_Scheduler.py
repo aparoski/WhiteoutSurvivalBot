@@ -16,36 +16,36 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
-lighthouse = True
+lighthouse = False
 
 if lighthouse:
 
     RootieTootie = Window_Finder.BlueStack_Window(Tootie)
-for wind in [Tootily, Tootin, Tootie, Leg]:
+    for wind in [Tootily, Tootin, Tootie, Leg]:
 
-    print("operating on " + wind)
+        print("operating on " + wind)
 
-    RootieTootie = Window_Finder.BlueStack_Window(wind)
-    
-    RootieTootie.window_to_foreground()
+        RootieTootie = Window_Finder.BlueStack_Window(wind)
+        
+        RootieTootie.window_to_foreground()
 
-    print(RootieTootie.rectangle)
+        print(RootieTootie.rectangle)
 
-    print(RootieTootie.W_L)
+        print(RootieTootie.W_L)
 
-    march_time = None
-    #error int for testing
-    error_int = 0
-    while march_time != -100 and error_int < 15:
-        error_int += 1
-        RootieTootie.Open_Lighthouse()
-        march_time = RootieTootie.Lighthouse_Operation()
+        march_time = None
+        #error int for testing
+        error_int = 0
+        while march_time != -100 and error_int < 15:
+            error_int += 1
+            RootieTootie.Open_Lighthouse()
+            march_time = RootieTootie.Lighthouse_Operation()
 
-        if march_time >= 0:
-            
-            print(str(march_time) + " seconds until march returns to city")
+            if march_time >= 0:
+                
+                print(str(march_time) + " seconds until march returns to city")
 
-            time.sleep(march_time - 4)
+                time.sleep(march_time - 4)
 
 
 #testing events and bouncing between windows
