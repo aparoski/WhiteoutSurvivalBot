@@ -156,10 +156,16 @@ if __name__ == '__main__':
 
     schedule = Data.Window_Dataframe()
 
+    # x1, y1, x2, y2 = App.rectangle
+
+    # W, L = App.W_L
+
+    # print(Map_Interact.check_rally_arrival(x1, y1, W, L))
+
 
     #note check reader function for march times and change val accordingly
 
-    polar = False
+    polar = True
     reaper = False
 
     if polar:
@@ -241,8 +247,9 @@ if __name__ == '__main__':
                     if latest_event["Window_Name"].iloc[0] == app.name:
 
                         if polar:
-
+                            
                             march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
+                            schedule.df = schedule.df.drop(latest_event.index, axis = 0)
                             app.march_time = march_time
                         else:
                             app.window_to_foreground()
@@ -264,11 +271,19 @@ if __name__ == '__main__':
 
                     W, L = app.W_L
 
+                    print(app.name + " Rally sent")
+
                     rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
 
+                    print(rally_sent)
+
                     if rally_sent:
+
+                        print("It was sent!")
                         
                         schedule.add(app.name, app.hwnd, "Polar Rally", app.march_time)
+
+            print(schedule.df)
 
     except Exception as e:
 
