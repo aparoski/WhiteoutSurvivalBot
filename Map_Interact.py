@@ -104,13 +104,14 @@ def check_rally_arrival(x1, y1, W, L):
     try:
 
         loc = HF.check_image(x1, y1, W, L, dir + my_rally, itterator = 2,
+                             confidence = 0.7,
                             message = " checking if rally Icon is present ")
 
-        return("False")
+        return(False)
 
     except:
 
-        return("True")
+        return(True)
     
 
 def polar_sender(x1, y1, W, L, level):
@@ -363,7 +364,15 @@ def polar_sender(x1, y1, W, L, level):
 def Reaper_Sender(x1, y1, W, L):
     Image_Rec.Hero_Mission(x1, y1, W, L)
 
-    rally_attack_button_findnpress(x1, y1, W, L, " Reaper ")
+    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Events\\"
+
+    reaper_map_icon = "reaper_map.JPG"
+
+    reaper_map = HF.check_image(x1, y1, W, L, dir + reaper_map_icon, message = " reaper on map ")
+
+    p.click(reaper_map)
+    
+    rally_attack_button_findnpress(x1, y1, W, L, "Rally")
 
     walk_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
 

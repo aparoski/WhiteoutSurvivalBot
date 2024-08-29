@@ -509,7 +509,12 @@ def light_house_icon_Navigator(x1, y1, W, L):
 
 
 if __name__ == '__main__':
-    pass
+    
+    if True:
+        print("apples")
+
+    if False:
+        print("banana")
 
 
     
