@@ -9,6 +9,7 @@ import Image_Rec
 
 #temp for testing
 import pyautogui as p
+import Helper_Funcs as HF
 
 #Initialize Blue Stacks Windows. 
 Tootie = "BlueStacks App Player"
@@ -23,6 +24,8 @@ if lighthouse:
     RootieTootie = Window_Finder.BlueStack_Window(Tootie)
 for wind in [Tootily, Tootin, Tootie, Leg]:
 
+    
+
     print("operating on " + wind)
 
     RootieTootie = Window_Finder.BlueStack_Window(wind)
@@ -33,17 +36,9 @@ for wind in [Tootily, Tootin, Tootie, Leg]:
 
     print(RootieTootie.W_L)
 
-    march_time = None
-    #error int for testing
-    error_int = 0
-    while march_time != -100 and error_int < 15:
-        error_int += 1
-        RootieTootie.Open_Lighthouse()
-        march_time = RootieTootie.Lighthouse_Operation()
+    x1, y1, x2, y2 = RootieTootie.rectangle
 
-        if march_time >= 0:
-            
-            print(str(march_time) + " seconds until march returns to city")
+    W, L  = RootieTootie.W_L
 
             time.sleep(march_time - 4)
 

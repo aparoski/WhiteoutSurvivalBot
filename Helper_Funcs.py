@@ -185,6 +185,8 @@ def stop_video_recording(x1, y1, W, L):
 
     print("screen recording stopped")
 
+    time.sleep(2)
+
 #Error Management --------------------------------------------------
 #Helpful Whiteout Funcs----------------------------------------------
 def check_location(x1, y1, W, L):

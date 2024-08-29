@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Window_Name,window_hwnd,Activity,completion_date
 BlueStacks App Player,329210,0,9999-01-01 01:01:01
 BlueStacks App Player 3,21241340,1,9999-01-01 01:01:01
 BlueStacks App Player 1,12720776,2,9999-01-01 01:01:01
 BlueStacks App Player 4,25042210,3,9999-01-01 01:01:01
+=======
+,Unnamed: 0.2,Unnamed: 0.1,Unnamed: 0,Window_Name,window_hwnd,Activity,completion_date
+0,0,0,0,BlueStacks App Player 3,5707560,0,9999-01-01
+1,1,1,1,BlueStacks App Player,3933456,1,9999-01-01
+2,2,2,2,BlueStacks App Player 4,25888724,2,9999-01-01
+3,3,3,3,BlueStacks App Player 1,44504388,3,9999-01-01
+>>>>>>> cascade_lighthouse_events
