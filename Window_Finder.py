@@ -110,7 +110,7 @@ class BlueStack_Window:
     #events functions need to be wrapped into something neater
     #current form is for testing
     def open_events(self):
-        Image_Rec.gotoevents(self.rectangle[0],
+        Image_Rec.go_to_events(self.rectangle[0],
                              self.rectangle[1],
                              self.W_L[0],
                              self.W_L[1])
