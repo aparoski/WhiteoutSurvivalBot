@@ -17,6 +17,10 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
+
+
+
+
 lighthouse = True
 
 if lighthouse:
@@ -40,7 +44,12 @@ for wind in [Tootily, Tootin, Tootie, Leg]:
 
     W, L  = RootieTootie.W_L
 
-            time.sleep(march_time - 4)
+    time.sleep(march_time - 4)
+
+        #HF.stop_video_recording(x1, y1, W, L)
+
+        #HF.stop_video_recording(x1, y1, W, L) 
+        
 
 
 #testing events and bouncing between windows
