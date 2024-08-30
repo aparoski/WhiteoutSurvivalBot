@@ -51,7 +51,7 @@ def screenshotter(x1, y1, W, L,
     
 def check_image(x1, y1, W, L, path, itterator = 10, 
                 confidence = 0.7, message = "",
-                raise_error = True):
+                raise_error = True, delay = 1):
     i = 0
     while True and i <= itterator:
         i += 1
@@ -62,7 +62,7 @@ def check_image(x1, y1, W, L, path, itterator = 10,
             break
         except:
             print(message + "Check " + str(i))
-            time.sleep(1)
+            time.sleep(delay)
             pass
 
     if raise_error:

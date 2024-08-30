@@ -337,18 +337,30 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
            y1 + L * 0.5)
     
     #determine location by checking what train tiers show up on screen
-    tiers_locs = []
-    for Tier in range(1, 11):
+    def camp_loc_check():
+        tiers_locs = []
+        for Tier in range(1, 11):
 
-        mini_loc = HF.check_image(x1, y1, W, L,
-                                  dir + sub_dir + train_tier_dir + tier_dict[Tier], 
-                                  2, message = str(tier_dict[Tier]),
-                                  confidence = 0.9, 
-                                  raise_error = False)
-        tiers_locs.append(mini_loc)
+            mini_loc = HF.check_image(x1, y1, W, L,
+                                    dir + sub_dir + train_tier_dir + tier_dict[Tier], 
+                                    2, message = str(tier_dict[Tier]),
+                                    confidence = 0.9, 
+                                    raise_error = False,
+                                    delay = 0.5)
+            tiers_locs.append([mini_loc, Tier])
+
+    tiers = camp_loc_check()
+
+    #note that highest available troop to train is always selected
     
-    return(tiers_locs)
+    if True:
+        for i in range(2):
+            HF.swipe(x1, y1, W, L, "left", 
+                    starting_x = rl.Troop_Camp_Slider[0],
+                    starting_y = rl.Troop_Camp_Slider[1],
+                    release_delay = 0.3)
 
+        tiers = camp_loc_check()
 #City Navigation --------------------------------------------------------
 
 #March_UI

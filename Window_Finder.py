@@ -181,9 +181,8 @@ if __name__ == '__main__':
 
     tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 8, "I")
 
-    print(tests)
-
-    p.moveTo(tests[8])
+    for i, num in enumerate(tests):
+        print(i, num)
 
 
 
