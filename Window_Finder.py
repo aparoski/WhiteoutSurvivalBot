@@ -179,10 +179,9 @@ if __name__ == '__main__':
 
     W, L = App.W_L
 
-    tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 8, "I")
+    tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 7, "I")
 
-    for i, num in enumerate(tests):
-        print(i, num)
+    print(tests)
 
 
 

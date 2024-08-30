@@ -348,40 +348,108 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
                                     2, message = str(tier_dict[Tier]),
                                     confidence = 0.9, 
                                     raise_error = False,
-                                    delay = 0.5)
+                                    delay = 0.2)
+            
             tiers_locs.append([mini_loc, Tier])
 
-            tier_list_filter = [i ]
+        tiers_locs = [i for i in tiers_locs if i[0] is not False]
+
+        second_tier = tiers_locs[max(range(len(tiers_locs)))]
+
+        print(second_tier)
+
+        print(tier_dict[second_tier[1]])
+
+        p.moveTo(second_tier[0])
+
+        p.click()
+
+        time.sleep(0.5)
+
+        first_tier = HF.check_image(x1, y1, W, L,
+                                    dir + sub_dir + train_tier_dir + 
+                                    tier_dict[second_tier[1] + 1], 
+                                    2, message = str(tier_dict[second_tier[1] + 1]),
+                                    confidence = 0.9, 
+                                    raise_error = False,
+                                    delay = 0.2)
+    
+        
+        if first_tier:
+            tiers_locs.append([first_tier, second_tier[1] + 1])
+
+
 
         return(tiers_locs)
 
     tiers = camp_loc_check()
 
-    tier_logic = tiers[0][0]
+    my_tier = [i[0] for i in tiers if i[1] == troop_tier]
 
-    while not tier_logic and len(tiers) > 0:
+    error_int = 0
+    if len(my_tier) > 0:
+        p.moveTo(my_tier[0])
+        p.click()
 
-        del tiers[0]
+    
+    else:
+        while len(my_tier) <= 0 and error_int < 5:
+            error_int += 1
+            for i in range(2):
+                HF.swipe(x1, y1, W, L, "left", 
+                        starting_x = rl.Troop_Camp_Slider[0],
+                        starting_y = rl.Troop_Camp_Slider[1],
+                        release_delay = 0.3)
 
-        print(tiers)
+            #introduce sleep b/c slider slingshot    
+            time.sleep(1)
+
+            tiers = camp_loc_check()
+            my_tier = [i[0] for i in tiers if i[1] == troop_tier]
+
+        if error_int >= 5:
+            raise("unable to find desired troop tier")
+
+            
+        p.moveTo(my_tier[0])
+        p.click()
+        
 
 
     #note that highest available troop to train is always selected
-    #assumption - element to the right of all found elements on the first
-    #round is the highest available troop, except if the only availble troop
-    #is tier 1
+    #selected tier on open is the one that was last trained
     
-    if True:
-        for i in range(2):
-            HF.swipe(x1, y1, W, L, "left", 
-                    starting_x = rl.Troop_Camp_Slider[0],
-                    starting_y = rl.Troop_Camp_Slider[1],
-                    release_delay = 0.3)
+    time.sleep(0.5)
 
-        tiers = camp_loc_check()
+    if promotion:
+        pass
+    else:
 
+        clock_loc = HF.check_image(x1, y1, W, L, dir + "\Main_UI\\wait_clock.JPG",
+                                message = " clock ")
+        
+        clock_loc = [clock_loc[0] + 10, clock_loc[1] - 13]
 
-    return(tiers)
+        new_TL = HF.relativexy(x1, y1, W, L, clock_loc)
+
+        HF.screenshotter(x1, y1, W, L,
+                        locx1 = new_TL[0],
+                        locy1 = new_TL[1],
+                        locx2 = rl.Troop_Camp_Train_BR[0],
+                        locy2 = rl.Troop_Camp_Train_BR[1],
+                        save_name = "Troop_Train_Time")
+    
+    
+    
+
+    train_time = Reader.text_reader_cv2("Screenshots\\Troop_Train_Time_temp.JPG", 1)
+
+    train_time_seconds = Reader.time_reader(train_time)
+
+    p.click(x1 + W * rl.Troop_Camp_Train_C[0],
+            y1 + L * rl.Troop_Camp_Train_C[1])
+
+    return(train_time_seconds)
 #City Navigation --------------------------------------------------------
 
 #March_UI
