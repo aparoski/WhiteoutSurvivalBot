@@ -298,6 +298,8 @@ def City_Nav_Bar(x1, y1, W, L, icon_path) -> None:
         p.click(Icon_loc)
     
 def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
+    """Begins training for the provided troop type and tier. Takes argument for either 
+    training or promotion."""
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
 
@@ -314,7 +316,7 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
     troop_dict = {"I" : "Infantry_Train.JPG", "L" : "Train_Lancer.JPG",
                   "M" : "Train_Marksman.JPG"}
     
-    if troop_tier not in range(1, 10): 
+    if troop_tier not in range(1, 11): 
         raise("Troop tier outside of possbile range, select an integer between 1 and 10")
 
     elif troop_type not in ["I", "L", "M"]:
@@ -349,9 +351,25 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
                                     delay = 0.5)
             tiers_locs.append([mini_loc, Tier])
 
+            tier_list_filter = [i ]
+
+        return(tiers_locs)
+
     tiers = camp_loc_check()
 
+    tier_logic = tiers[0][0]
+
+    while not tier_logic and len(tiers) > 0:
+
+        del tiers[0]
+
+        print(tiers)
+
+
     #note that highest available troop to train is always selected
+    #assumption - element to the right of all found elements on the first
+    #round is the highest available troop, except if the only availble troop
+    #is tier 1
     
     if True:
         for i in range(2):
@@ -361,6 +379,9 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
                     release_delay = 0.3)
 
         tiers = camp_loc_check()
+
+
+    return(tiers)
 #City Navigation --------------------------------------------------------
 
 #March_UI
