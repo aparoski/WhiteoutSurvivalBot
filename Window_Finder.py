@@ -156,140 +156,14 @@ if __name__ == '__main__':
 
     schedule = Data.Window_Dataframe()
 
-    # x1, y1, x2, y2 = App.rectangle
 
-    # W, L = App.W_L
+    x1, y1, x2, y2 = App.rectangle
 
-    # print(Map_Interact.check_rally_arrival(x1, y1, W, L))
+    W, L = App.W_L
 
+    my_time = Image_Rec.Preset_March_Sender(x1, y1, W, L, 1)
 
-    #note check reader function for march times and change val accordingly
-
-    polar = True
-    reaper = False
-
-    if polar:
-
-        App_list = [App, App_1, App_3]
-
-        level_list = [6, 4, 3]
-
-    elif reaper:
-
-        App_list = [App, App_1, App_3, App_4]
-
-        for app in App_list:
-
-            x1, y1, x2, y2 = app.rectangle
-
-            W, L = app.W_L
-
-            march_time = Map_Interact.Reaper_Sender(x1, y1, W, L)
-
-            print(march_time)
-            
-
-
-    else:
-
-        App_list = [App_3, App_4]
-
-        level_list = [20, 20]
-
-    try:
-
-
-        #Send out the initial rallies
-        for app, level in zip(App_list, level_list):
-
-            x1, y1, x2, y2 = app.rectangle
-
-            W, L = app.W_L
-
-            if polar:
-
-                march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
-                app.march_time = march_time
-            else: 
-                app.window_to_foreground()
-                march_time = Map_Interact.Beast_Search(x1, y1, W, L, level) * 2
-                schedule.add(app.name, app.hwnd, "Beast Attack", march_time)
-            
-        
-        error_int = 0
-
-        while error_int < 5000:
-
-            time.sleep(1)
-
-            error_int += 1
-
-            if error_int % 100 == 0:
-                print("round" + str(error_int))
-
-                print(schedule.df)
-
-            latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = True).head(1)
-
-
-            if latest_event.shape[0] == 1 and dt.utcnow() >= latest_event["completion_date"].iloc[0]:
-                
-                print("checking on time " + str(latest_event["completion_date"].iloc[0]) + " at " + str(dt.utcnow()))
-
-                for app, level in zip(App_list, level_list):
-
-                    x1, y1, x2, y2 = app.rectangle
-
-                    W, L = app.W_L
-
-                    print(latest_event["Window_Name"].iloc[0], app.name)
-
-                    if latest_event["Window_Name"].iloc[0] == app.name:
-
-                        if polar:
-                            
-                            march_time = Map_Interact.polar_sender(x1, y1, W, L, level)
-                            schedule.df = schedule.df.drop(latest_event.index, axis = 0)
-                            app.march_time = march_time
-                        else:
-                            app.window_to_foreground()
-                            march_time = Map_Interact.Beast_Search(x1, y1, W, L, level) * 2
-
-                            schedule.df = schedule.df.drop(latest_event.index, axis = 0)
-
-                            schedule.add(app.name, app.hwnd, "Beast Attack", march_time)
-
-                    
-                        
-                                    
-            if polar:
-                #monitor the three windows for a successfully sent rally
-                #then time and send new rally
-                for app, level in zip(App_list, level_list):
-
-                    x1, y1, x2, y2 = app.rectangle
-
-                    W, L = app.W_L
-
-                    print(app.name + " Rally sent")
-
-                    rally_sent = Map_Interact.check_rally_arrival(x1, y1, W, L)
-
-                    print(rally_sent)
-
-                    if rally_sent:
-
-                        print("It was sent!")
-                        
-                        schedule.add(app.name, app.hwnd, "Polar Rally", app.march_time)
-
-            print(schedule.df)
-
-    except Exception as e:
-
-        schedule.save()
-
-        print(e)
+    print(my_time)
     
 
     
