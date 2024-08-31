@@ -30,15 +30,15 @@ if lighthouse:
 
     
 
-    print("operating on " + wind)
+        print("operating on " + wind)
 
-        RootieTootie = Window_Finder.BlueStack_Window(wind)
+    RootieTootie = Window_Finder.BlueStack_Window(wind)
         
-        RootieTootie.window_to_foreground()
+    RootieTootie.window_to_foreground()
 
-        print(RootieTootie.rectangle)
+    print(RootieTootie.rectangle)
 
-        print(RootieTootie.W_L)
+    print(RootieTootie.W_L)
 
     x1, y1, x2, y2 = RootieTootie.rectangle
 

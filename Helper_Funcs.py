@@ -5,6 +5,19 @@ import relative_locations as rl
 
 
 #General Funcs -------------------------------------------------------
+def time_w_clock_loc(x1, y1, W, L, x_offset, y_offset):
+    """returns the top left corner coordinates of the rectangle containing
+    a march time with a clock icon"""
+
+    clock_loc = check_image(x1, y1, W, L, dir + "\Main_UI\\wait_clock.JPG",
+                                    message = " clock ")
+        
+    clock_loc = [clock_loc[0] + x_offset, clock_loc[1] + y_offset]
+
+    new_TL = relativexy(x1, y1, W, L, clock_loc)
+
+    return(new_TL)
+
 def Window_lw(x1, y1, x2, y2):
             """finds the length and width of a rectangular
             box between two coordinates if the coordinates are
