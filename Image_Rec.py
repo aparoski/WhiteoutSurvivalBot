@@ -340,25 +340,27 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
     
     #determine location by checking what train tiers show up on screen
     def camp_loc_check():
-        tiers_locs = []
-        for Tier in range(1, 11):
 
-            mini_loc = HF.check_image(x1, y1, W, L,
-                                    dir + sub_dir + train_tier_dir + tier_dict[Tier], 
-                                    2, message = str(tier_dict[Tier]),
-                                    confidence = 0.9, 
-                                    raise_error = False,
-                                    delay = 0.2)
+        def tier_scan():
+            tiers_locs = []
+            for Tier in range(1, 11):
+
+                mini_loc = HF.check_image(x1, y1, W, L,
+                                        dir + sub_dir + train_tier_dir + tier_dict[Tier], 
+                                        2, message = str(tier_dict[Tier]),
+                                        confidence = 0.9, 
+                                        raise_error = False,
+                                        delay = 0.1)
+                
+                tiers_locs.append([mini_loc, Tier])
+
+                tiers_locs = [i for i in tiers_locs if i[0] is not False]
+
+            return(tiers_locs)
             
-            tiers_locs.append([mini_loc, Tier])
+        first_tier_locs = tier_scan()
 
-        tiers_locs = [i for i in tiers_locs if i[0] is not False]
-
-        second_tier = tiers_locs[max(range(len(tiers_locs)))]
-
-        print(second_tier)
-
-        print(tier_dict[second_tier[1]])
+        second_tier = first_tier_locs[max(range(len(first_tier_locs)))]
 
         p.moveTo(second_tier[0])
 
@@ -366,19 +368,19 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
 
         time.sleep(0.5)
 
-        first_tier = HF.check_image(x1, y1, W, L,
-                                    dir + sub_dir + train_tier_dir + 
-                                    tier_dict[second_tier[1] + 1], 
-                                    2, message = str(tier_dict[second_tier[1] + 1]),
-                                    confidence = 0.9, 
-                                    raise_error = False,
-                                    delay = 0.2)
-    
-        
-        if first_tier:
-            tiers_locs.append([first_tier, second_tier[1] + 1])
+        second_tiers_locs = tier_scan()
+
+        print(second_tiers_locs)
+
+        second_tiers_locs = [i for i in second_tiers_locs 
+                             if i[1] not in [j[1] for j in first_tier_locs]]
 
 
+        tiers_locs = first_tier_locs + second_tiers_locs
+
+        print(first_tier_locs)
+
+        #does it need to be in order? 
 
         return(tiers_locs)
 
@@ -393,7 +395,7 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
 
     
     else:
-        while len(my_tier) <= 0 and error_int < 5:
+        while len(my_tier) <= 0 and error_int < 1:
             error_int += 1
             for i in range(2):
                 HF.swipe(x1, y1, W, L, "left", 
