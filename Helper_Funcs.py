@@ -5,14 +5,24 @@ import relative_locations as rl
 
 
 #General Funcs -------------------------------------------------------
-def time_w_clock_loc(x1, y1, W, L, x_offset, y_offset):
+def time_w_clock_loc(x1, y1, W, L, x_offset, y_offset, troop_train = False):
     """returns the top left corner coordinates of the rectangle containing
     a march time with a clock icon"""
 
     dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
 
-    clock_loc = check_image(x1, y1, W, L, dir + "Main_UI\\wait_clock.JPG",
-                                    message = " clock ")
+    #the clock icon is slightly different in the troop trainer
+    #maybe because of the lighter background of the button behind it...
+    if troop_train:
+        icon = "Main_UI\\troop_wait_clock.JPG"
+        confidence = 0.8
+    else:
+        icon = "Main_UI\\wait_clock.JPG"
+        confidence = 0.7
+
+    clock_loc = check_image(x1, y1, W, L, dir + icon,
+                            confidence = confidence,
+                            message = " clock ")
         
     clock_loc = [clock_loc[0] + x_offset, clock_loc[1] + y_offset]
 

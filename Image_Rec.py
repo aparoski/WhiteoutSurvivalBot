@@ -427,16 +427,11 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
         pass
     else:
 
-        clock_loc = HF.check_image(x1, y1, W, L, dir + "\Main_UI\\wait_clock.JPG",
-                                message = " clock ")
-        
-        clock_loc = [clock_loc[0] + 10, clock_loc[1] - 13]
-
-        new_TL = HF.relativexy(x1, y1, W, L, clock_loc)
+        clock_loc = HF.time_w_clock_loc(x1, y1, W, L, 12, -11, True)
 
         HF.screenshotter(x1, y1, W, L,
-                        locx1 = new_TL[0],
-                        locy1 = new_TL[1],
+                        locx1 = clock_loc[0],
+                        locy1 = clock_loc[1],
                         locx2 = rl.Troop_Camp_Train_BR[0],
                         locy2 = rl.Troop_Camp_Train_BR[1],
                         save_name = "Troop_Train_Time")
@@ -698,12 +693,7 @@ def light_house_icon_Navigator(x1, y1, W, L):
 
 
 if __name__ == '__main__':
-    
-    if True:
-        print("apples")
-
-    if False:
-        print("banana")
+    pass
 
 
     
