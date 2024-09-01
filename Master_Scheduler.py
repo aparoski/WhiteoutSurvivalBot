@@ -9,6 +9,7 @@ import Image_Rec
 
 #temp for testing
 import pyautogui as p
+import Helper_Funcs as HF
 
 #Initialize Blue Stacks Windows. 
 Tootie = "BlueStacks App Player"

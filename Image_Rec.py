@@ -464,21 +464,14 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
         p.moveTo(x1 + W*rl.March_Deploy_x,
                  y1 + W*rl.March_Deploy_y)
         
-        print()
+        time_TL = HF.time_w_clock_loc(x1, y1, W, L, 12, -10)
 
-        #this stupid function will only take ints for its region
-        x1_temp = round(x1 + W * rl.March_time_x1)
-        y1_temp = round(y1 + L * rl.March_time_y1)
-        x2_temp = round(x1 + W * rl.March_time_x2)
-        y2_temp = round(y1 + L * rl.March_time_y2)
-        W_temp = x2_temp - x1_temp
-        L_temp = y2_temp - y1_temp
-
-        print(W_temp, L_temp)
-
-        p.screenshot("Screenshots\\March_time_temp.JPG", 
-                     region = (x1_temp, y1_temp,
-                               W_temp, L_temp))
+        HF.screenshotter(x1, y1, W, L,
+                         time_TL[0],
+                         time_TL[1],
+                         rl.March_time_x2,
+                         rl.March_time_y2,
+                         "March_time")
         
         my_march_time = Reader.text_reader_cv2("Screenshots\\March_time_temp.JPG", 1)
 
@@ -592,6 +585,12 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
             so there should only be one check on the screen at a time"""
             
             Lighthouse_confirm_and_Open(x1, y1, W, L)
+
+            where_am_I = HF.check_location(x1, y1, W, L)
+    
+            if where_am_I == "World Map":
+                print("encountered error involving city return bubble in Tent_journey")
+                Lighthouse_confirm_and_Open(x1, y1, W, L)
             
             dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
             check = "lighthouse_event_completion.JPG"
@@ -669,6 +668,16 @@ def light_house_icon_Navigator(x1, y1, W, L):
         #and collect from the previous image position...
         Lighthouse_confirm_and_Open(x1, y1, W, L)
 
+       #check if lighthouse was successfully open:
+       #crude solution: if still on worldmap, open lighthouse again
+
+        where_am_I = HF.check_location(x1, y1, W, L)
+    
+        if where_am_I == "World Map":
+            print("encountered error involving city return bubble within Nav function")
+            Lighthouse_confirm_and_Open(x1, y1, W, L)
+        
+
         time.sleep(march_time + 2)
         p.moveTo(img)
         p.click()
@@ -689,7 +698,12 @@ def light_house_icon_Navigator(x1, y1, W, L):
 
 
 if __name__ == '__main__':
-    pass
+    
+    if True:
+        print("apples")
+
+    if False:
+        print("banana")
 
 
     
