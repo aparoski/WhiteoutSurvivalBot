@@ -179,9 +179,13 @@ if __name__ == '__main__':
 
     W, L = App.W_L
 
-    tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 7, "I")
+    for i in ["I", "L", "M"]:
 
-    print(tests)
+        tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 9, "I")
+
+        Image_Rec.Universal_Backout(x1, y1, W, L)
+
+        print(tests)
 
 
 

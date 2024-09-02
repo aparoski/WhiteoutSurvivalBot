@@ -445,6 +445,8 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
 
     p.click(x1 + W * rl.Troop_Camp_Train_C[0],
             y1 + L * rl.Troop_Camp_Train_C[1])
+    
+    Universal_Backout(x1, y1, W, L)
 
     return(train_time_seconds)
 #City Navigation --------------------------------------------------------
