@@ -319,11 +319,11 @@ def check_rally_arrival(x1, y1, W, L):
         loc = HF.check_image(x1, y1, W, L, dir + my_rally, itterator = 2,
                             message = " checking if rally Icon is present ")
 
-        return("False")
+        return(False)
 
     except:
 
-        return("True")
+        return(True)
     
 
 def polar_sender(x1, y1, W, L, level):

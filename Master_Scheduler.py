@@ -27,25 +27,47 @@ Troop_Training = "Troop_Training" + "Troop_Type"
 
 beast_count = 0
 
-leg = Window_Finder.BlueStack_Window(Leg)
+App = Window_Finder.BlueStack_Window(Tootie)
+App1 = Window_Finder.BlueStack_Window(Tootin)
+App3 = Window_Finder.BlueStack_Window(Tootily)
+App4 = Window_Finder.BlueStack_Window(Leg)
 
-x1, y1, x2, y2 = leg.rectangle
+Windows_in_view = [App, App1, App3]
 
-W, L = leg.W_L
+#develop account config in the future which will contain these values
+account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
 
-#play around with a beast hunt to figure out scheduling 
-while beast_count < 27:
+#beginning of schedule we will need to instantiate the schedule
+schedule = Data.Window_Dataframe()
 
-    error_int = 0
+#polar Rally
+#start with first function to iterate over each viewable window and send a rally march out
+def send_polars(x1, y1, W, L, accounts):
+    """iterates over Bluestack windows. sends a polar rally for each and
+    assigns march time to teach window"""
+    for app in accounts:
+        
+        x1, y1, x2, y2 = app.rectangle
 
-    leg.march_time = Map_Interact.Beast_Search(x1, y1, W, L, 21)
+        W, L = app.W_L
 
-    schedule.add(leg.name, leg.hwnd, beast_hunt, leg.march_time, "s")
-
-    #scan schedule for when beast returns
-    while error_int < 5000:
+        app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name])
 
         
+
+#second function scans each window to determine when the rally has departed
+#then adds the march time to the schedule
+def check_all_rallies(x1, y1, W, L, accounts):
+    for app in accounts:
+        
+        x1, y1, W, L = app.rectangle
+
+        W, L = app.W_L
+
+
+
+
+#third function scans schedule for latest event and triggers first function
 
         
 
