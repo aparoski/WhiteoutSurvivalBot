@@ -268,21 +268,14 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
         p.moveTo(x1 + W*rl.March_Deploy_x,
                  y1 + W*rl.March_Deploy_y)
         
-        print()
+        time_TL = HF.time_w_clock_loc(x1, y1, W, L, 12, -10)
 
-        #this stupid function will only take ints for its region
-        x1_temp = round(x1 + W * rl.March_time_x1)
-        y1_temp = round(y1 + L * rl.March_time_y1)
-        x2_temp = round(x1 + W * rl.March_time_x2)
-        y2_temp = round(y1 + L * rl.March_time_y2)
-        W_temp = x2_temp - x1_temp
-        L_temp = y2_temp - y1_temp
-
-        print(W_temp, L_temp)
-
-        p.screenshot("Screenshots\\March_time_temp.JPG", 
-                     region = (x1_temp, y1_temp,
-                               W_temp, L_temp))
+        HF.screenshotter(x1, y1, W, L,
+                         time_TL[0],
+                         time_TL[1],
+                         rl.March_time_x2,
+                         rl.March_time_y2,
+                         "March_time")
         
         my_march_time = Reader.text_reader_cv2("Screenshots\\March_time_temp.JPG", 1)
 
