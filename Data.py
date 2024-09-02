@@ -85,7 +85,7 @@ class Window_Dataframe:
         self.df = pd.concat([self.df, new_record], axis = 0).reset_index(drop = True)
 
     def latest_event(self):
-        latest_event = schedule.df[schedule.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = True).head(1)
+        latest_event = self.df[self.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = True).head(1)
 
         return(latest_event)
     
