@@ -17,7 +17,12 @@ Tootin = "BlueStacks App Player 1"
 Tootily = "BlueStacks App Player 3"
 Leg = "BlueStacks App Player 4"
 
+#function to read the schedule
+def schedule_reader():
+    pass
 
 
+def beast_hunt_schedule(x1, y1, W, L, accounts):
+    pass
 
 

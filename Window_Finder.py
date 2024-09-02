@@ -91,7 +91,6 @@ class BlueStack_Window:
     def window_to_foreground(self):
         w.SetForegroundWindow(self.hwnd)
 
-    #error when "bring me back to city" button overlaied on the lighthouse icon
     def Open_Lighthouse(self) -> None:
         Image_Rec.Lighthouse_confirm_and_Open(self.rectangle[0],
                                               self.rectangle[1],
@@ -120,7 +119,9 @@ class BlueStack_Window:
                                         self.rectangle[1],
                                         self.W_L[0],
                                         self.W_L[1])
+        
 
+    #temp set up for testing
     def backout(self):
         Image_Rec.Universal_Backout(self.rectangle[0],
                                     self.rectangle[1],
@@ -128,7 +129,7 @@ class BlueStack_Window:
                                     self.W_L[1])
 
         
-    #temp set up for testing
+    
     def swipe(self, dir = "up", magnitude = 1, 
               starting_x = 0.5, starting_y = 0.5):
         
