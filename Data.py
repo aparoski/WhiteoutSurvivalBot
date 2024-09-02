@@ -89,6 +89,9 @@ class Window_Dataframe:
 
         return(latest_event)
     
+    #function to drop record from df. 
+    #check to see if latest event index is related to df
+    
 
 if __name__ == '__main__':
 
