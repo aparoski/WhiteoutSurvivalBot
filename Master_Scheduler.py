@@ -37,12 +37,12 @@ Windows_in_view = [App, App1, App3]
 #develop account config in the future which will contain these values
 account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
 
-#beginning of schedule we will need to instantiate the schedule
+#in beginning we will need to instantiate the schedule
 schedule = Data.Window_Dataframe()
 
 #polar Rally
 #start with first function to iterate over each viewable window and send a rally march out
-def send_polars(x1, y1, W, L, accounts):
+def send_polars(accounts) -> None:
     """iterates over Bluestack windows. sends a polar rally for each and
     assigns march time to teach window"""
     for app in accounts:
@@ -51,23 +51,68 @@ def send_polars(x1, y1, W, L, accounts):
 
         W, L = app.W_L
 
+        #maybe have function to check for stamina?
+
         app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name])
 
         
-
 #second function scans each window to determine when the rally has departed
 #then adds the march time to the schedule
-def check_all_rallies(x1, y1, W, L, accounts):
+def check_all_rallies(accounts) -> None:
     for app in accounts:
         
-        x1, y1, W, L = app.rectangle
+        x1, y1, x2, y2 = app.rectangle
 
         W, L = app.W_L
 
+        Rally_left = Map_Interact.check_rally_arrival(x1, y1, W, L)
+
+        if Rally_left:
+
+            schedule.add(app.name, app.hwnd, polar_rally, app.march_time, "s")
+
+
+#third function scans schedule for latest event and triggers related function
+#this function will need to be expanded to deal with multiple event types
+def schedule_check(accounts) -> None:
+
+    latest_event = schedule.latest_event()
+
+    if latest_event.shape[0] > 0:
+
+        #polar rally logic
+        if latest_event["Activity"] == polar_rally:
+            
+            #there is likely a better way by throwing the class
+            #itself into the dataframe? will mess around with that
+            for app in accounts:
+                if latest_event["name"] == app.name:
+
+                    send_polars([app])
+
+#testing the polar scheduler 
+send_polars(Windows_in_view)
+
+error_int = 0
+
+while error_int < 5000:
+
+    error_int += 1
+
+    check_all_rallies(Windows_in_view)
+
+    schedule_check(Windows_in_view)
+
+    time.sleep(1)
+
+    if error_int % 60 == 0:
+        print(schedule.df)
+
+
+                    
 
 
 
-#third function scans schedule for latest event and triggers first function
 
         
 

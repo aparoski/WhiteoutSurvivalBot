@@ -149,25 +149,25 @@ def polar_sender(x1, y1, W, L, level):
 
     return(walk_time)
 
-def Polar_Depature_check(x1, y1, W, L, windows):
+# def Polar_Depature_check(x1, y1, W, L, windows):
     
-    """determines when a polar rally has departed the city"""
+#     """determines when a polar rally has departed the city"""
 
-    time.sleep(60)
+#     time.sleep(60)
 
-    error_int = 0
+#     error_int = 0
 
-    rally_ready = check_rally_arrival(x1, y1, W, L)
+#     rally_ready = check_rally_arrival(x1, y1, W, L)
 
-    while rally_ready == "False" and error_int < 2000:
+#     while rally_ready == "False" and error_int < 2000:
 
-        if error_int % 10 == 0:
-            print("rally wait " + str(error_int))
-            time.sleep(5)
+#         if error_int % 10 == 0:
+#             print("rally wait " + str(error_int))
+#             time.sleep(5)
 
-        error_int += 1
+#         error_int += 1
 
-        rally_ready = check_rally_arrival(x1, y1, W, L)
+#         rally_ready = check_rally_arrival(x1, y1, W, L)
 
     
 
