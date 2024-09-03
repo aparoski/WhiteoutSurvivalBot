@@ -32,7 +32,7 @@ App1 = Window_Finder.BlueStack_Window(Tootin)
 App3 = Window_Finder.BlueStack_Window(Tootily)
 App4 = Window_Finder.BlueStack_Window(Leg)
 
-Windows_in_view = [App, App1, App3]
+Windows_in_view = [App4, App3]
 
 #develop account config in the future which will contain these values
 account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
@@ -55,6 +55,7 @@ def send_polars(accounts) -> None:
 
         app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name]) * 2
 
+        app.rally_out = False
         
 #second function scans each window to determine when the rally has departed
 #then adds the march time to the schedule
@@ -67,7 +68,9 @@ def check_all_rallies(accounts) -> None:
 
         Rally_left = Map_Interact.check_rally_arrival(x1, y1, W, L)
 
-        if Rally_left:
+        if Rally_left and not app.rally_out:
+
+            app.rally_out = True
 
             schedule.add(app.name, app.hwnd, polar_rally, app.march_time, "s")
 
@@ -76,7 +79,7 @@ def check_all_rallies(accounts) -> None:
 #this function will need to be expanded to deal with multiple event types
 def schedule_check(accounts) -> None:
 
-    latest_event = schedule.latest_event()
+    latest_event = schedule.latest_event(True)
 
     if latest_event.shape[0] > 0:
 
@@ -113,7 +116,7 @@ while error_int < 5000:
 
     time.sleep(1)
 
-    if error_int % 30 == 0:
+    if error_int % 15 == 0:
         print(schedule.df)
 
 

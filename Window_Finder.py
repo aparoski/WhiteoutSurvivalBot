@@ -23,6 +23,8 @@ class BlueStack_Window:
         self.march_time = None
 
         self.order = order
+
+        self.rally_out = False
          
         def single_window_return(order):
 
