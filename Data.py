@@ -84,8 +84,11 @@ class Window_Dataframe:
 
         self.df = pd.concat([self.df, new_record], axis = 0).reset_index(drop = True)
 
-    def latest_event(self):
+    def latest_event(self, current = True):
         latest_event = self.df[self.df["completion_date"].apply(lambda x: x.year < 3999)].sort_values("completion_date", ascending = True).head(1)
+        
+        if current:
+            latest_event = latest_event[datetime.utcnow() >= latest_event["completion_date"]]
 
         return(latest_event)
     
@@ -101,7 +104,7 @@ if __name__ == '__main__':
 
     # schedule.add("test", 1234, "apples", 0, "l")
 
-    # schedule.add("test", 1234, "apples", 100, "s")
+    schedule.add("test", 1234, "apples", 100, "s")
 
     # schedule.add("test", 1234, "apples", 600, "s")
 
@@ -117,6 +120,6 @@ if __name__ == '__main__':
 
     print(schedule.df.sort_values(["completion_date"], ascending = False))
 
-    # schedule.save()
+    #print(datetime.utcnow() >= latest_event["completion_date"].iloc[0])
 
-    print(schedule.latest_event())
+    # schedule.save()
