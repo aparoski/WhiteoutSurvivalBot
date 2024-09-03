@@ -118,3 +118,5 @@ if __name__ == '__main__':
     print(schedule.df.sort_values(["completion_date"], ascending = False))
 
     # schedule.save()
+
+    print(schedule.latest_event())

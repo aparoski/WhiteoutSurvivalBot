@@ -53,7 +53,7 @@ def send_polars(accounts) -> None:
 
         #maybe have function to check for stamina?
 
-        app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name])
+        app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name]) * 2
 
         
 #second function scans each window to determine when the rally has departed
@@ -81,17 +81,19 @@ def schedule_check(accounts) -> None:
     if latest_event.shape[0] > 0:
 
         #polar rally logic
-        if latest_event["Activity"] == polar_rally:
+        if latest_event["Activity"].iloc[0] == polar_rally:
             
             #there is likely a better way by throwing the class
             #itself into the dataframe? will mess around with that
             for app in accounts:
-                if latest_event["name"] == app.name:
+                if latest_event["Window_Name"].iloc[0] == app.name:
 
                     send_polars([app])
 
 #testing the polar scheduler 
 send_polars(Windows_in_view)
+
+time.sleep(0.5)
 
 error_int = 0
 
@@ -105,7 +107,7 @@ while error_int < 5000:
 
     time.sleep(1)
 
-    if error_int % 60 == 0:
+    if error_int % 30 == 0:
         print(schedule.df)
 
 
