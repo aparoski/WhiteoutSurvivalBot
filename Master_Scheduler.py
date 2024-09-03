@@ -80,6 +80,8 @@ def schedule_check(accounts) -> None:
 
     if latest_event.shape[0] > 0:
 
+        print(latest_event)
+
         #polar rally logic
         if latest_event["Activity"].iloc[0] == polar_rally:
             
@@ -89,6 +91,10 @@ def schedule_check(accounts) -> None:
                 if latest_event["Window_Name"].iloc[0] == app.name:
 
                     send_polars([app])
+
+
+        #clear out the event so it does not trigger the check again
+        schedule.df = schedule.df.drop(latest_event.index, axis = 0)
 
 #testing the polar scheduler 
 send_polars(Windows_in_view)
