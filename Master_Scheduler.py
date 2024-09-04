@@ -176,7 +176,9 @@ def Beast_Scheduler(accoounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App, App1, App3, App4]
+    active_windows = [App4]
+
+    App4.polar_count = 6    
 
     polar = True
 
