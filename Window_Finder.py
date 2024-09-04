@@ -20,6 +20,11 @@ class BlueStack_Window:
 
     def __init__(self, order):
 
+        #remove this later
+        self.polar_count = 0
+
+        self.beast_count = 0
+
         self.march_time = None
 
         self.order = order

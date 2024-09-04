@@ -25,24 +25,21 @@ polar_rally = "Polar_Rally"
 beast_hunt = "Beast_Hunt"
 Troop_Training = "Troop_Training" + "Troop_Type"
 
-beast_count = 0
-
 App = Window_Finder.BlueStack_Window(Tootie)
 App1 = Window_Finder.BlueStack_Window(Tootin)
 App3 = Window_Finder.BlueStack_Window(Tootily)
 App4 = Window_Finder.BlueStack_Window(Leg)
 
-Windows_in_view = [App4, App3]
-
 #develop account config in the future which will contain these values
 account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
+account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
 
 #in beginning we will need to instantiate the schedule
 schedule = Data.Window_Dataframe()
 
 #polar Rally
 #start with first function to iterate over each viewable window and send a rally march out
-def send_polars(accounts) -> None:
+def send_march(accounts, type = "Polar") -> None:
     """iterates over Bluestack windows. sends a polar rally for each and
     assigns march time to teach window"""
     for app in accounts:
@@ -53,9 +50,20 @@ def send_polars(accounts) -> None:
 
         #maybe have function to check for stamina?
 
-        app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name]) * 2
+        if type == "Polar":
 
-        app.rally_out = False
+            app.march_time = Map_Interact.polar_sender(x1, y1, W, L, account_polar_level_dict[app.name]) * 2
+            
+            #maybe keep? 
+            app.polar_count += 1
+
+            app.rally_out = False
+
+        elif type == "Beast":
+
+            app.march_time = Map_Interact.Beast_Search(x1, y1, W, L, account_beast_level_dict[app.name])
+
+            schedule.add(app.name, app.hwnd, beast_hunt, app.march_time, "s")
         
 #second function scans each window to determine when the rally has departed
 #then adds the march time to the schedule
@@ -85,45 +93,99 @@ def schedule_check(accounts) -> None:
 
         print(latest_event)
 
-        #polar rally logic
-        if latest_event["Activity"].iloc[0] == polar_rally:
-            
-            #there is likely a better way by throwing the class
-            #itself into the dataframe? will mess around with that
-            for app in accounts:
-                if latest_event["Window_Name"].iloc[0] == app.name:
+        for app in accounts:
 
-                    send_polars([app])
+            if latest_event["Window_Name"].iloc[0] == app.name:
+
+        #polar rally logic
+                if latest_event["Activity"].iloc[0] == polar_rally:
+                    
+                    #there is likely a better way by throwing the class
+                    #itself into the dataframe? will mess around with that
+
+                    send_march([app], type = "Polar")
+
+                if latest_event["Activity"].iloc[0] == beast_hunt:
+
+                    send_march([app], type = "Beast")
 
 
         #clear out the event so it does not trigger the check again
         schedule.df = schedule.df.drop(latest_event.index, axis = 0)
 
+#set the beast and polar counts
+
+def Polar_Scheduler(accounts, limit = None) -> None:
 #testing the polar scheduler 
-send_polars(Windows_in_view)
+    send_march(accounts, type = "Polar")
 
-time.sleep(0.5)
+    time.sleep(0.5)
 
-error_int = 0
-
-while error_int < 5000:
-
-    error_int += 1
-
-    check_all_rallies(Windows_in_view)
-
-    schedule_check(Windows_in_view)
-
-    time.sleep(1)
-
-    if error_int % 15 == 0:
-        print(schedule.df)
+    error_int = 0
 
 
-                    
+    #note failes to navigate to map when started within city 
+    while error_int < 5000:
+
+        #maybe keep to add limit to polar rallies? 
+        if limit is None:
+            pass
+        elif len(accounts) > 1: 
+            accounts = [app for app in accounts if app.polar_count < limit]
+        else:
+            break
 
 
+        error_int += 1
 
+        check_all_rallies(accounts)
+
+        schedule_check(accounts)
+
+        time.sleep(1)
+
+        if error_int % 15 == 0:
+            print(schedule.df)
+
+def Beast_Scheduler(accoounts, limit = None):
+
+    error_int = 0
+
+    send_march(accounts, "Beast")
+
+    #note failes to navigate to map when started within city 
+    while error_int < 5000:
+
+        if limit is None:
+                pass
+        elif len(accounts) > 1: 
+            accounts = [app for app in accounts if app.polar_count < limit]
+        else:
+            break
+
+
+        error_int += 1
+
+        schedule_check(accounts)
+
+        time.sleep(1)
+
+        if error_int % 15 == 0:
+            print(schedule.df)
+
+
+if __name__ == '__main__':
+
+    active_windows = [App, App1, App3, App4]
+
+    polar = True
+
+    if polar == True:
+
+        Polar_Scheduler(active_windows, 10)
+    else:
+
+        Beast_Scheduler(active_windows)
 
         
 
