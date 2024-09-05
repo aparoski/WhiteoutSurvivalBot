@@ -32,7 +32,7 @@ App4 = Window_Finder.BlueStack_Window(Leg)
 
 #develop account config in the future which will contain these values
 account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
-account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
+account_beast_level_dict = {Tootie : 27, Tootin : 24, Tootily : 20, Leg : 20}
 
 #in beginning we will need to instantiate the schedule
 schedule = Data.Window_Dataframe()
@@ -61,7 +61,9 @@ def send_march(accounts, type = "Polar") -> None:
 
         elif type == "Beast":
 
-            app.march_time = Map_Interact.Beast_Search(x1, y1, W, L, account_beast_level_dict[app.name])
+            app.window_to_foreground()
+
+            app.march_time = Map_Interact.Beast_Search(x1, y1, W, L, account_beast_level_dict[app.name]) * 2
 
             schedule.add(app.name, app.hwnd, beast_hunt, app.march_time, "s")
         
@@ -93,6 +95,10 @@ def schedule_check(accounts) -> None:
 
         print(latest_event)
 
+        #clear out the event so it does not trigger the check again
+
+        schedule.df = schedule.df.drop(latest_event.index, axis = 0)
+
         for app in accounts:
 
             if latest_event["Window_Name"].iloc[0] == app.name:
@@ -110,8 +116,8 @@ def schedule_check(accounts) -> None:
                     send_march([app], type = "Beast")
 
 
-        #clear out the event so it does not trigger the check again
-        schedule.df = schedule.df.drop(latest_event.index, axis = 0)
+
+        
 
 #set the beast and polar counts
 
@@ -130,8 +136,11 @@ def Polar_Scheduler(accounts, limit = None) -> None:
         #maybe keep to add limit to polar rallies? 
         if limit is None:
             pass
-        elif len(accounts) > 1: 
+        elif len(accounts) > 0: 
             accounts = [app for app in accounts if app.polar_count < limit]
+
+            if len(accounts) == 0:
+                break
         else:
             break
 
@@ -147,7 +156,7 @@ def Polar_Scheduler(accounts, limit = None) -> None:
         if error_int % 15 == 0:
             print(schedule.df)
 
-def Beast_Scheduler(accoounts, limit = None):
+def Beast_Scheduler(accounts, limit = None):
 
     error_int = 0
 
@@ -158,8 +167,11 @@ def Beast_Scheduler(accoounts, limit = None):
 
         if limit is None:
                 pass
-        elif len(accounts) > 1: 
+        elif len(accounts) > 0: 
             accounts = [app for app in accounts if app.polar_count < limit]
+
+            if len(accounts) == 0:
+                break
         else:
             break
 
@@ -176,11 +188,12 @@ def Beast_Scheduler(accoounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App4]
+    active_windows = [App3]
 
-    App4.polar_count = 6    
+    App4.polar_count = 8
+    App3.polar_count = 8    
 
-    polar = True
+    polar = False
 
     if polar == True:
 
