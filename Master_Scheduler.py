@@ -24,6 +24,7 @@ schedule = Data.Window_Dataframe()
 polar_rally = "Polar_Rally"
 beast_hunt = "Beast_Hunt"
 Troop_Training = "Troop_Training" + "Troop_Type"
+reaper = "reaper"
 
 App = Window_Finder.BlueStack_Window(Tootie)
 App1 = Window_Finder.BlueStack_Window(Tootin)
@@ -66,6 +67,12 @@ def send_march(accounts, type = "Polar") -> None:
             app.march_time = Map_Interact.Beast_Search(x1, y1, W, L, account_beast_level_dict[app.name]) * 2
 
             schedule.add(app.name, app.hwnd, beast_hunt, app.march_time, "s")
+
+        elif type == "Reaper":
+
+            app.march_time = Map_Interact.Reaper_Sender(x1, y1, W, L)
+
+            app.reaper_count += 1
         
 #second function scans each window to determine when the rally has departed
 #then adds the march time to the schedule
@@ -188,12 +195,15 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App3]
+    active_windows = [App, App4, App3]  
 
-    App4.polar_count = 8
-    App3.polar_count = 8    
+    App4.polar_count = 2
 
-    polar = False
+    App.polar_count = 6
+
+    App1.polar_count = 4
+
+    polar = True
 
     if polar == True:
 
