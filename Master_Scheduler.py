@@ -211,7 +211,7 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App3, App4, App]  
+    active_windows = [App3, App4]  
 
     App.reaper_count = 8
 
