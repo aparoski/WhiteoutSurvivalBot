@@ -33,7 +33,7 @@ App4 = Window_Finder.BlueStack_Window(Leg)
 
 #develop account config in the future which will contain these values
 account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
-account_beast_level_dict = {Tootie : 27, Tootin : 24, Tootily : 20, Leg : 20}
+account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
 
 #in beginning we will need to instantiate the schedule
 schedule = Data.Window_Dataframe()
@@ -70,13 +70,17 @@ def send_march(accounts, type = "Polar") -> None:
 
         elif type == "Reaper":
 
-            app.march_time = Map_Interact.Reaper_Sender(x1, y1, W, L)
+            #reducing delay slightly by amount of time it takes to
+            #navigate through events interface (may need to make this value a variable...)
+            app.march_time = Map_Interact.Reaper_Sender(x1, y1, W, L) * 2 - 18
 
             app.reaper_count += 1
+
+            app.rally_out = False
         
 #second function scans each window to determine when the rally has departed
 #then adds the march time to the schedule
-def check_all_rallies(accounts) -> None:
+def check_all_rallies(accounts, type) -> None:
     for app in accounts:
         
         x1, y1, x2, y2 = app.rectangle
@@ -85,11 +89,16 @@ def check_all_rallies(accounts) -> None:
 
         Rally_left = Map_Interact.check_rally_arrival(x1, y1, W, L)
 
+        if type == "Polar":
+            label = polar_rally
+        if type == "Reaper":
+            label = reaper
+
         if Rally_left and not app.rally_out:
 
             app.rally_out = True
 
-            schedule.add(app.name, app.hwnd, polar_rally, app.march_time, "s")
+            schedule.add(app.name, app.hwnd, label, app.march_time, "s")
 
 
 #third function scans schedule for latest event and triggers related function
@@ -122,15 +131,19 @@ def schedule_check(accounts) -> None:
 
                     send_march([app], type = "Beast")
 
+                if latest_event["Activity"].iloc[0] == reaper:
+
+                    send_march([app], type = "Reaper")
+
 
 
         
 
 #set the beast and polar counts
 
-def Polar_Scheduler(accounts, limit = None) -> None:
+def Polar_Scheduler(accounts, limit = None, rally_type = "Polar") -> None:
 #testing the polar scheduler 
-    send_march(accounts, type = "Polar")
+    send_march(accounts, type = rally_type)
 
     time.sleep(0.5)
 
@@ -144,7 +157,10 @@ def Polar_Scheduler(accounts, limit = None) -> None:
         if limit is None:
             pass
         elif len(accounts) > 0: 
-            accounts = [app for app in accounts if app.polar_count < limit]
+            if rally_type == "Polar":
+                accounts = [app for app in accounts if app.polar_count < limit]
+            elif rally_type == "Reaper":
+                accounts = [app for app in accounts if app.reaper_count < limit]
 
             if len(accounts) == 0:
                 break
@@ -154,7 +170,7 @@ def Polar_Scheduler(accounts, limit = None) -> None:
 
         error_int += 1
 
-        check_all_rallies(accounts)
+        check_all_rallies(accounts, rally_type)
 
         schedule_check(accounts)
 
@@ -195,19 +211,22 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App, App4, App3]  
+    active_windows = [App3, App4, App]  
 
-    App4.polar_count = 2
+    App.reaper_count = 8
 
-    App.polar_count = 6
+    App1.reaper_count = 7
 
-    App1.polar_count = 4
+    App3.reaper_count = 8
 
-    polar = True
+    App4.reaper_count = 7
+
+
+    polar = False
 
     if polar == True:
 
-        Polar_Scheduler(active_windows, 10)
+        Polar_Scheduler(active_windows, 10, "Reaper")
     else:
 
         Beast_Scheduler(active_windows)

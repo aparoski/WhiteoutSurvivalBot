@@ -23,6 +23,8 @@ class BlueStack_Window:
         #remove this later
         self.polar_count = 0
 
+        self.reaper_count = 0
+
         self.beast_count = 0
 
         self.march_time = None
