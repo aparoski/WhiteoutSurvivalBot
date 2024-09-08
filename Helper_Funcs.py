@@ -3,6 +3,10 @@ p.useImageNotFoundException()
 import time
 import relative_locations as rl
 
+import dir_config
+import datetime
+import os
+
 
 #General Funcs -------------------------------------------------------
 def time_w_clock_loc(x1, y1, W, L, x_offset, y_offset):
@@ -202,6 +206,29 @@ def stop_video_recording(x1, y1, W, L):
 
     time.sleep(2)
 
+def no_error_video_delete(window_name):
+    """if no error happens, remove video from default bluestacks directory
+    to prevent clutter from building up (for testing)"""
+
+    window_serial = window_name.replace("BlueStacks App Player", "")
+
+    window_serial = window_serial.strip()
+    
+    dir = dir_config.blue_stack_videos
+    
+    if window_serial == "":
+
+        folder_name = "BlueStacks-Pie64"
+    else:
+        folder_name = "BlueStacks-Pie64_" + window_serial
+
+    recording_time = datetime.datetime.utcnow()
+
+    files = [f for f in os.listdir(dir + folder_name) if os.isfile(os.join(dir + folder_name), f)]
+
+
+
+
 #Error Management --------------------------------------------------
 #Helpful Whiteout Funcs----------------------------------------------
 def check_location(x1, y1, W, L):
@@ -241,4 +268,30 @@ def check_victory(x1, y1, W, L):
     if check_victory:
         return(1)
 #Helpful Whiteout Funcs----------------------------------------------
+    
+if __name__ == "__main__":
+
+    dir = dir_config.blue_stack_videos + "BlueStacks-Pie64\\"
+
+    for entry in os.scandir(dir):
+        if entry.is_file():
+
+            if ".jpg" in entry.name:
+
+                mod_time = entry.stat().st_mtime_ns
+
+                print(entry.name)
+                print(mod_time)
+
+            if ".mp4" in entry.name:
+
+                pass
+    
+    folder_name = "blarg"
+
+    files = [f for f in os.scandir(dir + folder_name) if f.is_file()]
+
+    jpegs = [jpg for jpg in files if ".jpg" in jpg.name]
+
+    mp4s = [mp4 for mp4 in files if ".mp4" in mp4.name]
     
