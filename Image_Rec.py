@@ -253,7 +253,7 @@ def Online_Reward_Finder(x1, y1, W, L):
 
     wait_time_text = Reader.text_reader_cv2(screenshot_path, 1)
 
-    wait_time = Reader.time_reader(wait_time_text)
+    wait_time = Reader.time_reader(wait_time_text, screenshot_path)
 
     return(wait_time)
 #City Navigation --------------------------------------------------------
@@ -279,7 +279,7 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
         
         my_march_time = Reader.text_reader_cv2("Screenshots\\March_time_temp.JPG", 1)
 
-        my_march_time_seconds = Reader.time_reader(my_march_time)
+        my_march_time_seconds = Reader.time_reader(my_march_time, "Screenshots\\March_time_temp.JPG")
 
         #finally select the march sender and return the march time
 

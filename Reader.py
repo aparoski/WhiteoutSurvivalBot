@@ -6,6 +6,9 @@ import PIL
 import datetime
 import re
 
+#for testing
+import shutil
+
 #import os
 
 path_to_tesseract = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\Tesseract\\tesseract.exe"
@@ -110,7 +113,7 @@ def text_reader_cv2(path, arg, img_option = 1):
 
 
 
-def time_reader(text):
+def time_reader(text, path):
     """returns the timer in seconds
     times are presented with leading 00 at the hour mark
     days are marked with d, if there are any."""
@@ -139,7 +142,12 @@ def time_reader(text):
     if time_search:
         trimmed_text = time_search.group(0)
     else:
-        
+
+        dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\Screenshots\\errors"
+
+        file_name = "Error_" + datetime.datetime.strftime(datetime.datetime.utcnow(), "%Y_%m_%d_%H_%M_%S") + ".JPG"
+
+        shutil.copyfile(path, dir + file_name)
 
         return(90)
 

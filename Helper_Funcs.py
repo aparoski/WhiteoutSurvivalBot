@@ -2,6 +2,11 @@ import pyautogui as p
 p.useImageNotFoundException()
 import time
 import relative_locations as rl
+import pandas as pd
+
+import dir_config
+import datetime
+import os
 
 
 #General Funcs -------------------------------------------------------
@@ -202,6 +207,36 @@ def stop_video_recording(x1, y1, W, L):
 
     time.sleep(2)
 
+def no_error_video_delete(window_name) -> None:
+    """delete the most recently recorded video from the directory
+    associated with the blue stacks player selected"""
+
+    window_serial = window_name.replace("BlueStacks App Player", "")
+
+    window_serial = window_serial.strip()
+    
+    dir = dir_config.BlueStacks_Vids
+    
+    if window_serial == "":
+
+        folder_name = "BlueStacks-Pie64"
+    else:
+        folder_name = "BlueStacks-Pie64_" + window_serial
+    
+    files = [f for f in os.scandir(dir +  folder_name) if f.is_file()]
+
+    file_frame = pd.DataFrame({"file" : files})
+
+    file_frame["file_name"] = file_frame["file"].apply(lambda x: x.name)
+    file_frame["datetime"] = file_frame["file_name"].apply(lambda x: x.replace("Recording-", "").replace(os.path.splitext(x)[1], ""), "%Y-%m-%d-%H%M%S")
+
+    final_file_frame = file_frame[file_frame["datetime"] == max(file_frame["datetime"])]
+
+    for file in final_file_frame["file"]:
+        print(file.name)
+        if os.path.exists(file):
+            os.remove(file)
+
 #Error Management --------------------------------------------------
 #Helpful Whiteout Funcs----------------------------------------------
 def check_location(x1, y1, W, L):
@@ -242,3 +277,11 @@ def check_victory(x1, y1, W, L):
         return(1)
 #Helpful Whiteout Funcs----------------------------------------------
     
+if __name__ == "__main__":
+
+    window_name = "BlueStacks App Player"
+
+    no_error_video_delete(window_name)
+
+    
+
