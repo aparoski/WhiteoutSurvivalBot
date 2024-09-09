@@ -2,6 +2,7 @@ import pyautogui as p
 p.useImageNotFoundException()
 import time
 import relative_locations as rl
+import pandas as pd
 
 import dir_config
 import datetime
@@ -206,28 +207,35 @@ def stop_video_recording(x1, y1, W, L):
 
     time.sleep(2)
 
-def no_error_video_delete(window_name):
-    """if no error happens, remove video from default bluestacks directory
-    to prevent clutter from building up (for testing)"""
+def no_error_video_delete(window_name) -> None:
+    """delete the most recently recorded video from the directory
+    associated with the blue stacks player selected"""
 
     window_serial = window_name.replace("BlueStacks App Player", "")
 
     window_serial = window_serial.strip()
     
-    dir = dir_config.blue_stack_videos
+    dir = dir_config.BlueStacks_Vids
     
     if window_serial == "":
 
         folder_name = "BlueStacks-Pie64"
     else:
         folder_name = "BlueStacks-Pie64_" + window_serial
+    
+    files = [f for f in os.scandir(dir +  folder_name) if f.is_file()]
 
-    recording_time = datetime.datetime.utcnow()
+    file_frame = pd.DataFrame({"file" : files})
 
-    files = [f for f in os.listdir(dir + folder_name) if os.isfile(os.join(dir + folder_name), f)]
+    file_frame["file_name"] = file_frame["file"].apply(lambda x: x.name)
+    file_frame["datetime"] = file_frame["file_name"].apply(lambda x: x.replace("Recording-", "").replace(os.path.splitext(x)[1], ""), "%Y-%m-%d-%H%M%S")
 
+    final_file_frame = file_frame[file_frame["datetime"] == max(file_frame["datetime"])]
 
-
+    for file in final_file_frame["file"]:
+        print(file.name)
+        if os.path.exists(file):
+            os.remove(file)
 
 #Error Management --------------------------------------------------
 #Helpful Whiteout Funcs----------------------------------------------
@@ -271,27 +279,9 @@ def check_victory(x1, y1, W, L):
     
 if __name__ == "__main__":
 
-    dir = dir_config.blue_stack_videos + "BlueStacks-Pie64\\"
+    window_name = "BlueStacks App Player"
 
-    for entry in os.scandir(dir):
-        if entry.is_file():
+    no_error_video_delete(window_name)
 
-            if ".jpg" in entry.name:
-
-                mod_time = entry.stat().st_mtime_ns
-
-                print(entry.name)
-                print(mod_time)
-
-            if ".mp4" in entry.name:
-
-                pass
     
-    folder_name = "blarg"
 
-    files = [f for f in os.scandir(dir + folder_name) if f.is_file()]
-
-    jpegs = [jpg for jpg in files if ".jpg" in jpg.name]
-
-    mp4s = [mp4 for mp4 in files if ".mp4" in mp4.name]
-    
