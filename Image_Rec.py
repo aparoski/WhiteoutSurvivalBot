@@ -327,14 +327,16 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
     #click camp to clear out any trained troops before training
     p.click(x1 + W * rl.City_Nav_Bar_to_Camp[0],
             y1 + L * rl.City_Nav_Bar_to_Camp[1])
-    time.sleep(0.5)
+    time.sleep(2)
     p.click(x1 + W * rl.City_Nav_Bar_to_Camp[0],
             y1 + L * rl.City_Nav_Bar_to_Camp[1])
     time.sleep(0.5)
 
-    p.click(x1 + W * rl.City_Nav_Bar_To_Train[0],
-            y1 + L * rl.City_Nav_Bar_To_Train[1])
+    helmet_button = HF.check_image(x1, y1, W, L,
+                                   path = dir + sub_dir + "Training_camp_button.JPG")
     
+    p.click(helmet_button)
+
     p.moveTo(x1 + W * 0.5,
            y1 + L * 0.5)
     
@@ -348,7 +350,7 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
                 mini_loc = HF.check_image(x1, y1, W, L,
                                         dir + sub_dir + train_tier_dir + tier_dict[Tier], 
                                         2, message = str(tier_dict[Tier]),
-                                        confidence = 0.9, 
+                                        confidence = 0.8, 
                                         raise_error = False,
                                         delay = 0.1)
                 
@@ -445,8 +447,14 @@ def Troop_Trainer(x1, y1, W, L, troop_tier, troop_type, promotion = False):
 
     p.click(x1 + W * rl.Troop_Camp_Train_C[0],
             y1 + L * rl.Troop_Camp_Train_C[1])
-    
-    Universal_Backout(x1, y1, W, L)
+
+    #UI automatically backs out on selecting training. 
+    #does not automatically back out when selecting promotion...
+    if promotion:
+        pass
+    else: 
+        pass
+  
 
     return(train_time_seconds)
 #City Navigation --------------------------------------------------------

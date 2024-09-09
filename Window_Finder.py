@@ -175,13 +175,13 @@ if __name__ == '__main__':
     App_list = [App, App_1, App_3, App_4]
 
 
-    x1, y1, x2, y2 = App.rectangle
+    x1, y1, x2, y2 = App_3.rectangle
 
-    W, L = App.W_L
+    W, L = App_3.W_L
 
     for i in ["I", "L", "M"]:
 
-        tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 9, "I")
+        tests = Image_Rec.Troop_Trainer(x1, y1, W, L, 9, i)
 
         Image_Rec.Universal_Backout(x1, y1, W, L)
 
