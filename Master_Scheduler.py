@@ -211,7 +211,7 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App3, App4]  
+    active_windows = [App3, App4, App]  
 
     App.reaper_count = 8
 
@@ -222,11 +222,11 @@ if __name__ == '__main__':
     App4.reaper_count = 7
 
 
-    polar = False
+    polar = True
 
     if polar == True:
 
-        Polar_Scheduler(active_windows, 10, "Reaper")
+        Polar_Scheduler(active_windows)
     else:
 
         Beast_Scheduler(active_windows)
