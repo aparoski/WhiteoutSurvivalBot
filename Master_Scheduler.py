@@ -222,7 +222,7 @@ if __name__ == '__main__':
     App4.reaper_count = 7
 
 
-    polar = True
+    polar = False
 
     if polar == True:
 
