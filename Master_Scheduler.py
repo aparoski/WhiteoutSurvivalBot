@@ -32,7 +32,7 @@ App3 = Window_Finder.BlueStack_Window(Tootily)
 App4 = Window_Finder.BlueStack_Window(Leg)
 
 #develop account config in the future which will contain these values
-account_polar_level_dict = {Tootie : 6, Tootin : 4, Tootily : 3, Leg : 3}
+account_polar_level_dict = {Tootie : 6, Tootin : 5, Tootily : 4, Leg : 4}
 account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
 
 #in beginning we will need to instantiate the schedule
@@ -58,6 +58,8 @@ def send_march(accounts, type = "Polar") -> None:
             #maybe keep? 
             app.polar_count += 1
 
+            print(app.name, app.polar_count)
+
             app.rally_out = False
 
         elif type == "Beast":
@@ -65,6 +67,10 @@ def send_march(accounts, type = "Polar") -> None:
             app.window_to_foreground()
 
             app.march_time = Map_Interact.Beast_Search(x1, y1, W, L, account_beast_level_dict[app.name]) * 2
+
+            app.beast_count += 1
+
+            print(app.name, app.beast_count)
 
             schedule.add(app.name, app.hwnd, beast_hunt, app.march_time, "s")
 
@@ -191,7 +197,7 @@ def Beast_Scheduler(accounts, limit = None):
         if limit is None:
                 pass
         elif len(accounts) > 0: 
-            accounts = [app for app in accounts if app.polar_count < limit]
+            accounts = [app for app in accounts if app.beast_count < limit]
 
             if len(accounts) == 0:
                 break
@@ -211,25 +217,17 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App3, App4, App]  
-
-    App.reaper_count = 8
-
-    App1.reaper_count = 7
-
-    App3.reaper_count = 8
-
-    App4.reaper_count = 7
+    active_windows = [App, App3, App4]  
 
 
-    polar = False
+    polar = True
 
     if polar == True:
 
-        Polar_Scheduler(active_windows)
+        Polar_Scheduler(active_windows, 9)
     else:
 
-        Beast_Scheduler(active_windows)
+        Beast_Scheduler(active_windows, 22)
 
         
 

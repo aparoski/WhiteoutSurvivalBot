@@ -143,13 +143,13 @@ def time_reader(text, path):
         trimmed_text = time_search.group(0)
     else:
 
-        dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\Screenshots\\errors"
+        dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\Screenshots\\errors\\"
 
         file_name = "Error_" + datetime.datetime.strftime(datetime.datetime.utcnow(), "%Y_%m_%d_%H_%M_%S") + ".JPG"
 
         shutil.copyfile(path, dir + file_name)
 
-        return(90)
+        return(140)
 
         #raise("Time Reader unable to parse 00:00:00 format from given text")
 
