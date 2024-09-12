@@ -32,7 +32,7 @@ App3 = Window_Finder.BlueStack_Window(Tootily)
 App4 = Window_Finder.BlueStack_Window(Leg)
 
 #develop account config in the future which will contain these values
-account_polar_level_dict = {Tootie : 6, Tootin : 5, Tootily : 4, Leg : 4}
+account_polar_level_dict = {Tootie : 7, Tootin : 5, Tootily : 4, Leg : 4}
 account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
 
 #in beginning we will need to instantiate the schedule
@@ -217,14 +217,14 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App, App3, App4]  
+    active_windows = [App1, App4]  
 
 
     polar = True
 
     if polar == True:
 
-        Polar_Scheduler(active_windows, 9)
+        Polar_Scheduler(active_windows, 27)
     else:
 
         Beast_Scheduler(active_windows, 22)
