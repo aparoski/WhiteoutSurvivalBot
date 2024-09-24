@@ -13,30 +13,10 @@ import Map_Interact
 import pyautogui as p
 import Helper_Funcs as HF
 
-#Initialize Blue Stacks Windows. 
-Tootie = "BlueStacks App Player"
-Tootin = "BlueStacks App Player 1"
-Tootily = "BlueStacks App Player 3"
-Leg = "BlueStacks App Player 4"
-
-schedule = Data.Window_Dataframe()
-
 polar_rally = "Polar_Rally"
 beast_hunt = "Beast_Hunt"
 Troop_Training = "Troop_Training" + "Troop_Type"
 reaper = "reaper"
-
-App = Window_Finder.BlueStack_Window(Tootie)
-App1 = Window_Finder.BlueStack_Window(Tootin)
-App3 = Window_Finder.BlueStack_Window(Tootily)
-App4 = Window_Finder.BlueStack_Window(Leg)
-
-#develop account config in the future which will contain these values
-account_polar_level_dict = {Tootie : 7, Tootin : 5, Tootily : 4, Leg : 4}
-account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
-
-#in beginning we will need to instantiate the schedule
-schedule = Data.Window_Dataframe()
 
 #polar Rally
 #start with first function to iterate over each viewable window and send a rally march out
@@ -217,17 +197,39 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
-    active_windows = [App1, App4]  
+    #Initialize Blue Stacks Windows. 
+    # Tootie = "BlueStacks App Player"
+    # Tootin = "BlueStacks App Player 1"
+    # Tootily = "BlueStacks App Player 3"
+    # Leg = "BlueStacks App Player 4"
+
+    # schedule = Data.Window_Dataframe()
+
+    
+
+    # App = Window_Finder.BlueStack_Window(Tootie)
+    # App1 = Window_Finder.BlueStack_Window(Tootin)
+    # App3 = Window_Finder.BlueStack_Window(Tootily)
+    # App4 = Window_Finder.BlueStack_Window(Leg)
+
+    # #develop account config in the future which will contain these values
+    # account_polar_level_dict = {Tootie : 7, Tootin : 5, Tootily : 4, Leg : 4}
+    # account_beast_level_dict = {Tootie : 30, Tootin : 24, Tootily : 20, Leg : 20}
+
+    # #in beginning we will need to instantiate the schedule
+    # schedule = Data.Window_Dataframe()
+
+    # active_windows = [App1, App4]  
 
 
-    polar = True
+    # polar = True
 
-    if polar == True:
+    # if polar == True:
 
-        Polar_Scheduler(active_windows, 27)
-    else:
+    #     Polar_Scheduler(active_windows, 27)
+    # else:
 
-        Beast_Scheduler(active_windows, 22)
+    #     Beast_Scheduler(active_windows, 22)
 
         
 

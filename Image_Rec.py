@@ -4,12 +4,12 @@ import time
 p.useImageNotFoundException()
 
 import os 
-os.chdir(r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot")
 
 import relative_locations as rl
 import Reader
 import Helper_Funcs as HF
 import Map_Interact
+import Data
 
 #UI Navigation -----------------------------------------------------------
 def Universal_Backout(x1, y1, W, L) -> None:
@@ -129,7 +129,7 @@ def find_event(x1, y1, W, L, path, message = "icon"):
 def Hero_Mission(x1, y1, W, L) -> None:
     go_to_events(x1, y1, W, L)
 
-    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+    dir = Data.return_bot_root_dir() + "\\images\\"
 
     hero_mission_icon = "images_Events\\Hero_Mission_Blue.JPG"
     reaper_button_icon = "images_Events\\Hero_Mission_Button.JPG"
@@ -147,7 +147,7 @@ def Hero_Mission(x1, y1, W, L) -> None:
 def Lucky_Wheel_Chip_Grab(x1, y1, W, L) -> None:
     """A chip is collectable once after reset at 24:00 UTC"""
 
-    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Events\\"
+    dir = Data.return_bot_root_dir() + "\\images\\images_Events\\"
 
     chip_collect = dir + "Spin_Wheel_readytocollect.JPG"
 
@@ -216,8 +216,10 @@ def City_Swiper_PRS():
     #     test.swipe("left")
 
 def Online_Reward_Finder(x1, y1, W, L):
+
+    dir = Data.return_bot_root_dir() + "\\"
     online_reward_icon = HF.check_image(x1, y1, W, L, 
-                                     r"images/images_City/Online_Reward_Icon.JPG",
+                                     dir + "images\\images_City\\Online_Reward_Icon.JPG",
                                      10, 0.7, "Online Rewards")
     
     def temp_point_grabies(coord, distance, W, L):
@@ -247,9 +249,8 @@ def Online_Reward_Finder(x1, y1, W, L):
     HF.screenshotter(x1, y1, W, L,
                   x3, y3, x4, y4,
                   screenshot_name)
-    #I may regret not adding absolute directories here...
-    #screw it
-    screenshot_path = "Screenshots\\" + screenshot_name + "_temp.JPG"
+    #
+    screenshot_path = dir + "Screenshots\\" + screenshot_name + "_temp.JPG"
 
     wait_time_text = Reader.text_reader_cv2(screenshot_path, 1)
 
@@ -277,7 +278,9 @@ def Preset_March_Sender(x1, y1, W, L, Preset):
                          rl.March_time_y2,
                          "March_time")
         
-        my_march_time = Reader.text_reader_cv2("Screenshots\\March_time_temp.JPG", 1)
+        dir = Data.return_bot_root_dir() + "\\"
+        
+        my_march_time = Reader.text_reader_cv2(dir + "Screenshots\\March_time_temp.JPG", 1)
 
         my_march_time_seconds = Reader.time_reader(my_march_time, "Screenshots\\March_time_temp.JPG")
 
@@ -329,10 +332,12 @@ def Lighthouse_confirm_and_Open(x1, y1, W, L):
     time.sleep(1)
 
 def lighthouse_icon_typer(x1, y1, W, L, path):
+
+    dir = Data.return_bot_root_dir() + "\\"
     
     def view_locater(x1, y1, W, L) -> None:
         view_loc = HF.check_image(x1, y1, W, L,
-                               "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\Main_UI\\View_Button.JPG",
+                               dir + "images\\Main_UI\\View_Button.JPG",
                                5, 0.7, "View Button")
         p.moveTo(view_loc)
         p.click()
@@ -396,9 +401,9 @@ def lighthouse_icon_typer(x1, y1, W, L, path):
                 print("encountered error involving city return bubble in Tent_journey")
                 Lighthouse_confirm_and_Open(x1, y1, W, L)
             
-            dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_lighthouse_misc\\"
+            sub_dir = "images\\images_lighthouse_misc\\"
             check = "lighthouse_event_completion.JPG"
-            tent_checked = HF.check_image(x1, y1, W, L, dir + check,
+            tent_checked = HF.check_image(x1, y1, W, L, dir + sub_dir + check,
                                         20, confidence = 0.9,
                                         message = "tent journey completion")
             
@@ -430,7 +435,9 @@ def light_house_icon_Navigator(x1, y1, W, L):
     """Navigate entire lighthouse operation. 
     Return time required for operation if relevant"""
 
-    lighthouse_image_directory = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\images\images_Lighthouse"
+    dir = Data.return_bot_root_dir() + "\\"
+
+    lighthouse_image_directory = dir + "images\\images_Lighthouse"
     lighthouse_images = [lighthouse_image_directory + "\\" + i for i in os.listdir(lighthouse_image_directory)]
 
     img = None

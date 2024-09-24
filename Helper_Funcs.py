@@ -6,6 +6,7 @@ import pandas as pd
 
 import dir_config
 import datetime
+import Data
 import os
 
 
@@ -14,7 +15,7 @@ def time_w_clock_loc(x1, y1, W, L, x_offset, y_offset):
     """returns the top left corner coordinates of the rectangle containing
     a march time with a clock icon"""
 
-    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\"
+    dir = Data.return_bot_root_dir() + "\\images\\"
 
     clock_loc = check_image(x1, y1, W, L, dir + "Main_UI\\wait_clock.JPG",
                                     message = " clock ")
@@ -65,7 +66,9 @@ def screenshotter(x1, y1, W, L,
 
     print(W_temp, L_temp)
 
-    p.screenshot("Screenshots\\" + save_name + "_temp.JPG", 
+    dir = Data.return_bot_root_dir()
+
+    p.screenshot(dir + "\\Screenshots\\" + save_name + "_temp.JPG", 
                 region = (x1_temp, y1_temp,
                         W_temp, L_temp))
     
@@ -173,7 +176,7 @@ def start_video_recording(x1, y1, W, L):
 
 def stop_video_recording(x1, y1, W, L):
 
-    dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\"
+    dir = Data.return_bot_root_dir() + "\\"
 
     stop_path = "images\\error_handling\\"
 
@@ -244,13 +247,15 @@ def check_location(x1, y1, W, L):
     the City map, or neither.
     there has to be a better way than try/except..."""
 
+    dir = Data.return_bot_root_dir() + "\\"
+
     i = 0
     while True and i <= 10:
         i += 1
         if i % 2 == 0:
 
             try:
-                img = p.locateOnScreen(r"images/Main_UI/City_door.JPG",
+                img = p.locateOnScreen(dir + "images\\Main_UI\\City_door.JPG",
                                        region = (x1, y1, W, L),
                                        confidence= 0.7)
                 return("World Map")
@@ -258,7 +263,7 @@ def check_location(x1, y1, W, L):
                 pass
         else:
             try:
-                img = p.locateOnScreen(r"images/Main_UI/world_map.JPG",
+                img = p.locateOnScreen(dir + "images\\Main_UI\\world_map.JPG",
                                        region = (x1, y1, W, L),
                                        confidence= 0.7)
                 return("City")
@@ -268,8 +273,11 @@ def check_location(x1, y1, W, L):
         return("Neither")
     
 def check_victory(x1, y1, W, L):
+
+    dir = Data.return_bot_root_dir() + "\\"
     print("checking for victory text")
-    check_victory = check_image(x1, y1, W, L, r"images/images_Events/misc/Victory_Screen.JPG",
+    check_victory = check_image(x1, y1, W, L, 
+                                dir + "images\\images_Events\\misc\\Victory_Screen.JPG",
                                  20, confidence = 0.7, 
                                  message = "Victory_Screen")
     

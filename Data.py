@@ -94,7 +94,17 @@ class Window_Dataframe:
     
     #function to drop record from df. 
     #check to see if latest event index is related to df
+
+
+class config_df:
+    pass
+
+
+def return_bot_root_dir():
     
+    return(os.path.dirname(os.path.realpath(__file__)))
+           
+
 
 if __name__ == '__main__':
 
