@@ -8,13 +8,14 @@ import re
 
 #for testing
 import shutil
+import Data
 
 #import os
 
-path_to_tesseract = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\Tesseract\\tesseract.exe"
+path_to_tesseract = Data.return_bot_root_dir() + "\\Tesseract\\tesseract.exe"
 #March_img = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Testing\\March_time_Example.JPG"
 
-test_image_directory = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\images\\images_Testing"
+test_image_directory = Data.return_bot_root_dir() + "\\images\\images_Testing"
 #test_images = [test_image_directory + "\\" + i for i in os.listdir(test_image_directory)]
 
 ptess.pytesseract.tesseract_cmd = path_to_tesseract
@@ -143,7 +144,7 @@ def time_reader(text, path):
         trimmed_text = time_search.group(0)
     else:
 
-        dir = "A:\\Data_Science\\Projects\\Whiteout_Survival\\WoS Bot\\Screenshots\\errors\\"
+        dir = Data.return_bot_root_dir() + "\\Screenshots\\errors\\"
 
         file_name = "Error_" + datetime.datetime.strftime(datetime.datetime.utcnow(), "%Y_%m_%d_%H_%M_%S") + ".JPG"
 
@@ -181,12 +182,4 @@ def time_reader(text, path):
     return(final_seconds)
 
 if __name__ == '__main__':
-    path = r"A:\Data_Science\Projects\Whiteout_Survival\WoS Bot\Screenshots\testing Online Rewards_temp.JPG"
-
-    cv = text_reader_cv2(path, 1)
-
-    pil = text_reader_PIL(path, False)
-
-    print(time_reader(cv))
-    print("---")
-    print(pil)
+   pass

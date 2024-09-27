@@ -10,6 +10,11 @@ import os
 import win32gui as w
 
 
+def return_bot_root_dir():
+    
+    return(os.path.dirname(os.path.realpath(__file__)))
+
+
 class Window_Dataframe: 
 
     def __init__(self):
@@ -96,13 +101,13 @@ class Window_Dataframe:
     #check to see if latest event index is related to df
 
 
-class config_df:
-    pass
 
 
-def return_bot_root_dir():
+            
     
-    return(os.path.dirname(os.path.realpath(__file__)))
+
+
+
            
 
 

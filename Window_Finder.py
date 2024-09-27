@@ -1,5 +1,6 @@
 import win32gui as w
 import Helper_Funcs as HF
+import os
 
 #testing
 import Image_Rec
@@ -95,6 +96,22 @@ class BlueStack_Window:
         self.hwnd = window_hwnd
 
         self.name =  w.GetWindowText(window_hwnd)
+
+        
+
+        path = os.path.dirname(__file__) + "Account_Config.csv"
+
+        if os.path.isfile(path):
+
+            config = pd.read_csv(path)
+
+        else:
+
+            raise("Account_Config file not found")
+        
+        self.config = config[config["Window_Name"] == self.name]
+
+
 
 
     def window_to_foreground(self):

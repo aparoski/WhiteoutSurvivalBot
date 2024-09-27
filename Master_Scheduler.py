@@ -197,6 +197,8 @@ def Beast_Scheduler(accounts, limit = None):
 
 if __name__ == '__main__':
 
+    pass
+
     #Initialize Blue Stacks Windows. 
     # Tootie = "BlueStacks App Player"
     # Tootin = "BlueStacks App Player 1"
@@ -230,11 +232,3 @@ if __name__ == '__main__':
     # else:
 
     #     Beast_Scheduler(active_windows, 22)
-
-        
-
-
-
-
-
-
